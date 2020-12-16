@@ -4,7 +4,7 @@
   /* grid-template-columns: 7fr 1fr; */
   gap: 5px;
   font-family: var(--mainPolice);
-  background-color: var(--mainBlue);
+  background-color: var(--mainColor);
   color: white;
   padding: 10px 20px;
 }

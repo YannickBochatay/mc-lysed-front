@@ -34,7 +34,7 @@
     border: none;
     cursor: pointer;
     padding: 12px 40px;
-    background: var(--mainBlue);
+    background: var(--mainColor);
     border-radius: 2px;
     display: flex;
     justify-content: center;
@@ -46,8 +46,8 @@
   
 /* /// INTRO */
 #intro-modal ul {margin-left: 30px;}
-#intro-modal h3 {color:var(--mainBlue);text-align: center;font-weight: 500;margin-bottom: 20px;}
-#intro-modal a {color:var(--mainBlue);text-decoration: underline;}
-#intro-modal p {font-size:13px;color:var(--mainBlue);margin-bottom: 10px;}
-#intro-modal li {font-size:13px;color:var(--mainBlue);font-family:var(--textPolice);}
-#modal_contact {background-color: var(--mainBlue);color:white;padding:5px 10px}
+#intro-modal h3 {color:var(--mainColor);text-align: center;font-weight: 500;margin-bottom: 20px;}
+#intro-modal a {color:var(--mainColor);text-decoration: underline;}
+#intro-modal p {font-size:13px;color:var(--mainColor);margin-bottom: 10px;}
+#intro-modal li {font-size:13px;color:var(--mainColor);font-family:var(--textPolice);}
+#modal_contact {background-color: var(--mainColor);color:white;padding:5px 10px}

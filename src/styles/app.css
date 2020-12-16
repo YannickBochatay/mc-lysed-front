@@ -39,12 +39,14 @@
 /* /// COLORS */
 :root {
     /* /// BACKGROUND */
+    --backgroundColor: #C3B832;
     --backpurple: linear-gradient(315deg, #452e5a 0%, #271d46 50%, #001438 100%);
     --backgreen: linear-gradient(135deg, rgb(0, 124, 161), rgb(126, 212, 164));
     --backwhite: rgb(250, 255, 250, 0.8);
 
     /* /// police */
-    --mainBlue: #163e59;
+    --mainColor: #4c7777;
+    --secondaryColor: #C3B832;
     --mainPolice: 'Circular Std';
     --textPolice: "Open Sans",sans-serif;
 
@@ -83,7 +85,7 @@ html {
 }
 
 body {
-    background-image: var(--backpurple);
+    background-color: var(--backgroundColor);
     background-attachment: fixed;
     color: white;
     font-size: 1rem;
@@ -155,7 +157,7 @@ h4 {
     font-family: var(--mainPolice);
     font-size: 22px;
     font-weight: bold;
-    color:var(--mainBlue);
+    color:var(--mainColor);
     margin-bottom: 2px;
     line-height: 1.5rem;
 }

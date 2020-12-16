@@ -43,7 +43,7 @@ const Simulator = (props) => {
     async function initDatas() {
       var valuesURL = [];
       // cas où une sheet est déjà en dans le localstorage
-      const idSheet = localStorage.getItem("idSheet-Territoires");
+      const idSheet = localStorage.getItem("idSheet-Lysed");
 
       if (idSheet) {
         console.log("SHEET ALREADY CREATED, ID:", idSheet);
@@ -64,7 +64,7 @@ const Simulator = (props) => {
         //création d'une copie de la sheet master
         const response = await api.get("/sheet/");
         const idSheet = response.data.id;
-        localStorage.setItem("idSheet-Territoires", idSheet);
+        localStorage.setItem("idSheet-Lysed", idSheet);
         console.log("SHEET CREATED! ID:", idSheet);
 
         // cas où appel via url spécifique /save/p=1&&p=3.....
@@ -91,7 +91,7 @@ const Simulator = (props) => {
   //Fonction appellée à chaque actualisation de la variable state "values". Permet d'actualiser les résultats correpondant aux nouvelles values
   useEffect(() => {
     if (values) {
-      const idSheet = localStorage.getItem("idSheet-Territoires");
+      const idSheet = localStorage.getItem("idSheet-Lysed");
       const valuesFormatted = getValuesFormatted(values, jsonFile.options.unit);
       if (idSheet) {
         api
@@ -132,7 +132,7 @@ const Simulator = (props) => {
     const initMode = e.target.value;
     const valuesTemp = jsonFile.options[values[initMode]];
 
-    const idSheet = localStorage.getItem("idSheet-Territoires");
+    const idSheet = localStorage.getItem("idSheet-Lysed");
     const valuesFormatted = getValuesFormatted(valuesTemp, jsonFile.options.unit);
 
     // setValues(valuesTemp)

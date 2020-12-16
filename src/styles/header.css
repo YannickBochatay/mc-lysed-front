@@ -1,17 +1,18 @@
 header {display:grid;grid-template-columns: [first] 30% auto [last] 30%;padding: 0em 1em;height: 8vh;justify-content: space-between;align-items: center;width: 100%;background-color: white;border-bottom:1px solid white}
 
 .header-link {display: flex;align-items: center;justify-content: flex-start;}
-.header-link h4 {font-family: "Fugaz One",cursive;color: var(--mainBlue)}
-.header-link h4 span {background: -webkit-linear-gradient(135deg, rgb(126, 212, 164), rgb(0, 124, 161));
+.header-link h4 {font-family: "Fugaz One",cursive;color: var(--mainColor)}
+.header-link h4 span {color:var(--secondaryColor);}
+/* .header-link h4 span {background: -webkit-linear-gradient(135deg, rgb(126, 212, 164), rgb(0, 124, 161));
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;}
-.header-logo { width: 2em; margin-right: 1em;}
+    -webkit-text-fill-color: transparent;} */
+.header-logo { width: 3em; margin-right: 1em;}
 
-header > p {font-weight: 600;font-size: 18px;font-style: italic;padding:5px 40px;color: var(--mainBlue);background-color: rgb(126, 212, 164);}
+header > p {font-weight: 600;font-size: 18px;font-style: italic;padding:5px 40px;color: var(--mainColor);background-color: var(--secondaryColor);}
 
 header #indicator_box {display: flex;align-items: center;justify-content: flex-end;}
-header .indicator {background: #E5EAEC;border-radius: 2px;color:var(--mainBlue);cursor: pointer;padding: 4px 16px;;display: flex; align-items: center; justify-content: center;;}
-header .indicator-tooltip {color:var(--mainBlue);margin-right: 8px;font-size: 16px;opacity: 1;margin-left:0;    margin-top: 1px;}
-header .indicator:hover {background: var(--mainBlue);color:white;}
+header .indicator {background: #E5EAEC;border-radius: 2px;color:var(--mainColor);cursor: pointer;padding: 4px 16px;;display: flex; align-items: center; justify-content: center;;}
+header .indicator-tooltip {color:var(--mainColor);margin-right: 8px;font-size: 16px;opacity: 1;margin-left:0;    margin-top: 1px;}
+header .indicator:hover {background: var(--mainColor);color:white;}
 header .indicator:hover .indicator-tooltip {color:white;}
-header li {color: var(--mainBlue)}
+header li {color: var(--mainColor)}

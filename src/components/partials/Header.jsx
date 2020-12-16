@@ -15,12 +15,12 @@ const Header = ({background }) => {
   if (background==="color") {
     backgroundColor = "transparent"
     color = "white"
-    logo = "../../../images/logo/missionclimat.svg"
+    logo = "../../../images/LYSED.jpg"
   }
   else {
     backgroundColor = "white"
-    color = "var(--mainBlue)"
-    logo = "../../../images/logo/missionclimat_blue.svg"
+    color = "var(--mainColor)"
+    logo = "../../../images/LYSED.jpg"
   }
 
   const [openAbout, setOpenAbout] = useState(false);
@@ -42,9 +42,9 @@ const Header = ({background }) => {
       </Modal>
       <Link className="header-link flex-item" to="/">
           <img src={logo} alt="Home logo" className="header-logo" />
-          <h4 style={{color:color}}>mission climat <span>#territoires</span></h4>
+          <h4 style={{color:color}}>mission climat <span>#Lysed</span></h4>
         </Link>
-      <p>démonstrateur / territoire urbain</p>
+      <p>beta</p>
       <div id="indicator_box">
         <div className="indicator" onClick={()=>setOpenAbout(true)}>
           <span className="indicator-tooltip">

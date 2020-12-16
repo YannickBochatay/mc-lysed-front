@@ -5,7 +5,7 @@
 .sim-page {
   height: 92vh;
   background-color: #e5e5e5;
-  color: var(--mainBlue);
+  color: var(--mainColor);
   padding: 10px;
   min-height: 500px;
 }
@@ -39,7 +39,7 @@
 /* /// SIM-NAV */
 
 .title {
-  background-color: var(--mainBlue);
+  background-color: var(--mainColor);
   /* background-color: white; */
   border-radius: 2px;
   display: flex;
@@ -61,7 +61,7 @@
   font-size: 18px;
   font-weight: normal;
   color: #ffffff;
-  /* color: var(--mainBlue); */
+  /* color: var(--mainColor); */
   padding-bottom: 0;
   margin-bottom: 0;
   line-height: 20px;
@@ -442,7 +442,7 @@ input[type="radio"] {
 #results-button {
   width: 100%;
   height: calc(20% - 80px);
-  background: var(--mainBlue);
+  background: var(--mainColor);
   border-radius: 2px;
   display: flex;
   padding-right: 16px;
@@ -499,7 +499,7 @@ input[type="radio"] {
   margin-right: 0;
 }
 
-.results-title {color:var(--mainBlue);font-size: 10px;}
+.results-title {color:var(--mainColor);font-size: 10px;}
 
 #results-climat-box .indicators-secondary-box .results-title {height: 32px;margin-top: -4px;}
 
@@ -696,13 +696,13 @@ input[type="radio"] {
 .chart-tooltip h4 {
   font-size: 1.1em;
   align-self: center;
-  color:var(--mainBlue)
+  color:var(--mainColor)
 }
 
 .chart-tooltip p {
   font-size: 0.9em;
   align-self: center;
-  color:var(--mainBlue)
+  color:var(--mainColor)
 }
 
 /* /// COMPOSANT INDICATEUR AVEC TITRE BOX ET LEGENDE */
