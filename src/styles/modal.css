@@ -1,0 +1,53 @@
+.modal-parent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 99;
+    background-color: rgba(0, 0, 0, 50%);
+  }
+  
+  .modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    background-color: white;
+    box-shadow: grey;
+    border-radius: 15px;
+    padding: 50px 80px;
+    max-width: 950px;
+    max-height: 90vh;
+  }
+
+.close-btn {
+    margin-top: 20px;
+    font-family: var(--mainPolice);
+    font-size: 18px;
+    line-height: 18px;
+    font-weight: normal;
+    align-self: center;
+    border: none;
+    cursor: pointer;
+    padding: 12px 40px;
+    background: var(--mainBlue);
+    border-radius: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    align-self: flex-end;
+}
+
+.close-btn:hover {background-color: #012340;}
+  
+/* /// INTRO */
+#intro-modal ul {margin-left: 30px;}
+#intro-modal h3 {color:var(--mainBlue);text-align: center;font-weight: 500;margin-bottom: 20px;}
+#intro-modal a {color:var(--mainBlue);text-decoration: underline;}
+#intro-modal p {font-size:13px;color:var(--mainBlue);margin-bottom: 10px;}
+#intro-modal li {font-size:13px;color:var(--mainBlue);font-family:var(--textPolice);}
+#modal_contact {background-color: var(--mainBlue);color:white;padding:5px 10px}

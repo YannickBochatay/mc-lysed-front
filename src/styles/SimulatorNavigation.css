@@ -1,0 +1,48 @@
+#SimulatorNavigation {
+  width: 100%;
+  display: grid;
+  /* grid-template-columns: 7fr 1fr; */
+  gap: 5px;
+  font-family: var(--mainPolice);
+  background-color: var(--mainBlue);
+  color: white;
+  padding: 10px 20px;
+}
+
+#SimulatorNavigation .options {
+  border: none;
+  padding: 0;
+}
+
+#SimulatorNavigation .scope {
+  font-family: var(--mainPolice);
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 21px;
+  border-bottom: 1px solid white;
+}
+
+#SimulatorNavigation .icons {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#SimulatorNavigation .icons p, #SimulatorNavigation .options-container p {
+  font-size: 14px;
+  text-align: center;
+}
+
+#SimulatorNavigation svg {
+  display: block;
+  margin: 0 auto;
+}
+
+#SimulatorNavigation .options-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
