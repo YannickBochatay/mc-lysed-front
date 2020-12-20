@@ -1,0 +1,2 @@
+#workshops * {color: var(--mainColor)}
+#workshops .form {display: flex;flex-direction: column;}

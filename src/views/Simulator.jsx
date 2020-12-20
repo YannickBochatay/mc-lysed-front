@@ -26,6 +26,7 @@ import "styles/simulator.css";
 import "styles/app.css";
 
 const Simulator = (props) => {
+  
   const [values, setValues] = useState(null);
   const [results, setResults] = useState(null); // jsonFile.results
   const [modeExpert, setModeExpert] = useState(false);

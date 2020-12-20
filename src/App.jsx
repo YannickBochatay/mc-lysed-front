@@ -6,6 +6,7 @@ import api from "api/APIHandler";
 /// PAGES
 import Simulator from "views/Simulator";
 import Results from "views/Results";
+import Workshops from "views/Workshops";
 import NotFound from "views/NotFound";
 
 /// COMPONENTS
@@ -66,7 +67,7 @@ function App() {
 
   const Desktop = () => {
 
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(false); //pass to true for production
 
     return (
       <main id="content-main">
@@ -81,6 +82,7 @@ function App() {
           {/* SIMULATOR */}
           <Route path="/simulator" component={Simulator} />
           <Route path="/results" component={Results} />
+          <Route path="/workshops" component={Workshops} />
           {/* NOT FOUND */}
           <Route path="*" component={NotFound} />
         </Switch>
