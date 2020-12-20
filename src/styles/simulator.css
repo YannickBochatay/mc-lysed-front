@@ -813,6 +813,13 @@ input[type="radio"] {
   margin-top: -0.2em;
 }
 
+/* /// VALIDATE SCENARIO */
+
+.validate_scenario form {
+  display: flex;
+  flex-direction: column;
+}
+
 @media screen and (max-width: 1110px) {
   body {
     font-size: 3px;

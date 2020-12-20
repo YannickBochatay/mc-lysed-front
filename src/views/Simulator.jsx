@@ -31,6 +31,7 @@ const Simulator = (props) => {
   const [results, setResults] = useState(null); // jsonFile.results
   const [modeExpert, setModeExpert] = useState(false);
   const [showOptions, hideOptions, isVisible] = useVisibility(false);
+  
 
 
   //Gestion d'une route avec paramêtres spécifiques
@@ -198,7 +199,7 @@ const Simulator = (props) => {
           </div>
         </section>
 
-        <ResultsSample results={results} />
+        <ResultsSample results={results} values={values} jsonFile={jsonFile} />
       </div>
     </>
   );

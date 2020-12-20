@@ -12,11 +12,12 @@ import ModalVSConfigureScenario from 'components/Workshops/ModalVSConfigureScena
 
 
 
-const ResultsSample = ({ results }) => {
+const ResultsSample = ({ results, values, jsonFile }) => {
   
   
   const [modalVSWorkshopType, setModalVSWorkshopType] = useState(false);
   const [modalVSConfigureScenario, setModalVSConfigureScenario] = useState(false);
+  const [jsonExportString, setJsonExportString] = useState(null);
   
   const width = window.innerWidth;
 
@@ -30,7 +31,46 @@ const ResultsSample = ({ results }) => {
         setModalVSWorkshopType(false)
         setModalVSConfigureScenario(true)
     }
-}
+  }
+
+  const handleValidateScenario = () => {
+    jsonExport()
+    setModalVSWorkshopType(true)
+  }
+
+  function jsonExport() {
+    if (values) {
+      // let jsonFileTemp = {...jsonFile};
+      let jsonFileTemp = JSON.parse(JSON.stringify(jsonFile))
+      let parameters = [];
+    
+      for (const category of jsonFileTemp.categories) {
+        category.parameters.map(parameter => {
+          let vInit = parameter.data.value
+          delete parameter.data.value
+          parameter.data.valueInit = vInit
+          parameter.data.value = values[parameter.data.index][0]
+          parameter.data.category = category.data
+          parameters.push({...parameter.data})
+          return parameter
+        })
+      }
+
+      //parameters
+      
+      const jsonTemp = {
+        parameters: [...parameters],
+        categories: [...jsonFileTemp.categories],
+        results: results,
+        validation: {
+          time: Date.now(),
+          random: Math.random()
+        }
+      }
+
+      setJsonExportString(jsonTemp)
+    }
+  }
 
   function handleIndicatorColor(data, obj) {
     const objReached = data / obj * 100
@@ -55,8 +95,8 @@ const ResultsSample = ({ results }) => {
             okButton={false}
             children={
                 <ModalVSWorkshopType 
-                    closeModal={()=>setModalVSWorkshopType(false)} 
-                    setWorkshopType={setWorkshopType}>
+                  closeModal={()=>setModalVSWorkshopType(false)} 
+                  setWorkshopType={setWorkshopType}>
                 </ModalVSWorkshopType>}>
         </Modal>
 
@@ -65,8 +105,9 @@ const ResultsSample = ({ results }) => {
             closeModal={()=>setModalVSConfigureScenario(false)}
             okButton={false}
             children={
-                <ModalVSConfigureScenario 
-                    closeModal={()=>setModalVSConfigureScenario(false)}>
+                <ModalVSConfigureScenario
+                  jsonExportString={jsonExportString}
+                  closeModal={()=>setModalVSConfigureScenario(false)}>
                 </ModalVSConfigureScenario>}>
         </Modal>
 
@@ -160,7 +201,7 @@ const ResultsSample = ({ results }) => {
         </div>
 
         <div id="results-button-box">
-          <button className="results-button" onClick={()=>setModalVSWorkshopType(true)}>Valider mon scénario >></button>
+          <button className="results-button" onClick={()=>handleValidateScenario()}>Valider mon scénario >></button>
           <Link className="results-button" to={{ pathname: "/results", state: { results: results } }}>
               Voir mes résultats complets >>
           </Link> 
