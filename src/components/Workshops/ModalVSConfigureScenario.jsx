@@ -8,11 +8,14 @@ import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
+import { getDataToExport } from "utils/getDataToExport";
+import { getKeys } from "utils/getKeys";
+
 import api from "api/APIHandler";
 import { createEagerFactory } from "recompose";
 
 
-const ModalVSConfigureScenario = ({closeModal, jsonExportString}) => {
+const ModalVSConfigureScenario = ({closeModal, results, val, jsonFile}) => {
 
     const [values, setValues] = useState({
         "workshop_code": '',
@@ -22,41 +25,14 @@ const ModalVSConfigureScenario = ({closeModal, jsonExportString}) => {
 
     const [checkboxValues, setCheckBoxValues] = useState({"Tous" : true})
 
-    //initialize checkboxValues
+    //initialize checkboxValues with list of sectors + "Tous"
     useEffect(()=> {
         let checkboxValuesTemp= checkboxValues
-        jsonExportString.categories.map(category => {
+        jsonFile.categories.map(category => {
             checkboxValuesTemp[category.data.name]=false
         })
         setCheckBoxValues(checkboxValuesTemp)
     },[])
-
-    const getKeys = (checkboxValues) => {
-        if (checkboxValues["Tous"]) {
-            return 'all'
-        }
-        let keys = [];
-        for (const [key, value] of Object.entries(checkboxValues)) {
-            if (value) {keys.push(key)}
-        }
-        return keys
-    }
-
-    const filterJSONwithCategory = (json, keys) => {
-
-        if (keys==='all') {
-            return json
-        }
-    
-        let jsonTemp = {};
-        jsonTemp.results={...json.results}
-        jsonTemp.validation={...json.validation}
-        jsonTemp.categories = json.categories.filter(category => keys.includes(category.data.name))
-        // jsonTemp.parameters = json.parameters.filter(parameter => keys.includes(parameter.category.name))
-        
-        return jsonTemp
-        
-    }
 
     const handleChange = e => {
         if (e.target.type==="text") {
@@ -70,7 +46,8 @@ const ModalVSConfigureScenario = ({closeModal, jsonExportString}) => {
     const handleSubmit = (e) => {
         e.preventDefault()
         const keys = getKeys(checkboxValues)
-        const data = filterJSONwithCategory(jsonExportString, keys)
+        const data = getDataToExport(jsonFile, val, results, keys)
+
         api
         .post("/aggregator/result/",{...values, data})
         .then((res) => {
@@ -100,12 +77,12 @@ const ModalVSConfigureScenario = ({closeModal, jsonExportString}) => {
                 </FormControl>
 
                 <FormGroup>
-
+                    <InputLabel htmlFor="sectors">Sélectionnez vos secteurs</InputLabel>
                     <FormControlLabel
                         control={<Checkbox checked={checkboxValues["Tous"]} onChange={handleChange} name="Tous" />}
                         label="Tous"
                     />
-                    {jsonExportString.categories.map(category => (
+                    {jsonFile.categories.map(category => (
                         <FormControlLabel
                             control={<Checkbox checked={checkboxValues[category.data.name]} onChange={handleChange} name={category.data.name} />}
                             label={category.data.name}

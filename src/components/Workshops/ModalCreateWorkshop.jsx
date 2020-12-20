@@ -39,6 +39,9 @@ const ModalCreateWorkshop = ({closeModal, setWorkshopInfos, setModalWorkshopInfo
 
     return (
         <div>
+            <h3>Entrez les informations de votre atelier</h3>
+            <p>Cette étape vous permet de blablabla</p>
+
             <form className="form" onSubmit={e=>handleSubmit(e)}>
                 <FormControl>
                     <InputLabel htmlFor="workshop_name">Nom Atelier</InputLabel>

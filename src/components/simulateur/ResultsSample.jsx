@@ -17,7 +17,6 @@ const ResultsSample = ({ results, values, jsonFile }) => {
   
   const [modalVSWorkshopType, setModalVSWorkshopType] = useState(false);
   const [modalVSConfigureScenario, setModalVSConfigureScenario] = useState(false);
-  const [jsonExportString, setJsonExportString] = useState(null);
   
   const width = window.innerWidth;
 
@@ -34,42 +33,7 @@ const ResultsSample = ({ results, values, jsonFile }) => {
   }
 
   const handleValidateScenario = () => {
-    jsonExport()
     setModalVSWorkshopType(true)
-  }
-
-  function jsonExport() {
-    if (values) {
-      // let jsonFileTemp = {...jsonFile};
-      let jsonFileTemp = JSON.parse(JSON.stringify(jsonFile))
-      let parameters = [];
-    
-      for (const category of jsonFileTemp.categories) {
-        category.parameters.map(parameter => {
-          let vInit = parameter.data.value
-          delete parameter.data.value
-          parameter.data.valueInit = vInit
-          parameter.data.value = values[parameter.data.index][0]
-          parameter.data.category = category.data
-          parameters.push({...parameter.data})
-          return parameter
-        })
-      }
-
-      //parameters
-      
-      const jsonTemp = {
-        parameters: [...parameters],
-        categories: [...jsonFileTemp.categories],
-        results: results,
-        validation: {
-          time: Date.now(),
-          random: Math.random()
-        }
-      }
-
-      setJsonExportString(jsonTemp)
-    }
   }
 
   function handleIndicatorColor(data, obj) {
@@ -106,7 +70,9 @@ const ResultsSample = ({ results, values, jsonFile }) => {
             okButton={false}
             children={
                 <ModalVSConfigureScenario
-                  jsonExportString={jsonExportString}
+                  results={results}
+                  val={values}
+                  jsonFile={jsonFile}
                   closeModal={()=>setModalVSConfigureScenario(false)}>
                 </ModalVSConfigureScenario>}>
         </Modal>
