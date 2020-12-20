@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ModalWorkshopType = ({setWorkshopType, closeModal}) => {
+const ModalVSWorkshopType = ({setWorkshopType, closeModal}) => {
     return (
         <div>
             <h2>Êtes vous dans le cadre d'un atelier ?</h2>
@@ -11,4 +11,4 @@ const ModalWorkshopType = ({setWorkshopType, closeModal}) => {
     )
 }
 
-export default ModalWorkshopType
+export default ModalVSWorkshopType

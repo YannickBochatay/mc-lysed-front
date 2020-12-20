@@ -24,6 +24,10 @@
     max-height: 90vh;
   }
 
+  .modal-content * {
+    color: var(--mainColor)
+  }
+
 .close-btn {
     margin-top: 20px;
     font-family: var(--mainPolice);

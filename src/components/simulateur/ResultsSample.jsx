@@ -1,11 +1,22 @@
-import React from "react";
+import React, {useState} from "react";
+
 import { Link } from "react-router-dom";
 import Title from "components/partials/Title";
 import ResultsIndicator from "components/simulateur/ResultsIndicator";
 import CompoChart from "components/resultats/compoChart";
-// import Results from "views/Results";
+
+//MODALS
+import Modal from 'components/partials/Modal';
+import ModalVSWorkshopType from 'components/Workshops/ModalVSWorkshopType';
+import ModalVSConfigureScenario from 'components/Workshops/ModalVSConfigureScenario';
+
+
 
 const ResultsSample = ({ results }) => {
+  
+  
+  const [modalVSWorkshopType, setModalVSWorkshopType] = useState(false);
+  const [modalVSConfigureScenario, setModalVSConfigureScenario] = useState(false);
   
   const width = window.innerWidth;
 
@@ -13,6 +24,13 @@ const ResultsSample = ({ results }) => {
   const fontColor= "black"
 
   const indicatorObjectives = {climate:-50, energy:-50, air: [-70, -70]}
+
+  const setWorkshopType = (type) => {
+    if (type=="workshop") {
+        setModalVSWorkshopType(false)
+        setModalVSConfigureScenario(true)
+    }
+}
 
   function handleIndicatorColor(data, obj) {
     const objReached = data / obj * 100
@@ -30,6 +48,28 @@ const ResultsSample = ({ results }) => {
   if (width > 600) {
     return (
       <section className="sim-results-box flex-item flex-column">
+
+        <Modal 
+            isOpen={modalVSWorkshopType}
+            closeModal={()=>setModalVSWorkshopType(false)}
+            okButton={false}
+            children={
+                <ModalVSWorkshopType 
+                    closeModal={()=>setModalVSWorkshopType(false)} 
+                    setWorkshopType={setWorkshopType}>
+                </ModalVSWorkshopType>}>
+        </Modal>
+
+        <Modal 
+            isOpen={modalVSConfigureScenario}
+            closeModal={()=>setModalVSConfigureScenario(false)}
+            okButton={false}
+            children={
+                <ModalVSConfigureScenario 
+                    closeModal={()=>setModalVSConfigureScenario(false)}>
+                </ModalVSConfigureScenario>}>
+        </Modal>
+
         <Title id="results-top-box">Impacts sur le territoire - 2030</Title>
 
         <div id="results-climat-box" className="flex-item flex-column">
@@ -119,11 +159,13 @@ const ResultsSample = ({ results }) => {
           </div>
         </div>
 
-        <Link id="results-button" to={{ pathname: "/results", state: { results: results } }}>
-          <div className="flex-item">
-              <h1>Voir mes résultats complets >>></h1>
-          </div>
-        </Link> 
+        <div id="results-button-box">
+          <button className="results-button" onClick={()=>setModalVSWorkshopType(true)}>Valider mon scénario >></button>
+          <Link className="results-button" to={{ pathname: "/results", state: { results: results } }}>
+              Voir mes résultats complets >>
+          </Link> 
+        </div>
+        
       </section>
     );
   }

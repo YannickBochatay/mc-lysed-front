@@ -56,7 +56,7 @@
 #sim-title h1,
 #results-top-box h1,
 #results-emissions h1,
-#results-button h1 {
+.results-button {
   font-family: var(--mainPolice);
   font-size: 18px;
   font-weight: normal;
@@ -65,8 +65,16 @@
   padding-bottom: 0;
   margin-bottom: 0;
   line-height: 20px;
+}
+
+#sim-title h1,
+#results-top-box h1,
+#results-emissions h1 {
   margin-left: 16px;
 }
+
+
+
 
 #sim-nav-box {
   align-items: center;
@@ -439,18 +447,28 @@ input[type="radio"] {
   padding: 10px;
   margin-bottom: 10px;
 }
-#results-button {
+#results-button-box {
   width: 100%;
   height: calc(20% - 80px);
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
+}
+
+.results-button {
+  padding-top: 0;
+  width: 49%;
+  height: 100%;
+  text-align: right;
   background: var(--mainColor);
   border-radius: 2px;
   display: flex;
   padding-right: 16px;
-  justify-content: flex-end;
   align-items: center;
+  border:none ;
 }
 
-#results-button:hover {
+.results-button:hover {
   background-color: #012340;
 }
 
@@ -793,19 +811,6 @@ input[type="radio"] {
   font-size: 0.7em;
   font-weight: lighter;
   margin-top: -0.2em;
-}
-
-/* #results-button {
-  height: auto;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  background-color: white;
-} */
-
-.sim-results-box button {
-  padding: 0.5em 2em;
-  font-size: 1.4em;
 }
 
 @media screen and (max-width: 1110px) {

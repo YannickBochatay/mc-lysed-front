@@ -10,48 +10,28 @@ import api from "api/APIHandler";
 
 
 
-const ModalCreateWorkshop = ({closeModal, setModalWorkshopInfos}) => {
+const ModalCreateWorkshop = ({closeModal, setWorkshopInfos, setModalWorkshopInfos}) => {
 
-    const [values, setValues] =  useState({"workshop_name":"MC","admin_name":"PB","participants_nb":22,"admin_email":"pascal@mail.com"})
-    //useState({
-    //     "workshop_name": '',
-    //     "admin_name": '',
-    //     "participants_nb": '',
-    //     "admin_email": ''
-    //   });
-
-    useEffect(() => {
-
-        //DIRECT FROM NAVIGATOR
-        axios.post("https://aggregator-api.mission-climat.io/workshop/",
-            { 
-                headers: 
-                    {
-                        "Authorization": `Token d42627a8314d1e157d7fa517730e94b43db137b2`,
-                        'Content-Type': 'application/json'
-                    },
-                body : {...values}
-            })
-        .then(res=>console.log(res))
-        .catch(err=> {
-            console.log(err.response);
-        })
-
-        //FROM OUR BACK
-        api
-        .post("/aggregator/workshop/",{body : {...values}})
-        .then((res) => {console.log( res);})
-        .catch((err) => console.log(err));
-
-      }, []);
+    const [values, setValues] = useState({
+        "workshop_name": '',
+        "admin_name": '',
+        "participants_nb": '',
+        "admin_email": ''
+      });
 
     const handleSubmit = e => {
         e.preventDefault();
         
-        //INSERT CORRECT REQUEST HERE
-        
-        closeModal()
-        setModalWorkshopInfos(true)
+        api
+        .post("/aggregator/workshop/",{...values})
+        .then((res) => {
+            console.log( res)
+            closeModal()
+            setWorkshopInfos(res.data)
+            setModalWorkshopInfos(true)
+        ;})
+        .catch((err) => console.log(err));
+
     }
 
     const handleChange = e => {
