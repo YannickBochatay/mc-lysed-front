@@ -5,6 +5,7 @@ import Header from "components/partials/Header";
 import Modal from 'components/partials/Modal';
 import ModalWorkshopType from 'components/Workshops/ModalWorkshopType';
 import ModalCreateWorkshop from 'components/Workshops/ModalCreateWorkshop';
+import ModalWorkshopInfos from 'components/Workshops/ModalWorkshopInfos';
 
 //STYLES
 import "../styles/workshops.css";
@@ -13,7 +14,8 @@ const Workshops = () => {
 
     const [modalWorkshopType, setModalWorkshopType] = useState(false);
     const [modalCreateWorkshop, setModalCreateWorkshop] = useState(false);
-    const [openHelp, setOpenHelp] = useState(false);
+    const [modalWorkshopInfos, setModalWorkshopInfos] = useState(false);
+    const [workshopInfos, setWorkshopInfos] = useState({});
 
     const setWorkshopType = (type) => {
         if (type=="workshop") {
@@ -44,8 +46,20 @@ const Workshops = () => {
                 okButton={false}
                 children={
                     <ModalCreateWorkshop
-                        setWorkshopType={setWorkshopType}>
+                        closeModal={()=>setModalCreateWorkshop(false)}
+                        setModalWorkshopInfos={setModalWorkshopInfos}>
                     </ModalCreateWorkshop>}>
+            </Modal>
+
+            <Modal 
+                isOpen={modalWorkshopInfos}
+                closeModal={()=>setModalWorkshopInfos(false)}
+                okButton={false}
+                children={
+                    <ModalWorkshopInfos
+                        workshopInfos={workshopInfos}
+                        closeModal={()=>setModalWorkshopInfos(false)}>
+                    </ModalWorkshopInfos>}>
             </Modal>
 
             <h1>Ateliers Mission Climat</h1>

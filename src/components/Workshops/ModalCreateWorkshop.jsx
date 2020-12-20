@@ -8,10 +8,9 @@ import Button from '@material-ui/core/Button';
 import axios from "axios";
 import api from "api/APIHandler";
 
-import TextField from '@material-ui/core/TextField';
 
 
-const ModalCreateWorkshop = () => {
+const ModalCreateWorkshop = ({closeModal, setModalWorkshopInfos}) => {
 
     const [values, setValues] =  useState({"workshop_name":"MC","admin_name":"PB","participants_nb":22,"admin_email":"pascal@mail.com"})
     //useState({
@@ -25,9 +24,13 @@ const ModalCreateWorkshop = () => {
 
         //DIRECT FROM NAVIGATOR
         axios.post("https://aggregator-api.mission-climat.io/workshop/",
-        
-            { headers: { "Authorization": `Token d42627a8314d1e157d7fa517730e94b43db137b2`,'Content-Type': 'application/json'},
-            data : {...values}
+            { 
+                headers: 
+                    {
+                        "Authorization": `Token d42627a8314d1e157d7fa517730e94b43db137b2`,
+                        'Content-Type': 'application/json'
+                    },
+                body : {...values}
             })
         .then(res=>console.log(res))
         .catch(err=> {
@@ -36,35 +39,19 @@ const ModalCreateWorkshop = () => {
 
         //FROM OUR BACK
         api
-        .post("/sheet/workshop", values)
-        .then((res) => {
-          console.log("coucou!", res);
-        })
+        .post("/aggregator/workshop/",{body : {...values}})
+        .then((res) => {console.log( res);})
         .catch((err) => console.log(err));
-
 
       }, []);
 
     const handleSubmit = e => {
         e.preventDefault();
-        console.log(values)
-
-        // api
-        // .post("/sheet/workshop", values)
-        // .then((res) => {
-        //   console.log("coucou!", res);
-        // })
-        // .catch((err) => console.log(err));
-
-        axios.post("https://aggregator-api.mission-climat.io/workshop",
-            { headers: { "Authorization": `Token d42627a8314d1e157d7fa517730e94b43db137b2`}, //,'Content-Type': 'application/json'
-            body : {...values}
-            })
-        .then(res=>console.log(res))
-        .catch(err=> {
-            console.log(err.response);
-        })
-        //api
+        
+        //INSERT CORRECT REQUEST HERE
+        
+        closeModal()
+        setModalWorkshopInfos(true)
     }
 
     const handleChange = e => {
@@ -91,7 +78,8 @@ const ModalCreateWorkshop = () => {
                     <Input id="admin_email" type="email" required onChange={e=>handleChange(e)}/>
                     <FormHelperText>We'll never share your email.</FormHelperText>
                 </FormControl>
-                <Button type="submit">ok</Button>
+                <Button onClick={()=>closeModal()}>Annuler</Button>
+                <Button type="submit">Ok</Button>
             </form>
         </div>
     )
