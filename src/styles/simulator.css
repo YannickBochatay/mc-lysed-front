@@ -5,7 +5,7 @@
 .sim-page {
   height: 92vh;
   background-color: #e5e5e5;
-  color: var(--mainColor);
+  color: var(--text-main);
   padding: 10px;
   min-height: 500px;
 }
@@ -39,8 +39,7 @@
 /* /// SIM-NAV */
 
 .title {
-  background-color: var(--mainColor);
-  /* background-color: white; */
+  background-color: var(--dark-green);
   border-radius: 2px;
   display: flex;
   align-items: center;
@@ -55,13 +54,11 @@
 
 #sim-title h1,
 #results-top-box h1,
-#results-emissions h1,
-.results-button {
-  font-family: var(--mainPolice);
+#results-emissions h1 {
+  font-family: var(--font-main);
   font-size: 18px;
   font-weight: normal;
-  color: #ffffff;
-  /* color: var(--mainColor); */
+  color: white;
   padding-bottom: 0;
   margin-bottom: 0;
   line-height: 20px;
@@ -72,8 +69,6 @@
 #results-emissions h1 {
   margin-left: 16px;
 }
-
-
 
 
 #sim-nav-box {
@@ -447,29 +442,16 @@ input[type="radio"] {
   padding: 10px;
   margin-bottom: 10px;
 }
+
 #results-button-box {
   width: 100%;
   height: calc(20% - 80px);
-  display: flex;
-  justify-content:space-between;
-  align-items: center;
+  background: var(--dark-green);
+  padding: 20px;
 }
 
-.results-button {
-  padding-top: 0;
-  width: 49%;
-  height: 100%;
-  text-align: right;
-  background: var(--mainColor);
-  border-radius: 2px;
-  display: flex;
-  padding-right: 16px;
-  align-items: center;
-  border:none ;
-}
-
-.results-button:hover {
-  background-color: #012340;
+#results-button-box .btn {
+  margin-left: 15px;
 }
 
 .results-content-box {

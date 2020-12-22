@@ -1,65 +1,57 @@
-import React, {useState} from "react";
-import "../../styles/header.css";
+import React, { useState } from "react";
 import { Link, withRouter } from "react-router-dom";
-import Modal from 'components/partials/Modal';
-import ModalAbout from 'components/partials/ModalAbout';
-import ModalHelp from 'components/partials/ModalHelp';
+
 import { faQuestionCircle } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Header = ({background }) => {
+import Modal from "./Modal";
+import ModalAbout from "./ModalAbout";
+import ModalHelp from "./ModalHelp";
 
-  let backgroundColor = ""
-  let color = ""
-  let logo = ""
-  if (background==="color") {
-    backgroundColor = "transparent"
-    color = "white"
-    logo = "../../../images/LYSED.jpg"
-  }
-  else {
-    backgroundColor = "white"
-    color = "var(--mainColor)"
-    logo = "../../../images/LYSED.jpg"
-  }
+import "../../styles/Nav.css";
 
+const Header = () => {
   const [openAbout, setOpenAbout] = useState(false);
   const [openHelp, setOpenHelp] = useState(false);
-  
+
   return (
-    <header style={{backgroundColor:backgroundColor}}>
-      
-      <Modal 
-        isOpen={openAbout}
-        closeModal={()=>setOpenAbout(false)}
-        children={<ModalAbout></ModalAbout>}>
+    <nav>
+      <Modal isOpen={openAbout} closeModal={() => setOpenAbout(false)}>
+        <ModalAbout />
       </Modal>
-      
-      <Modal 
-        isOpen={openHelp}
-        closeModal={()=>setOpenHelp(false)}
-        children={<ModalHelp></ModalHelp>}>
+
+      <Modal isOpen={openHelp} closeModal={() => setOpenHelp(false)}>
+        <ModalHelp />
       </Modal>
-      <Link className="header-link flex-item" to="/">
-          <img src={logo} alt="Home logo" className="header-logo" />
-          <h4 style={{color:color}}>mission climat <span>#Lysed</span></h4>
-        </Link>
+
+      <Link className="flex-item acenter" to="/">
+        <img src="./images/logo/missionclimat_blue.svg" alt="Logo" />
+        <h4>
+          mission climat <span>#Lysed</span>
+        </h4>
+      </Link>
+
       <p>beta</p>
-      <div id="indicator_box">
-        <div className="indicator" onClick={()=>setOpenAbout(true)}>
-          <span className="indicator-tooltip">
+
+      <ul className="flex-item acenter">
+        <li>
+          <button className="btn secondary-btn" type="button" onClick={() => setOpenAbout(true)}>
+            <span className="indicator-tooltip">
               <FontAwesomeIcon icon={faQuestionCircle} />
-          </span>
-          A propos
-        </div>
-        <div className="indicator" onClick={()=>setOpenHelp(true)}>
-          <span className="indicator-tooltip">
+            </span>
+            A propos
+          </button>
+        </li>
+        <li>
+          <button className="btn secondary-btn" type="button" onClick={() => setOpenHelp(true)}>
+            <span className="indicator-tooltip">
               <FontAwesomeIcon icon={faQuestionCircle} />
-          </span>
-          Aide
-        </div>
-      </div>
-    </header>
+            </span>
+            Aide
+          </button>
+        </li>
+      </ul>
+    </nav>
   );
 };
 

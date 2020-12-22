@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 
 import { Link } from "react-router-dom";
 import Title from "components/partials/Title";
@@ -6,43 +6,39 @@ import ResultsIndicator from "components/simulateur/ResultsIndicator";
 import CompoChart from "components/resultats/compoChart";
 
 //MODALS
-import Modal from 'components/partials/Modal';
-import ModalVSWorkshopType from 'components/Workshops/ModalVSWorkshopType';
-import ModalVSConfigureScenario from 'components/Workshops/ModalVSConfigureScenario';
-
-
+import Modal from "components/partials/Modal";
+import ModalVSWorkshopType from "components/Workshops/ModalVSWorkshopType";
+import ModalVSConfigureScenario from "components/Workshops/ModalVSConfigureScenario";
 
 const ResultsSample = ({ results, values, jsonFile }) => {
-  
-  
   const [modalVSWorkshopType, setModalVSWorkshopType] = useState(false);
   const [modalVSConfigureScenario, setModalVSConfigureScenario] = useState(false);
-  
+
   const width = window.innerWidth;
 
   const secondaryColor = "var(--lightgrey)";
-  const fontColor= "black"
+  const fontColor = "black";
 
-  const indicatorObjectives = {climate:-50, energy:-50, air: [-70, -70]}
+  const indicatorObjectives = { climate: -50, energy: -50, air: [-70, -70] };
 
   const setWorkshopType = (type) => {
-    if (type=="workshop") {
-        setModalVSWorkshopType(false)
-        setModalVSConfigureScenario(true)
+    if (type == "workshop") {
+      setModalVSWorkshopType(false);
+      setModalVSConfigureScenario(true);
     }
-  }
+  };
 
   const handleValidateScenario = () => {
-    setModalVSWorkshopType(true)
-  }
+    setModalVSWorkshopType(true);
+  };
 
   function handleIndicatorColor(data, obj) {
-    const objReached = data / obj * 100
+    const objReached = (data / obj) * 100;
     return objReached >= 100
       ? "#B0E440"
       : objReached >= 50 && objReached < 100
       ? "#FFF176"
-      : "#EB1818"
+      : "#EB1818";
   }
 
   function handleIndicatorWidth(length) {
@@ -52,30 +48,31 @@ const ResultsSample = ({ results, values, jsonFile }) => {
   if (width > 600) {
     return (
       <section className="sim-results-box flex-item flex-column">
+        <Modal
+          isOpen={modalVSWorkshopType}
+          closeModal={() => setModalVSWorkshopType(false)}
+          okButton={false}
+          children={
+            <ModalVSWorkshopType
+              closeModal={() => setModalVSWorkshopType(false)}
+              setWorkshopType={setWorkshopType}
+            ></ModalVSWorkshopType>
+          }
+        ></Modal>
 
-        <Modal 
-            isOpen={modalVSWorkshopType}
-            closeModal={()=>setModalVSWorkshopType(false)}
-            okButton={false}
-            children={
-                <ModalVSWorkshopType 
-                  closeModal={()=>setModalVSWorkshopType(false)} 
-                  setWorkshopType={setWorkshopType}>
-                </ModalVSWorkshopType>}>
-        </Modal>
-
-        <Modal 
-            isOpen={modalVSConfigureScenario}
-            closeModal={()=>setModalVSConfigureScenario(false)}
-            okButton={false}
-            children={
-                <ModalVSConfigureScenario
-                  results={results}
-                  val={values}
-                  jsonFile={jsonFile}
-                  closeModal={()=>setModalVSConfigureScenario(false)}>
-                </ModalVSConfigureScenario>}>
-        </Modal>
+        <Modal
+          isOpen={modalVSConfigureScenario}
+          closeModal={() => setModalVSConfigureScenario(false)}
+          okButton={false}
+          children={
+            <ModalVSConfigureScenario
+              results={results}
+              val={values}
+              jsonFile={jsonFile}
+              closeModal={() => setModalVSConfigureScenario(false)}
+            ></ModalVSConfigureScenario>
+          }
+        ></Modal>
 
         <Title id="results-top-box">Impacts sur le territoire - 2030</Title>
 
@@ -92,7 +89,10 @@ const ResultsSample = ({ results, values, jsonFile }) => {
               <div className="indicators-main-box">
                 <ResultsIndicator
                   indicator={results.indicators.climate.main[0]}
-                  backgroundColor={handleIndicatorColor(results.indicators.climate.main[0].value,indicatorObjectives.climate)}
+                  backgroundColor={handleIndicatorColor(
+                    results.indicators.climate.main[0].value,
+                    indicatorObjectives.climate,
+                  )}
                   color={fontColor}
                   width="100%"
                 />
@@ -119,14 +119,17 @@ const ResultsSample = ({ results, values, jsonFile }) => {
             <div className="graph-box">
               <p>Consommation</p>
               <div className="graph-compo">
-                <CompoChart datas={results.graphs.energy} isXAxis={false} isYAxis={false}/>
+                <CompoChart datas={results.graphs.energy} isXAxis={false} isYAxis={false} />
               </div>
             </div>
             <div className="indicators-box">
               <div className="indicators-main-box">
                 <ResultsIndicator
                   indicator={results.indicators.energy.main[0]}
-                  backgroundColor={handleIndicatorColor(results.indicators.energy.main[0].value,indicatorObjectives.energy)}
+                  backgroundColor={handleIndicatorColor(
+                    results.indicators.energy.main[0].value,
+                    indicatorObjectives.energy,
+                  )}
                   color={fontColor}
                   width="100%"
                 />
@@ -156,7 +159,10 @@ const ResultsSample = ({ results, values, jsonFile }) => {
                 {results.indicators.air.secondary.map((indicator, i) => (
                   <ResultsIndicator
                     indicator={indicator}
-                    backgroundColor={handleIndicatorColor(indicator.value, indicatorObjectives.air[i])}
+                    backgroundColor={handleIndicatorColor(
+                      indicator.value,
+                      indicatorObjectives.air[i],
+                    )}
                     color={fontColor}
                     width={handleIndicatorWidth(results.indicators.air.secondary.length)}
                   />
@@ -166,13 +172,20 @@ const ResultsSample = ({ results, values, jsonFile }) => {
           </div>
         </div>
 
-        <div id="results-button-box">
-          <button className="results-button" onClick={()=>handleValidateScenario()}>Valider mon scénario >></button>
-          <Link className="results-button" to={{ pathname: "/results", state: { results: results } }}>
-              Voir mes résultats complets >>
-          </Link> 
+        <div id="results-button-box" className="flex-item acenter jcenter">
+
+          <Link className="btn simulator-btn" to={{ pathname: "/results", state: { results } }}>
+            Résultats
+          </Link>
+
+          <button
+            type="button"
+            className="btn simulator-btn"
+            onClick={() => handleValidateScenario()}
+          >
+            Valider mon scénario
+          </button>
         </div>
-        
       </section>
     );
   }
