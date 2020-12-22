@@ -7,6 +7,7 @@ import api from "api/APIHandler";
 import Simulator from "views/Simulator";
 import Results from "views/Results";
 import Workshops from "views/Workshops";
+import WorkshopInfos from "views/WorkshopInfos";
 import NotFound from "views/NotFound";
 
 /// COMPONENTS
@@ -83,6 +84,7 @@ function App() {
           <Route path="/simulator" component={Simulator} />
           <Route path="/results" component={Results} />
           <Route path="/workshops" component={Workshops} />
+          <Route path="/workshop/:id" component={WorkshopInfos} />
           {/* NOT FOUND */}
           <Route path="*" component={NotFound} />
         </Switch>

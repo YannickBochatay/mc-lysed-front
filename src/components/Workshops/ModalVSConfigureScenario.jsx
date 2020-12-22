@@ -12,7 +12,6 @@ import { getDataToExport } from "utils/getDataToExport";
 import { getKeys } from "utils/getKeys";
 
 import api from "api/APIHandler";
-import { createEagerFactory } from "recompose";
 
 
 const ModalVSConfigureScenario = ({closeModal, results, val, jsonFile}) => {
