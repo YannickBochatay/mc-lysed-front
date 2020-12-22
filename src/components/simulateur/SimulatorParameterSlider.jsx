@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -23,79 +23,57 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SimulatorTooltip = withStyles({
+const useToolTipStyles = makeStyles((theme) => ({
   tooltip: {
     color: "white",
     fontSize: "1.1em",
+    backgroundColor: (props) => props.backgroundColor,
   },
-})(Tooltip);
+  arrow: {
+    color: (props) => props.backgroundColor,
+  },
+}));
 
-function ValueLabelComponent(props) {
-  const { children, open, value, backgroundColor } = props;
-
-  const useToolTipStyles = makeStyles((theme) => ({
-    tooltip: {
-      backgroundColor,
+const useSliderStyles = makeStyles({
+  root: {
+    color: "#E4E4E4",
+    height: 8,
+  },
+  thumb: {
+    height: 16,
+    width: 16,
+    borderRadius: 0,
+    border: `2px solid white`,
+    backgroundColor: (props) => props.backgroundColor,
+    marginTop: -5,
+    marginLeft: -7,
+    "&:focus,&:hover,&$active": {
+      boxShadow: "inherit",
     },
-    arrow: {
-      color: backgroundColor,
-    },
-  }));
-
-  const classes = useToolTipStyles();
-
-  return (
-    <SimulatorTooltip
-      open={open}
-      enterTouchDelay={0}
-      classes={classes}
-      placement="top"
-      title={value}
-      arrow
-    >
-      {children}
-    </SimulatorTooltip>
-  );
-}
+  },
+  active: {},
+  valueLabel: {},
+  track: {
+    height: 5,
+    borderRadius: 1,
+    color: "#C7C7C7",
+  },
+  rail: {
+    height: 5,
+    borderRadius: 1,
+  },
+  mark: {
+    backgroundColor: "#C7C7C7",
+    height: 12,
+    width: 3,
+    marginTop: -2.5,
+  },
+});
 
 const SimParametreSlide = ({ data, value, setOneValue, cat }) => {
   const [componentClass, setComponentClass] = useState("");
-
-  const SimulatorSlider = withStyles({
-    root: {
-      color: "#E4E4E4",
-      height: 8,
-    },
-    thumb: {
-      height: 16,
-      width: 16,
-      borderRadius: 0,
-      border: `2px solid white`,
-      backgroundColor: cat.colorHover,
-      marginTop: -5,
-      marginLeft: -7,
-      "&:focus,&:hover,&$active": {
-        boxShadow: "inherit",
-      },
-    },
-    active: {},
-    valueLabel: {},
-    track: {
-      height: 5,
-      borderRadius: 1,
-      color: "#C7C7C7",
-    },
-    rail: {
-      height: 5,
-      borderRadius: 1,
-    },
-    mark: {
-      backgroundColor: "#C7C7C7",
-      height: 12,
-      width: 3,
-      marginTop: -2.5,
-    },
-  })(Slider);
+  const sliderClasses = useSliderStyles({ backgroundColor: cat.colorHover });
+  const classesToolTip = useToolTipStyles({ backgroundColor: cat.colorHover });
 
   useEffect(() => {
     if (data.expert) {
@@ -143,6 +121,24 @@ const SimParametreSlide = ({ data, value, setOneValue, cat }) => {
       return value[0];
   }
 
+  const CustomValueLabel = React.useMemo(() => {
+    return React.forwardRef(({ children, value, ...restProps }, ref) => {
+      return (
+        <Tooltip
+          {...restProps}
+          classes={classesToolTip}
+          ref={ref}
+          enterTouchDelay={0}
+          placement="top"
+          title={value}
+          arrow
+        >
+          {children}
+        </Tooltip>
+      );
+    });
+  }, []);
+
   return (
     <div className={componentClass}>
       <div className="param-header flex-item nomarge nopad">
@@ -157,7 +153,14 @@ const SimParametreSlide = ({ data, value, setOneValue, cat }) => {
 
       <div className={classes.root}>
         <div className={classes.margin} />
-        <SimulatorSlider
+        <Slider
+          classes={{
+            root: sliderClasses.root,
+            thumb: sliderClasses.thumb,
+            track: sliderClasses.track,
+            rail: sliderClasses.rail,
+            mark: sliderClasses.mark,
+          }}
           defaultValue={handleValue()}
           aria-labelledby="discrete-slider-always"
           min={data.min}
@@ -165,9 +168,7 @@ const SimParametreSlide = ({ data, value, setOneValue, cat }) => {
           step={sliderStep}
           marks={marks}
           scale={(x) => x + data.unit}
-          ValueLabelComponent={(props) => (
-            <ValueLabelComponent {...props} backgroundColor={cat.colorHover} />
-          )}
+          ValueLabelComponent={CustomValueLabel}
           valueLabelDisplay="auto"
           onChangeCommitted={handleChange}
           track="normal"
