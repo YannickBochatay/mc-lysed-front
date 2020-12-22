@@ -1,4 +1,4 @@
-# Mission Climat - Lysed - Server
+# Mission Climat - Lysed - Client
 
 ## Setup
 
