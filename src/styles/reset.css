@@ -1,11 +1,51 @@
-@import "./app.css";
+*,
+*::before,
+*::after,
+div,
+header,
+footer,
+section,
+article,
+main {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+h1,
+h2,
+h3 {
+  padding-bottom: 0.2em;
+}
+body {
+  min-height: 100vh;
+  min-width: 100vw;
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+ul[class],
+ol[class] {
+  list-style: none;
+}
+input,
+button,
+textarea,
+select {
+  outline: none;
+}
 
-*,*::before,*::after,div,header,footer,section,article,main{box-sizing:border-box;margin:0;padding:0}
-h1,h2,h3{padding-bottom: 0.2em}
-body{min-height:100vh;min-width:100vw;scroll-behavior:smooth;text-rendering:optimizeSpeed;line-height:1.5}
-ul[class],ol[class]{list-style:none}
-input,button,textarea,select{outline:none}
-button{cursor:pointer;}
-a{text-decoration:none;color:inherit;}
+button, a {
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+  margin: 0;
+}
 
-@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}}
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

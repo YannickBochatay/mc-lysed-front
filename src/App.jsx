@@ -15,8 +15,8 @@ import Modal from 'components/partials/Modal';
 import ModalAbout from 'components/partials/ModalAbout';
 
 /// STYLES
-import "styles/app.css";
-import "styles/reset.css";
+import "./styles/app.css";
+import "./styles/Reset.css";
 
 /// GOOGLE ANALYTICS
 import ReactGA from "react-ga";
