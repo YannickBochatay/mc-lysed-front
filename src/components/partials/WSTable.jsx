@@ -1,6 +1,9 @@
 import React from 'react'
 
 const WSTable = ({table, numberDisplayed}) => {
+
+    if (numberDisplayed==="all") {numberDisplayed=10000}
+
     return (
         <table>
             <thead>
