@@ -13,8 +13,8 @@
   --gradient: linear-gradient(180deg, rgba(195, 184, 50, 0.4) 0%, rgba(76, 119, 119, 0.6) 100%);
 
   /* COLORS */
-  --dark-green: #4c7777;
-  --light-green: #c3b832;
+  --mainColor: #4c7777;
+  --secondaryColor: #c3b832;
 
   /* TEXT */
   --text-main: #505050;
@@ -43,6 +43,15 @@
   --tempredblack: rgb(119, 2, 2);
 }
 
+#root {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  min-width: 1024px;
+  max-width: 1400px;
+}
+
 body {
   scroll-behavior: smooth;
   background: var(--gradient) fixed;
@@ -62,6 +71,10 @@ p {
   height: 100vh;
   margin: 0;
 }
+
+.main_container {width: 100%; background-color: white;padding: 20px; margin: 25px 0}
+.container_title {font-weight: bold;font-size: 36px;line-height: 42px;text-decoration: underline 6px; text-decoration-color:var(--mainColor) }
+.container_secondary_title {font-weight: bold;font-size: 24px;line-height: 28px;}
 
 .bold-text {
   font-weight: 800;

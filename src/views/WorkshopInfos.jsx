@@ -1,7 +1,10 @@
 import React, {useState, useEffect} from "react";
 import api from "api/APIHandler";
+import IndicatorMain from "../components/partials/IndicatorMain";
+import ParametersTables from "../components/partials/ParametersTables";
 
 import { getValuesFormatted } from "utils/getValuesFormatted";
+import "../styles/workshop_infos.css";
 
 
 const aggregatorInfos = {
@@ -69,7 +72,6 @@ const WorkshopInfos = (props) => {
     const [computedDatas, setComputedDatas] = useState(null);
 
     // true if all the sectors have been worked during workshop (if not, there is no relevant complete result)
-    const [isComplete, setIsComplete] = useState(null);
     const [results, setResults] = useState(null);
 
     const [indicators, setIndicators] = useState(null);
@@ -116,12 +118,11 @@ const WorkshopInfos = (props) => {
             console.log("json loaded",Date.now()-time)
             setJsonFile(res.data)
             
-            const [isCompleteTemp, computedDatasTemps] = computeData(workshopData, res.data)
-            setIsComplete(isCompleteTemp)
-            setComputedDatas(computedDatasTemps)
+            const computedDatasTemp = computeData(workshopData, res.data)
+            setComputedDatas(computedDatasTemp)
             console.log("data computed",Date.now()-time)
 
-            setMedianParams(computedDatasTemps.map(v => [v.median]))
+            setMedianParams(computedDatasTemp.parameters.map(v => [v.median]))
 
         ;})
         .catch((err) => console.log(err));  
@@ -180,7 +181,10 @@ const WorkshopInfos = (props) => {
 
         const isComplete = jsonData.categories.map(category => uniqueCategories.includes(category.data.name)).filter(v => !v).length > 0 ? false : true
 
-        let finalDatas = [];
+        let finalDatas = {
+            "parameters": [],
+            isComplete
+        };
         const wsParams = wsData.results
             .map(result => result.parameters)
             .reduce((a,v) => [...a, ...v])
@@ -191,8 +195,8 @@ const WorkshopInfos = (props) => {
 
                 category.parameters.map((param,j) => {
                     
-                    finalDatas.push({
-                        "name" : category.data.name,
+                    finalDatas.parameters.push({
+                        "category" : category.data.name,
                         "color" : category.data.color,
                         "colorHover" : category.data.colorHover,
                         "parametersInfos" : {...param.type,...param.data}
@@ -202,19 +206,32 @@ const WorkshopInfos = (props) => {
                         .filter(v => v.index ===param.data.index)
                         .map(v => v.value)
 
-                    finalDatas[finalDatas.length-1].wsValues = wsValues
-                    finalDatas[finalDatas.length-1].median = median(wsValues)
-                    finalDatas[finalDatas.length-1].average = average(wsValues)
-                    finalDatas[finalDatas.length-1].nbModif = wsValues.filter(v => v!==param.value).length
+                    finalDatas.parameters[finalDatas.parameters.length-1].wsValues = wsValues
+                    finalDatas.parameters[finalDatas.parameters.length-1].median = median(wsValues)
+                    finalDatas.parameters[finalDatas.parameters.length-1].average = average(wsValues)
+                    finalDatas.parameters[finalDatas.parameters.length-1].nbModif = wsValues.filter(v => v!==param.data.value).length
                     //ambition to add
                 })
 
             }
         })
 
+        //set data for tables
+        let nbModifTable = {"titles": ["Category", "Parameter", "Nb of modifications"]}
+        let nbModifRevTable = {"titles":nbModifTable.titles}
+    
+        let tableData=[];
+        finalDatas.parameters.map(param => {
+            tableData.push([param.category, param.parametersInfos.name,param.nbModif])
+        })
+        
+        nbModifTable.data = [...tableData.sort((a,b)=>b[2] - a[2])]
+        nbModifRevTable.data = [...tableData.sort((a,b)=>a[2] - b[2])]
 
+        finalDatas.nbModifTable = nbModifTable
+        finalDatas.nbModifRevTable = nbModifRevTable
 
-        return [isComplete, finalDatas]
+        return finalDatas
 
 
     }
@@ -223,17 +240,33 @@ const WorkshopInfos = (props) => {
     console.log(indicators)
 
     return (
-        <div>
+        <div id="workshop_infos">
             {workshopData && 
-                <>
-                <h1>{workshopData.workshop_name}</h1>
-                <p>{workshopData.results.length} participants</p>
-                </>
+            <div className="main_container">
+                <h1 className="container_title">{workshopData.workshop_name}</h1>
+                <p>Nombre de contributions : {workshopData.results.length}</p>
+            </div>
             }
 
-            {indicators && indicators.filter(v=>v.impactGnl === "1").map(indicator => (
-                <p>{indicator.name} / {indicator.value}</p>
-            ))}
+            {indicators && 
+            <div className="main_container">
+                <h1 className="container_title">Résultats</h1>
+                <h3 className="container_secondary_title">Impacts généraux</h3>
+                <div className="indicator_box">
+                    {indicators.filter(v=>v.impactGnl === "1").map(indicator => (
+                        <IndicatorMain value={indicator.value} unit={indicator.unit} description={indicator.name}></IndicatorMain>
+                    ))}
+                </div>
+            </div>}
+
+            {indicators && 
+            <div className="main_container">
+                <h1 className="container_title">Paramètres clés</h1>
+                <h3 className="container_secondary_title">Contributions</h3>
+                <ParametersTables title="les plus utilisés" table={computedDatas.nbModifTable} numberDisplayed={3} />
+                <ParametersTables title="les plus utilisés" table={computedDatas.nbModifRevTable} numberDisplayed={3} />
+            </div>}
+            
             
         </div>
     )
