@@ -1,4 +1,4 @@
-// BASIC
+/// BASIC
 import React, { useState } from "react";
 import { Route, Switch } from "react-router-dom";
 
@@ -14,10 +14,9 @@ import WorkshopInfos from "./views/WorkshopInfos";
 import NotFound from "./views/NotFound";
 import GlobalSimulator from "./components/GlobalSimulator";
 
-// COMPONENTS
-import Header from "./components/partials/Header";
-import Modal from "./components/partials/Modal";
-import ModalAbout from "./components/partials/ModalAbout";
+/// COMPONENTS
+import Modal from "components/partials/Modal";
+import ModalAbout from "components/partials/ModalAbout";
 
 // STYLES
 import "./styles/app.css";

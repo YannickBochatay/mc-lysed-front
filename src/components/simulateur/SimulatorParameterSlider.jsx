@@ -7,71 +7,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuestionCircle, faTimesCircle } from "@fortawesome/free-regular-svg-icons";
 
 import Slider from "@material-ui/core/Slider";
-import SimulatorInformationBox from "./SimulatorInformationBox";
-
-// import SimulatorSlider from "components/simulateur/SimulatorSlider";
-import SimulatorIcon from "./SimulatorIcon";
-
-import "../../styles/simParametreSlide.css";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: "100%",
-  },
-  margin: {
-    height: 0,
-  },
-}));
-
-const useToolTipStyles = makeStyles((theme) => ({
-  tooltip: {
-    color: "white",
-    fontSize: "1.1em",
-    backgroundColor: (props) => props.backgroundColor,
-  },
-  arrow: {
-    color: (props) => props.backgroundColor,
-  },
-}));
-
-const useSliderStyles = makeStyles({
-  root: {
-    color: "#E4E4E4",
-    height: 8,
-  },
-  thumb: {
-    height: 16,
-    width: 16,
-    borderRadius: 0,
-    border: `2px solid white`,
-    backgroundColor: (props) => props.backgroundColor,
-    marginTop: -5,
-    marginLeft: -7,
-    "&:focus,&:hover,&$active": {
-      boxShadow: "inherit",
-    },
-  },
-  active: {},
-  valueLabel: {},
-  track: {
-    height: 5,
-    borderRadius: 1,
-    color: "#C7C7C7",
-  },
-  rail: {
-    height: 5,
-    borderRadius: 1,
-  },
-  mark: {
-    backgroundColor: "#C7C7C7",
-    height: 12,
-    width: 3,
-    marginTop: -2.5,
-  },
-});
+import SimulatorInformationBox from "components/simulateur/SimulatorInformationBox";
+import "styles/simParametreSlide.css";
 
 const SimParametreSlide = ({ data, value, setOneValue, cat }) => {
   const [componentClass, setComponentClass] = useState("");
+
+  // Classes
   const sliderClasses = useSliderStyles({ backgroundColor: cat.colorHover });
   const classesToolTip = useToolTipStyles({ backgroundColor: cat.colorHover });
 
@@ -121,6 +63,9 @@ const SimParametreSlide = ({ data, value, setOneValue, cat }) => {
       return value[0];
   }
 
+  // Memoize component and forward ref in order to be able to pass a prop to the
+  // ValueLabelComponent component for the Slider otherwise the Tooltip has it's ref lost
+  // resulting in a tooltip that disappears / reappears on mouseup.
   const CustomValueLabel = React.useMemo(() => {
     return React.forwardRef(({ children, value, ...restProps }, ref) => {
       return (
@@ -179,5 +124,63 @@ const SimParametreSlide = ({ data, value, setOneValue, cat }) => {
     </div>
   );
 };
+
+/** STYLES HOOKS */
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: "100%",
+  },
+  margin: {
+    height: 0,
+  },
+}));
+
+const useToolTipStyles = makeStyles((theme) => ({
+  tooltip: {
+    color: "white",
+    fontSize: "1.1em",
+    backgroundColor: (props) => props.backgroundColor,
+  },
+  arrow: {
+    color: (props) => props.backgroundColor,
+  },
+}));
+
+const useSliderStyles = makeStyles({
+  root: {
+    color: "#E4E4E4",
+    height: 8,
+  },
+  thumb: {
+    height: 16,
+    width: 16,
+    borderRadius: 0,
+    border: `2px solid white`,
+    backgroundColor: (props) => props.backgroundColor,
+    marginTop: -5,
+    marginLeft: -7,
+    "&:focus,&:hover,&$active": {
+      boxShadow: "inherit",
+    },
+  },
+  active: {},
+  valueLabel: {},
+  track: {
+    height: 5,
+    borderRadius: 1,
+    color: "#C7C7C7",
+  },
+  rail: {
+    height: 5,
+    borderRadius: 1,
+  },
+  mark: {
+    backgroundColor: "#C7C7C7",
+    height: 12,
+    width: 3,
+    marginTop: -2.5,
+  },
+});
 
 export default SimParametreSlide;

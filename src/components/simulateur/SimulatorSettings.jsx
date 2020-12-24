@@ -9,7 +9,7 @@ const SimulatorSettings = ({ categories, results, values, modeExpert, handleValu
     // issue: param.type needs to be a string eg: "list", "slider"
     // for now the object is as follows: {param.type.list: 1, param.type.slider: 0}
 
-    const props = {
+    const parameterProps = {
       key: key,
       data: param.data,
       value: values[param.data.index],
@@ -18,8 +18,8 @@ const SimulatorSettings = ({ categories, results, values, modeExpert, handleValu
     };
 
     const paramComponent = {
-      list: <SimulatorParameterList {...props} />,
-      slider: <SimulatorParameterSlider {...props} />,
+      list: <SimulatorParameterList {...parameterProps} />,
+      slider: <SimulatorParameterSlider {...parameterProps} />,
     };
 
     //gestion mode expert
