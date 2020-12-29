@@ -14,7 +14,7 @@ const ModalDeleteWorkshop = ({handleDeleteWS, closeModal}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        handleDeleteWS(values)
+        handleDeleteWS(values.admin_code)
     }
 
     return (
