@@ -1,0 +1,5 @@
+/* /// VALIDATE SCENARIO */
+.validate_scenario form {
+  display: flex;
+  flex-direction: column;
+}
