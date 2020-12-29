@@ -10,8 +10,9 @@ import IndicatorSecondary from "../components/partials/IndicatorSecondary";
 import ParametersDistributionBox from "../components/partials/ParametersDistributionBox";
 import ParametersTables from "../components/partials/ParametersTables";
 import WSTable from "../components/partials/WSTable";
-import Modal from "../components/partials/Modal";
-import ModalDeleteWorkshop from "../components/Workshops/ModalDeleteWorkshop";
+import Modal from "components/partials/Modal";
+import ModalDeleteWorkshop from "components/Workshops/ModalDeleteWorkshop";
+import Participants from "components/Workshops/Participants";
 
 import { getValuesFormatted } from "../utils/getValuesFormatted";
 import { getUrl } from "../utils/getUrl";
@@ -280,6 +281,9 @@ const WorkshopInfos = (props) => {
             <button className={page === "Secteurs" ? "btn tab-btn active" : "btn tab-btn"} type="button" onClick={() => setPage("Secteurs")}>
               Secteurs et Paramètres
             </button>
+            <button className={page === "Participants" ? "btn tab-btn active" : "btn tab-btn"} type="button" onClick={() => setPage("Participants")}>
+              Participants
+            </button>
           </div>
 
 
@@ -399,6 +403,13 @@ const WorkshopInfos = (props) => {
           )}
         </>
       )}
+
+
+      {page === "Participants" && (
+        <Participants medianParams={medianParams} jsonFile={jsonFile} computedDatas={computedDatas} results={results} id={id}/>
+      )}
+
+
     </div>
   );
 };

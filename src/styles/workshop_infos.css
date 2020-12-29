@@ -54,11 +54,12 @@
 
 .workshop-tabs .btn{
   margin-top: 20px;
-  width: 300px;
+  width: 260px;
 }
 
-.sectors-menu {
+.sectors-menu .btn {
   margin-top: 40px;
+  width: 156px;
 }
 
 /* PAGE SYNTHESE */
