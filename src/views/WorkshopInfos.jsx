@@ -11,6 +11,7 @@ import Modal from "components/partials/Modal";
 import ModalDeleteWorkshop from "components/Workshops/ModalDeleteWorkshop";
 
 import { getValuesFormatted } from "utils/getValuesFormatted";
+import { getUrl } from "utils/getUrl";
 import { computeData } from "utils/computeData";
 import "../styles/workshop_infos.css";
 
@@ -50,6 +51,7 @@ const WorkshopInfos = (props) => {
   const [missionClimatVersion, setMissionClimatVersion] = useState(null);
 
   const [isLoading, setIsLoading] = useState(true);
+  const [url, setUrl] = useState("");
   const [page, setPage] = useState("Synthèse");
   const [sector, setSector] = useState("Habitat"); //TO DO : generic init
   const [sectorTable, setSectorTable] = useState(null);
@@ -119,14 +121,12 @@ const WorkshopInfos = (props) => {
           values: valuesFormatted,
         })
         .then((res) => {
-          const resTemp = res.data.results;
-          // resTemp.url = getUrl(values, jsonFile.parameters);
-          //correction des data area pour affichage ok
-          // handleAreaData(resTemp.emiSecteurGnl);
           console.log(res);
+          const resTemp = res.data.results;
           setResults(resTemp);
           console.log("results received", Date.now() - time);
-          setIsLoading(false)
+          setUrl(getUrl(medianParams, jsonFile.parameters))
+          setIsLoading(false);
 
           let indicatorsTemps = [];
           for (const area in resTemp.indicators) {
@@ -195,10 +195,10 @@ const WorkshopInfos = (props) => {
 
     return { titles: titlesFinal, data: dataFinal };
   };
-
+  
   const handleDeleteWS = (admin_code) => {
     api
-      .delete(`/aggregator/workshop/${id}/`, admin_code )
+      .delete(`/aggregator/workshop/`,`${id}/?admin_code=${admin_code}`)
       .then((res) => {console.log(res)})
       .catch((err) => console.log(err));
   }
@@ -230,6 +230,7 @@ const WorkshopInfos = (props) => {
           <h1 className="container_title">{workshopData.workshop_name}</h1>
           <p>Nombre de contributions : {workshopData.results.length}</p>
           <button onClick={() => setModalDeleteWS(true)}>Supprimer l'atelier</button>
+          <a href={url} target="_blank"><button>Simulateur avec scénario médian</button></a>
           <div>
             <button onClick={() => setPage("Synthèse")}>Synthèse</button>
             <button onClick={() => setPage("Secteurs")}>Secteurs et Paramètres</button>
