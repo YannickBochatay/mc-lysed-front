@@ -2,6 +2,8 @@ import React from 'react'
 
 const WSTable = ({table, numberDisplayed}) => {
 
+    if (!table) { return <></>}
+
     if (numberDisplayed==="all") {numberDisplayed=10000}
 
     return (

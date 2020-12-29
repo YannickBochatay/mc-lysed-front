@@ -17,8 +17,6 @@ import {
 
 const ParametersDistributionChart = ({data}) => {
 
-    console.log(data)
-
     const min=data.min
     const max=data.max
     const median=data.median
@@ -62,8 +60,6 @@ const ParametersDistributionChart = ({data}) => {
         i++
         values.push(min + i*step)
     }
-
-    console.log(values)
 
     let barDatas = [];
 

@@ -251,17 +251,6 @@ const WorkshopInfos = (props) => {
         const [nbModifTable, nbModifRevTable] = setTableDatas(finalDatas, "Nb de modifications", "nbModif")
         const [consensusTable, consensusRevTable] = setTableDatas(finalDatas, "Ecart type relatif", "stdevRel")
 
-        //set data for nbModified tables
-        // let nbModifTable = {"titles": ["Category", "Parameter", "Nb of modifications"]}
-        // let nbModifRevTable = {"titles":nbModifTable.titles}
-    
-        // let tableData=[];
-        // finalDatas.parameters.map(param => {
-        //     tableData.push([param.category, param.name,param.nbModif])
-        // })
-        
-        // nbModifTable.data = [...tableData.sort((a,b)=>b[2] - a[2])]
-        // nbModifRevTable.data = [...tableData.sort((a,b)=>a[2] - b[2])]
 
         finalDatas.nbModifTable = nbModifTable
         finalDatas.nbModifRevTable = nbModifRevTable
@@ -278,12 +267,12 @@ const WorkshopInfos = (props) => {
 
         if (computedDatas) {
             let tableTemp={
-                "titles" : ['Paramètre', 'Valeur médiane', 'Valeur moyenne', 'Ecart type', 'Ecart type relatif', "Nb modifications", 'Nb résultats'],
+                "titles" : ['Paramètre', 'Valeur médiane', 'Valeur moyenne', 'Ecart type', 'Ecart type relatif', "Nb modifications", 'Nb résultats', "% modifications"],
                 data: []
             };
             computedDatas.parameters.map(param => {
                 if (param.category===sector) {
-                    tableTemp.data.push([param.name, param.median, param.average, param.stdDev, param.stdevRel, param.nbModif, param.nbResults])
+                    tableTemp.data.push([param.name, param.median, param.average, param.stdDev, param.stdevRel, param.nbModif, param.nbResults, param.nbModif/param.nbResults*100 + " %"])
                 }
             })
             setSectorTable({...tableTemp})
@@ -291,8 +280,27 @@ const WorkshopInfos = (props) => {
         
     },[computedDatas, sector])
 
+    const handleSectorsDetailTable = (table, sector) => {
 
-    console.log(indicators)
+        console.log(table, sector)
+
+        let dataFinal = [...table.data]
+        let titlesFinal = [...table.titles]
+        dataFinal = dataFinal.filter(line => line[0] === sector)
+
+        if (dataFinal.length ===0) {
+            return null
+        }
+
+        dataFinal.map(line => line.map((val,i) => {
+            if (i>0) { return val}
+        }))
+        titlesFinal.shift()
+
+        console.log(dataFinal, titlesFinal)
+
+        return {"titles": titlesFinal, "data": dataFinal}
+    }
 
     return (
         <div id="workshop_infos">
@@ -361,6 +369,10 @@ const WorkshopInfos = (props) => {
                 {computedDatas && 
                 <div className="main_container">
                     <h1 className="container_title">Détails par secteur</h1>
+
+                    <h3 className="container_secondary_title">Secteurs / Résumé</h3>
+
+                    {results && <WSTable table={handleSectorsDetailTable({...results.aggregator.sectorsDetailTable}, sector)} numberDisplayed="all" />}
 
                     <h3 className="container_secondary_title">Paramètres / Résumé</h3>
 
