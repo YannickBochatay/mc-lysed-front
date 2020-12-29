@@ -3,6 +3,9 @@ import "../../styles/modal.css";
 
 const Modal = ({ isOpen, closeModal, children, okButton }) => {
   if (!isOpen) return null;
+
+  console.log(children)
+
   return (
     <div className="modal-parent">
       <div className="modal-content">
