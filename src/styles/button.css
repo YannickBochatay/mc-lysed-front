@@ -37,6 +37,19 @@
   border: none;
 }
 
+.tab-btn {
+  background: none;
+  border: none;
+  border-radius: 0;
+  border-bottom: 4px solid var(--grey);
+  transition: ease-in-out 0.3s;
+}
+
+.tab-btn.active {
+  border-bottom: 4px solid var(--mainColor);
+  transition: ease-in-out 0.3s;
+}
+
 /* RESTE */
 
 .valid-button {

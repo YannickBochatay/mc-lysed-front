@@ -1,22 +1,24 @@
 import React, { useState, useEffect } from "react";
-import api from "api/APIHandler";
-
 import Loader from "react-loader-spinner";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDownload, faTrash, faUser, faLink, faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
+
+import api from "../api/APIHandler";
 import IndicatorMain from "../components/partials/IndicatorMain";
 import IndicatorSecondary from "../components/partials/IndicatorSecondary";
 import ParametersDistributionBox from "../components/partials/ParametersDistributionBox";
 import ParametersTables from "../components/partials/ParametersTables";
 import WSTable from "../components/partials/WSTable";
-import Modal from "components/partials/Modal";
-import ModalDeleteWorkshop from "components/Workshops/ModalDeleteWorkshop";
+import Modal from "../components/partials/Modal";
+import ModalDeleteWorkshop from "../components/Workshops/ModalDeleteWorkshop";
 
-import { getValuesFormatted } from "utils/getValuesFormatted";
-import { getUrl } from "utils/getUrl";
-import { computeData } from "utils/computeData";
+import { getValuesFormatted } from "../utils/getValuesFormatted";
+import { getUrl } from "../utils/getUrl";
+import { computeData } from "../utils/computeData";
 import "../styles/workshop_infos.css";
 
-
-//TO DO : put in a config js
+// TO DO : put in a config js
 const aggregatorInfos = {
   lysed: {
     front: "http://localhost:3000",
@@ -30,18 +32,19 @@ const aggregatorInfos = {
   },
 };
 
-
 const WorkshopInfos = (props) => {
-  //data got from the workshop api
+  // data got from the workshop api
   const [workshopData, setWorkshopDataData] = useState(null);
 
-  //initial data from the MC version used for the workshop (with parameters & categories infos (colors, step, min, max....))
+  // initial data from the MC version used for the workshop
+  // (with parameters & categories infos (colors, step, min, max....))
   const [jsonFile, setJsonFile] = useState({});
 
-  //data computed from workshop & json with average, median, etc.
+  // data computed from workshop & json with average, median, etc.
   const [computedDatas, setComputedDatas] = useState(null);
 
-  // true if all the sectors have been worked during workshop (if not, there is no relevant complete result)
+  // true if all the sectors have been worked during workshop
+  // (if not, there is no relevant complete result)
   const [results, setResults] = useState(null);
 
   const [indicators, setIndicators] = useState(null);
@@ -53,29 +56,28 @@ const WorkshopInfos = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [url, setUrl] = useState("");
   const [page, setPage] = useState("Synthèse");
-  const [sector, setSector] = useState("Habitat"); //TO DO : generic init
+  const [sector, setSector] = useState("Habitat"); // TO DO : generic init
   const [sectorTable, setSectorTable] = useState(null);
 
-  //MODALS
+  // MODALS
   const [modalDeleteWS, setModalDeleteWS] = useState(false);
 
   const [time, setTime] = useState(Date.now());
 
   const id = props.match.params.id;
 
-  //GET WORKSHOP DATA
+  // GET WORKSHOP DATA
   useEffect(() => {
     api
       .get(`/aggregator/workshop/${id}/`)
       .then((res) => {
-        
         console.log(res);
         setWorkshopDataData(res.data);
 
         console.log("wokshopdata loaded", Date.now() - time);
 
-        //handle case if results
-        if (res.data.results.length!==0) {
+        // handle case if results
+        if (res.data.results.length !== 0) {
           // getMissionClimatVersion
           for (const aggregator in aggregatorInfos) {
             if (res.data.results[0].url.includes(aggregatorInfos[aggregator]["front"])) {
@@ -84,17 +86,15 @@ const WorkshopInfos = (props) => {
             }
           }
           console.log("MC version identified", Date.now() - time);
+        } else {
+          // handle case no results yes
+          setIsLoading(false);
         }
-        else { //handle case no results yes
-          setIsLoading(false)
-        }
-
-        
       })
       .catch((err) => console.log(err));
   }, []);
 
-  //GET JSON DATA
+  // GET JSON DATA
   useEffect(() => {
     api
       .get("/sheet/jsonfile")
@@ -112,12 +112,12 @@ const WorkshopInfos = (props) => {
       .catch((err) => console.log(err));
   }, [missionClimatVersion]);
 
-  //GET RESULTS DATA
+  // GET RESULTS DATA
   useEffect(() => {
     if (medianParams && missionClimatVersion) {
       const valuesFormatted = getValuesFormatted(medianParams, jsonFile.options.unit);
       api
-        .patch("/sheet/update/" + aggregatorInfos[missionClimatVersion].spreadsheetId, {
+        .patch(`/sheet/update/${aggregatorInfos[missionClimatVersion].spreadsheetId}`, {
           values: valuesFormatted,
         })
         .then((res) => {
@@ -125,10 +125,10 @@ const WorkshopInfos = (props) => {
           const resTemp = res.data.results;
           setResults(resTemp);
           console.log("results received", Date.now() - time);
-          setUrl(getUrl(medianParams, jsonFile.parameters))
+          setUrl(getUrl(medianParams, jsonFile.parameters));
           setIsLoading(false);
 
-          let indicatorsTemps = [];
+          const indicatorsTemps = [];
           for (const area in resTemp.indicators) {
             for (const degree in resTemp.indicators[area]) {
               resTemp.indicators[area][degree].map((v) => indicatorsTemps.push(v));
@@ -140,10 +140,10 @@ const WorkshopInfos = (props) => {
     }
   }, [medianParams, missionClimatVersion]);
 
-  //GET SECTOR TABLE (PARAMETERS)
+  // GET SECTOR TABLE (PARAMETERS)
   useEffect(() => {
     if (computedDatas) {
-      let tableTemp = {
+      const tableTemp = {
         titles: [
           "Paramètre",
           "Valeur médiane",
@@ -166,7 +166,7 @@ const WorkshopInfos = (props) => {
             param.stdevRel,
             param.nbModif,
             param.nbResults,
-            (param.nbModif / param.nbResults) * 100 + " %",
+            `${(param.nbModif / param.nbResults) * 100} %`,
           ]);
         }
       });
@@ -175,9 +175,8 @@ const WorkshopInfos = (props) => {
   }, [computedDatas, sector]);
 
   const handleSectorsDetailTable = (table, sector) => {
-
     let dataFinal = [...table.data];
-    let titlesFinal = [...table.titles];
+    const titlesFinal = [...table.titles];
     dataFinal = dataFinal.filter((line) => line[0] === sector);
 
     if (dataFinal.length === 0) {
@@ -195,50 +194,99 @@ const WorkshopInfos = (props) => {
 
     return { titles: titlesFinal, data: dataFinal };
   };
-  
+
   const handleDeleteWS = (admin_code) => {
     api
-      .delete(`/aggregator/workshop/`,`${id}/?admin_code=${admin_code}`)
-      .then((res) => {console.log(res)})
+      .delete(`/aggregator/workshop/`, `${id}/?admin_code=${admin_code}`)
+      .then((res) => {
+        console.log(res);
+      })
       .catch((err) => console.log(err));
-  }
+  };
 
   return (
-    <div id="workshop_infos" className="flex-item acenter">
+    <div id="workshop_infos" className="flex-column acenter">
       {isLoading && (
         <div id="sim_loader" className="modal-parent">
           <div id="sim_loader_content" className="modal-content">
-            <Loader type={"Oval"} color="#163E59" height={100} width={100} />
+            <Loader type="Oval" color="#163E59" height={100} width={100} />
           </div>
         </div>
       )}
 
-      <Modal
-          isOpen={modalDeleteWS}
+      <Modal isOpen={modalDeleteWS} closeModal={() => setModalDeleteWS(false)} okButton={false}>
+        <ModalDeleteWorkshop
           closeModal={() => setModalDeleteWS(false)}
-          okButton={false}
-          children={
-            <ModalDeleteWorkshop
-              closeModal={() => setModalDeleteWS(false)}
-              handleDeleteWS={handleDeleteWS}
-            ></ModalDeleteWorkshop>
-          }
-        ></Modal>
+          handleDeleteWS={handleDeleteWS}
+        />
+      </Modal>
 
+      {/* /// HEADER /// */}
       {workshopData && (
-        <div className="main_container">
+        <div className="main_container workshop-header flex-column acenter">
           <h1 className="container_title">{workshopData.workshop_name}</h1>
-          <p>Nombre de contributions : {workshopData.results.length}</p>
-          <button onClick={() => setModalDeleteWS(true)}>Supprimer l'atelier</button>
-          <a href={url} target="_blank"><button>Simulateur avec scénario médian</button></a>
-          <div>
-            <button onClick={() => setPage("Synthèse")}>Synthèse</button>
-            <button onClick={() => setPage("Secteurs")}>Secteurs et Paramètres</button>
+
+          <div className="workshop-summary">
+            {/* LEFT PANNEL */}
+            <div className="flex-column jcenter">
+              <button
+                className="btn primary-btn"
+                type="button"
+                onClick={() => setModalDeleteWS(true)}
+              >
+                <FontAwesomeIcon icon={faTrash} />
+                Supprimer l'atelier
+              </button>
+
+              {/* <button className="btn secondary-btn" type="button" onClick="">
+                <FontAwesomeIcon icon={faDownload} />
+                Télécharger les données
+              </button> */}
+            </div>
+
+            {/* RIGHT PANNEL */}
+            <div className="flex-column jcenter">
+              <div className="flex-item acenter">
+                <FontAwesomeIcon icon={faUser} />
+                <p>Nombre de contributions : {workshopData.results.length}</p>
+              </div>
+
+              <div className="flex-item acenter">
+                <FontAwesomeIcon icon={faLink} />
+                <a href={url} target="_blank" rel="noreferrer">
+                  Simulateur avec scénario médian
+                </a>
+              </div>
+
+              {/* <div className="flex-item acenter">
+                <FontAwesomeIcon icon={faCalendarAlt} />
+                <p>
+                  Sélection : du
+                  {" "}
+                  <input type="date" name="startDate" id="startDate" />
+                  {" "}
+                  au
+                  {" "}
+                  <input type="date" name="endDate" id="endDate" />
+                </p>
+              </div> */}
+            </div>
           </div>
+
+          <div className="workshop-tabs flex-item acenter jcenter">
+            <button className={page === "Synthèse" ? "btn tab-btn active" : "btn tab-btn"} type="button" onClick={() => setPage("Synthèse")}>
+              Synthèse
+            </button>
+            <button className={page === "Secteurs" ? "btn tab-btn active" : "btn tab-btn"} type="button" onClick={() => setPage("Secteurs")}>
+              Secteurs et Paramètres
+            </button>
+          </div>
+
+
           {page === "Secteurs" && (
-            <div>
+            <div className="sectors-menu flex-item acenter jcenter">
               {computedDatas.uniqueCategories.map((cat, i) => (
-                <button id={i} onClick={() => setSector(cat)}>
+                <button className={sector === cat ? "btn tab-btn active" : "btn tab-btn"} type="button" id={i} onClick={() => setSector(cat)}>
                   {cat}
                 </button>
               ))}
@@ -247,11 +295,12 @@ const WorkshopInfos = (props) => {
         </div>
       )}
 
+      {/* /// SYNTHESE /// */}
       {page === "Synthèse" && (
         <>
           {indicators && (
             <div className="main_container">
-              <h1 className="container_title">Résultats</h1>
+              <h2 className="container_title">Résultats</h2>
 
               <h3 className="container_secondary_title">Impacts généraux</h3>
               <div className="indicator_box">
@@ -262,7 +311,7 @@ const WorkshopInfos = (props) => {
                       value={indicator.value}
                       unit={indicator.unit}
                       description={indicator.name}
-                    ></IndicatorMain>
+                    />
                   ))}
               </div>
               <WSTable table={results.aggregator.impactGnlTable} numberDisplayed="all" />
@@ -276,7 +325,7 @@ const WorkshopInfos = (props) => {
                       value={indicator.value}
                       unit={indicator.unit}
                       description={indicator.name}
-                    ></IndicatorSecondary>
+                    />
                   ))}
               </div>
             </div>
@@ -284,7 +333,7 @@ const WorkshopInfos = (props) => {
 
           {indicators && (
             <div className="main_container">
-              <h1 className="container_title">Paramètres clés</h1>
+              <h2 className="container_title">Paramètres clés</h2>
 
               <h3 className="container_secondary_title">Contributions</h3>
               <ParametersTables
@@ -314,15 +363,16 @@ const WorkshopInfos = (props) => {
         </>
       )}
 
+      {/* /// SECTEURS /// */}
       {page === "Secteurs" && (
         <>
           {computedDatas && (
             <div className="main_container">
-              <h1 className="container_title">Détails par secteur</h1>
+              <h2 className="container_title">Détails par secteur</h2>
 
               <h3 className="container_secondary_title">Secteurs / Résumé</h3>
 
-              {results && (
+              {/* {results && (
                 <WSTable
                   table={handleSectorsDetailTable(
                     { ...results.aggregator.sectorsDetailTable },
@@ -330,7 +380,7 @@ const WorkshopInfos = (props) => {
                   )}
                   numberDisplayed="all"
                 />
-              )}
+              )} */}
 
               <h3 className="container_secondary_title">Paramètres / Résumé</h3>
 
