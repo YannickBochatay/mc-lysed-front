@@ -229,7 +229,7 @@ const ResultsSample = ({ results, values, jsonFile }) => {
               className="btn simulator-btn"
               onClick={() => handleValidateScenario()}
             >
-              Valider mon scénario
+              Valider
             </button>
           </div>
         </div>
@@ -270,7 +270,7 @@ const ResultsSample = ({ results, values, jsonFile }) => {
   //             )
   //           </p>
   //           <p className="results-title n7">Empreinte carbone</p>
-  //           <div className="results-figure n8 flex-item" style={{ backgroundColor: "#b0e0e6" }}>
+  //           <div className="results-figure n8 flex-item" style={{ backgroundColor: "#eda54e" }}>
   //             {results.impacts.empreinteMonde}t
   //           </div>
   //           <p className="results-legend n9">tCO2e / an / hab. en 2030</p>
@@ -301,7 +301,7 @@ const ResultsSample = ({ results, values, jsonFile }) => {
   //             <p className="results-legend b6">Entre 2020 et 2030</p>
 
   //             <p className="results-title b7">Empreinte carbone</p>
-  //             <div className="results-figure b8 flex-item" style={{ backgroundColor: "#b0e0e6" }}>
+  //             <div className="results-figure b8 flex-item" style={{ backgroundColor: "#eda54e" }}>
   //               {results.impacts.empreinteFr}t
   //             </div>
   //             <p className="results-legend b9">tCO2e / an / hab. en 2030</p>
@@ -356,7 +356,7 @@ const ResultsSample = ({ results, values, jsonFile }) => {
               <p className="results-legend b6">Entre 2020 et 2030</p>
 
               <p className="results-title b7">Empreinte carbone</p>
-              <div className="results-figure b8 flex-item" style={{ backgroundColor: "#b0e0e6" }}>
+              <div className="results-figure b8 flex-item" style={{ backgroundColor: "#eda54e" }}>
                 {results.impacts.empreinteFr}t
               </div>
               <p className="results-legend b9">tCO2e / an / hab. en 2030</p>
@@ -399,7 +399,7 @@ const ResultsSample = ({ results, values, jsonFile }) => {
             )
           </p>
           <p className="results-title n7">Empreinte carbone</p>
-          <div className="results-figure n8 flex-item" style={{ backgroundColor: "#b0e0e6" }}>
+          <div className="results-figure n8 flex-item" style={{ backgroundColor: "#eda54e" }}>
             {results.impacts.empreinteMonde}t
           </div>
           <p className="results-legend n9">tCO2e / an / hab. en 2030</p>
