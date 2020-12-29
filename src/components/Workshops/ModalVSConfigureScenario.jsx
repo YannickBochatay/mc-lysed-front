@@ -7,6 +7,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Loader from 'react-loader-spinner'
 
 import { getDataToExport } from "utils/getDataToExport";
 import { getKeys } from "utils/getKeys";
@@ -14,8 +15,9 @@ import { getKeys } from "utils/getKeys";
 import api from "api/APIHandler";
 
 
-const ModalVSConfigureScenario = ({closeModal, results, val, jsonFile}) => {
+const ModalVSConfigureScenario = ({closeModal, results, val, jsonFile, setModalVSConfirmationSent}) => {
 
+    const [isLoading, setIsLoading] = useState(false);
     const [values, setValues] = useState({
         "workshop_code": '',
         "user_email": '',
@@ -44,6 +46,7 @@ const ModalVSConfigureScenario = ({closeModal, results, val, jsonFile}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        setIsLoading(true)
         const keys = getKeys(checkboxValues)
         const data = getDataToExport(jsonFile, val, results, keys)
 
@@ -51,13 +54,21 @@ const ModalVSConfigureScenario = ({closeModal, results, val, jsonFile}) => {
         .post("/aggregator/result/",{...values, data})
         .then((res) => {
             console.log(res)
-            //ADD CONFIRMATION MODAL
+            setIsLoading(false)
+            closeModal()
+            setModalVSConfirmationSent(true)
         ;})
         .catch((err) => console.log(err));
     }
 
     return (
         <div className="validate_scenario">
+
+            {isLoading && <div id="sim_loader" className="modal-parent">
+                <div id="sim_loader_content" className="modal-content">
+                    <Loader type={"Oval"} color="#163E59" height={100} width={100} />
+                </div>
+            </div>}
 
             <h3>Entrez les informations de votre scénario</h3>
             <p>Cette étape vous permet de blablabla</p>
