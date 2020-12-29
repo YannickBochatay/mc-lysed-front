@@ -8,6 +8,7 @@
   color: var(--text-main);
   padding: 10px;
   min-height: 500px;
+  max-width: 1400px;
 }
 
 .sim-container-box {

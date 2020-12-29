@@ -15,6 +15,8 @@
   /* COLORS */
   --mainColor: #4c7777;
   --secondaryColor: #c3b832;
+  --shadow: 0 0 8px #aaaaaa;
+  --underline: rgba(195, 184, 50, 0.5);
 
   /* TEXT */
   --text-main: #505050;
@@ -45,7 +47,7 @@
 
 #root {
   width: 100vw;
-  height: 100vh;
+  height: 92vh;
   margin: 0;
   padding: 0;
   min-width: 1024px;
@@ -53,28 +55,60 @@
 }
 
 body {
-  scroll-behavior: smooth;
-  background: var(--gradient) fixed;
-  color: #505050;
+  color: var(--text-main);
   font-size: 1rem;
-  display: flex;
   justify-content: center;
   font-family: var(--font-accent);
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+  min-height: 100vh;
 }
 
 p {
   font-family: var(--font-main);
 }
 
-#content-main {
-  width: 100%;
-  height: 100vh;
-  margin: 0;
+#header {
+  width: 100vw;
 }
 
-.main_container {width: 100%; background-color: white;padding: 20px; margin: 25px 0}
-.container_title {font-weight: bold;font-size: 36px;line-height: 42px;text-decoration: underline 6px; text-decoration-color:var(--mainColor) }
-.container_secondary_title {font-weight: bold;font-size: 24px;line-height: 28px;}
+#content-main {
+  width: 100vw;
+  min-height: 100%;
+  background: var(--gradient) fixed;
+}
+
+.main_container {
+  width: 100%;
+  max-width: 1200px;
+  background-color: white;
+  padding: 20px 60px;
+  margin: 30px;
+  border-radius: 6px;
+  box-shadow: var(--shadow);
+}
+
+.container_title {
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 42px;
+  display: inline-block;
+}
+
+.container_title::after {
+  content: '';
+  background-color: var(--underline);
+  height: 10px;
+  display: block;
+  margin-top: -12px;
+}
+
+.container_secondary_title {
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 28px;
+}
 
 .bold-text {
   font-weight: 800;
@@ -101,6 +135,11 @@ p {
   display: flex;
 }
 
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
 .acenter {
   align-items: center;
 }
@@ -109,6 +148,9 @@ p {
   justify-content: center;
 }
 
+.jbetween {
+  justify-content: space-between;
+}
 
 /* RESTE */
 .hidden {

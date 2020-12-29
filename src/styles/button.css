@@ -4,6 +4,7 @@
   font-size: 1rem;
   line-height: 1;
   font-family: var(--font-main);
+  min-width: 120px;
 }
 
 .btn:hover {

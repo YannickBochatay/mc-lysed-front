@@ -1,28 +1,39 @@
-import React from 'react'
-import Button from '@material-ui/core/Button';
+import React from "react";
 
-const ModalWorkshopInfos = ({workshopInfos, closeModal}) => {
+const ModalWorkshopInfos = ({ workshopInfos, closeModal }) => {
+  console.log(workshopInfos);
 
-    console.log(workshopInfos)
+  return (
+    <div id="modal-confirm" className="flex-column jcenter">
+      <h2 className="container_title">Atelier créé !</h2>
 
-    return (
-        <div>
-            <h3>Atelier créé !</h3>
-            <p>L'atelier <b>{workshopInfos.workshop_name}</b> a bien été créé.
-            <br/><br/>
-            Le <b>lien de consultation des résultats de l'atelier</b> :<br/>
+      <p>
+        L'atelier <b>{workshopInfos.workshop_name}</b> a bien été créé. Les résultats seront visibles ici :
+        <br />
+        <span>
+          <a href={`http://mission-climat.io/ateliers/${workshopInfos.id}`}>
             {`http://mission-climat.io/ateliers/${workshopInfos.id}`}
-            <br/><br/>
-            Le <b>code atelier</b> à partager aux participants de l'atelier :<br/>
-            {workshopInfos.workshop_code}
-            <br/><br/>
-            Le <b>code administrateur</b> à conserver (pour supprimer l'atelier ou certains résultats) :<br/>
-            {workshopInfos.admin_code}
-            <br/><br/>
-            Un email vous a été envoyé pour vous permettre de conserver ces informations.</p>
-            <Button onClick={()=>closeModal()}>Ok</Button>
-        </div>
-    )
-}
+          </a>
+        </span>
+      </p>
 
-export default ModalWorkshopInfos
+      <p>
+        Le code à partager avec les participants : <b>{workshopInfos.workshop_code}</b>
+      </p>
+
+      <p>
+        Le code administrateur à conserver pour éditer ou supprimer l'atelier :
+        <br />
+        <b>{workshopInfos.admin_code}</b>
+      </p>
+
+      <p>Vous recevrez également ces informations par e-mail.</p>
+
+      <button className="btn primary-btn" type="button" onClick={() => closeModal()}>
+        Ok
+      </button>
+    </div>
+  );
+};
+
+export default ModalWorkshopInfos;

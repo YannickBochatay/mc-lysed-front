@@ -1,2 +1,83 @@
-#workshops * {color: var(--mainColor)}
-#workshops .form {display: flex;flex-direction: column;}
+/* GLOBAL PAGE */
+#workshops {
+  width: 100%;
+  height: 100%;
+}
+
+#workshops .main_container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-content: center;
+  min-height: 500px;
+  gap: 70px;
+}
+
+#workshops .left-pannel h1 {
+  align-self: flex-start;
+}
+
+#workshops .left-pannel p {
+  margin: 60px 0;
+  width: 90%;
+}
+
+#workshops .left-pannel button {
+  align-self: flex-end;
+}
+
+#workshops img {
+  width: 100%;
+}
+
+/* MODAL CREATE */
+#modal-create > p {
+  margin: 20px 0;
+}
+
+#modal-create .button-box {
+  justify-content: flex-end;
+  margin-top: 40px;
+}
+
+#modal-create .form {
+  display: flex;
+  flex-direction: column;
+}
+
+#modal-create .input-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+#modal-create .MuiInput-underline::after {
+  border-bottom: 2px solid var(--secondaryColor);
+}
+
+#modal-create .MuiFormLabel-root.Mui-focused {
+  color: var(--secondaryColor)
+}
+
+#modal-create button:first-of-type {
+  margin-right: 20px;
+}
+
+/* MODAL CONFIRM */
+#modal-confirm h2 {
+  align-self: flex-start;
+  margin-bottom: 30px;
+}
+
+#modal-confirm p {
+  margin: 10px 0;
+}
+
+#modal-confirm p span {
+  color: var(--secondaryColor);
+  font-weight: bold;
+}
+
+#modal-confirm button {
+  align-self: flex-end;
+  margin-top: 30px;
+}

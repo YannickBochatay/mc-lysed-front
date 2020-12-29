@@ -1,26 +1,26 @@
-/// BASIC
-import React, { useState} from "react";
+// BASIC
+import React, { useState } from "react";
 import { Route, Switch } from "react-router-dom";
-import api from "api/APIHandler";
 
-/// PAGES
-import Simulator from "views/Simulator";
-import Results from "views/Results";
-import Workshops from "views/Workshops";
-import WorkshopInfos from "views/WorkshopInfos";
-import NotFound from "views/NotFound";
+// GOOGLE ANALYTICS
+import ReactGA from "react-ga";
+import api from "./api/APIHandler";
 
-/// COMPONENTS
-import Header from "components/partials/Header";
-import Modal from 'components/partials/Modal';
-import ModalAbout from 'components/partials/ModalAbout';
+// PAGES
+import Simulator from "./views/Simulator";
+import Results from "./views/Results";
+import Workshops from "./views/Workshops";
+import WorkshopInfos from "./views/WorkshopInfos";
+import NotFound from "./views/NotFound";
 
-/// STYLES
+// COMPONENTS
+import Header from "./components/partials/Header";
+import Modal from "./components/partials/Modal";
+import ModalAbout from "./components/partials/ModalAbout";
+
+// STYLES
 import "./styles/app.css";
 import "./styles/Reset.css";
-
-/// GOOGLE ANALYTICS
-import ReactGA from "react-ga";
 
 if (window.location.hostname !== "localhost") {
   ReactGA.initialize("G-2ZWYF277Q1");
@@ -29,7 +29,7 @@ if (window.location.hostname !== "localhost") {
 
 ReactGA.event({
   category: "Screens",
-  action: window.screen.width + ":" + window.screen.height,
+  action: `${window.screen.width}:${window.screen.height}`,
 });
 
 function App() {
@@ -68,30 +68,31 @@ function App() {
   };
 
   const Desktop = () => {
-
-    const [open, setOpen] = useState(false); //pass to true for production
+    const [open, setOpen] = useState(false); // pass to true for production
 
     return (
       <>
-      <Header />
-      <main id="content-main">
-        <Modal 
-        isOpen={open}
-        closeModal={()=>setOpen(false)}
-        children={<ModalAbout></ModalAbout>}>
-      </Modal>
-        <Switch>
-          {/* BASIC */}
-          <Route exact path="/" component={Simulator} />
-          {/* SIMULATOR */}
-          <Route path="/simulator" component={Simulator} />
-          <Route path="/results" component={Results} />
-          <Route path="/workshops" component={Workshops} />
-          <Route path="/workshop/:id" component={WorkshopInfos} />
-          {/* NOT FOUND */}
-          <Route path="*" component={NotFound} />
-        </Switch>
-      </main>
+        <div id="header" className="flex-item jcenter">
+          <Header />
+        </div>
+
+        <main id="content-main" className="flex-item jcenter acenter">
+          <Modal isOpen={open} closeModal={() => setOpen(false)}>
+            <ModalAbout />
+          </Modal>
+
+          <Switch>
+            {/* BASIC */}
+            <Route exact path="/" component={Simulator} />
+            {/* SIMULATOR */}
+            <Route path="/simulator" component={Simulator} />
+            <Route path="/results" component={Results} />
+            <Route path="/workshops" component={Workshops} />
+            <Route path="/workshop/:id" component={WorkshopInfos} />
+            {/* NOT FOUND */}
+            <Route path="*" component={NotFound} />
+          </Switch>
+        </main>
       </>
     );
   };
