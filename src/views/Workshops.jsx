@@ -49,7 +49,7 @@ const Workshops = () => {
           </button>
         </div>
 
-        <img src="./svg/createWorkshop.svg" alt=""/>
+        <img src="./svg/createWorkshop.svg" alt="people collaborating on graphs" />
       </div>
     </div>
   );
