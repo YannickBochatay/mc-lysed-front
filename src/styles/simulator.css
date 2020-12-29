@@ -442,23 +442,30 @@ input[type="radio"] {
   margin-bottom: 10px;
 }
 
-#results-button-box {
-  width: 100%;
-  height: calc(20% - 80px);
-  background: var(--mainColor);
-  padding: 20px;
-}
-
-#results-button-box .btn {
-  margin-left: 15px;
-}
-
 .results-content-box {
   width: 100%;
   height: calc(100% - 26px);
   display: flex;
   justify-content: space-between;
 }
+
+
+/* ZONE III : Action buttons & icons */
+#results-button-box {
+  width: 100%;
+  height: calc(20% - 80px);
+  background: var(--mainColor);
+  padding: 0 20px;
+}
+
+#results-button-box .tool-box .icon-btn:not(:first-of-type) {
+  margin-left: 20px;
+}
+
+#results-button-box .button-box a {
+  margin-right: 20px;
+}
+
 
 /* GRAPH BOX */
 .graph-box {

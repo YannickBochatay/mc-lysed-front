@@ -1,5 +1,77 @@
-/* /// VALIDATE SCENARIO */
-.validate_scenario form {
+/* GLOBAL */
+.modal-sim {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 500px;
+}
+
+.modal-sim h2 {
+  align-self: flex-start;
+  margin-bottom: 40px;
+}
+
+
+/* VALIDATE SCENARIO CHOOSE TYPE */
+.modal-validate .primary-btn {
+  width: 350px;
+}
+
+.modal-validate p {
+  margin: 10px 0 50px;
+  font-size: 0.6em;
+  font-style: oblique;
+  text-align: right;
+  width: 350px;
+}
+
+.modal-validate .secondary-btn {
+  align-self: flex-end;
+}
+
+
+/* VALIDATE SCENARIO WORKSHOP */
+.modal-workshop .input-box {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.modal-workshop .input-box .columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.modal-workshop .input-box .cloud {
+  margin-top: 20px;
+}
+
+.modal-workshop > p {
+  margin: 20px 0;
+}
+
+.modal-workshop form {
+  width: 100%;
+}
+
+.modal-workshop .button-box {
+  justify-content: flex-end;
+  margin-top: 40px;
+}
+
+.modal-workshop button:first-of-type {
+  margin-right: 20px;
+}
+
+/* CONFIRM */
+.modal-confirm .button-box {
+  align-self: flex-end;
+  justify-content: flex-end;
+  margin-top: 40px;
+}
+
+.modal-confirm button:first-of-type {
+  margin-right: 20px;
 }

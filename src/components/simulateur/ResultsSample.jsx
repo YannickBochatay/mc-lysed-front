@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDownload, faCog, faLink } from "@fortawesome/free-solid-svg-icons";
+
 import Title from "../partials/Title";
 import ResultsIndicator from "./ResultsIndicator";
 import CompoChart from "../resultats/compoChart";
@@ -200,18 +203,35 @@ const ResultsSample = ({ results, values, jsonFile }) => {
           </div>
         </div>
 
-        <div id="results-button-box" className="flex-item acenter jcenter">
-          <Link className="btn simulator-btn" to={{ pathname: "/results", state: { results } }}>
-            Résultats
-          </Link>
+        <div id="results-button-box" className="flex-item acenter jbetween">
+          <div className="tool-box flex-item acenter">
+            {/* options */}
+            <button className="icon-btn" type="button">
+              <FontAwesomeIcon icon={faCog} />
+            </button>
+            {/* download */}
+            <button className="icon-btn" type="button">
+              <FontAwesomeIcon icon={faDownload} />
+            </button>
+            {/* share link */}
+            <button className="icon-btn" type="button">
+              <FontAwesomeIcon icon={faLink} />
+            </button>
+          </div>
 
-          <button
-            type="button"
-            className="btn simulator-btn"
-            onClick={() => handleValidateScenario()}
-          >
-            Valider mon scénario
-          </button>
+          <div className="button-box flex-item acenter">
+            <Link className="btn simulator-btn" to={{ pathname: "/results", state: { results } }}>
+              Résultats
+            </Link>
+
+            <button
+              type="button"
+              className="btn simulator-btn"
+              onClick={() => handleValidateScenario()}
+            >
+              Valider mon scénario
+            </button>
+          </div>
         </div>
       </section>
     );
@@ -337,14 +357,15 @@ const ResultsSample = ({ results, values, jsonFile }) => {
 
               <p className="results-title b7">Empreinte carbone</p>
               <div className="results-figure b8 flex-item" style={{ backgroundColor: "#b0e0e6" }}>
-                {results.impacts.empreinteFr}
-                t
+                {results.impacts.empreinteFr}t
               </div>
               <p className="results-legend b9">tCO2e / an / hab. en 2030</p>
             </div>
             <div id="results-button" className="flex-item">
               <Link to={{ pathname: "/results", state: { results } }}>
-                <button type="button" className="blue-btn">Résultats complets</button>
+                <button type="button" className="blue-btn">
+                  Résultats complets
+                </button>
               </Link>
             </div>
           </div>
@@ -379,8 +400,7 @@ const ResultsSample = ({ results, values, jsonFile }) => {
           </p>
           <p className="results-title n7">Empreinte carbone</p>
           <div className="results-figure n8 flex-item" style={{ backgroundColor: "#b0e0e6" }}>
-            {results.impacts.empreinteMonde}
-            t
+            {results.impacts.empreinteMonde}t
           </div>
           <p className="results-legend n9">tCO2e / an / hab. en 2030</p>
         </div>

@@ -34,28 +34,15 @@
   margin: 20px 0;
 }
 
-#modal-create .button-box {
-  justify-content: flex-end;
-  margin-top: 40px;
-}
-
-#modal-create .form {
-  display: flex;
-  flex-direction: column;
-}
-
 #modal-create .input-box {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 30px;
 }
 
-#modal-create .MuiInput-underline::after {
-  border-bottom: 2px solid var(--secondaryColor);
-}
-
-#modal-create .MuiFormLabel-root.Mui-focused {
-  color: var(--secondaryColor)
+#modal-create .button-box {
+  justify-content: flex-end;
+  margin-top: 40px;
 }
 
 #modal-create button:first-of-type {

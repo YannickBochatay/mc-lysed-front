@@ -41,7 +41,7 @@ const ModalCreateWorkshop = ({ closeModal, setWorkshopInfos, setModalWorkshopInf
       {isLoading && (
         <div id="sim_loader" className="modal-parent">
           <div id="sim_loader_content" className="modal-content">
-            <Loader type={"Oval"} color="#163E59" height={100} width={100} />
+            <Loader type="Oval" color="#163E59" height={100} width={100} />
           </div>
         </div>
       )}
@@ -50,7 +50,7 @@ const ModalCreateWorkshop = ({ closeModal, setWorkshopInfos, setModalWorkshopInf
 
       <p>Entrez les informations nécessaires pour lancer votre atelier</p>
 
-      <form className="form" onSubmit={(e) => handleSubmit(e)}>
+      <form className="form flex-column" onSubmit={(e) => handleSubmit(e)}>
         <div className="input-box">
           <FormControl>
             <InputLabel htmlFor="workshop_name">Nom de l'atelier*</InputLabel>
