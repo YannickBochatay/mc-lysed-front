@@ -17,11 +17,11 @@
   align-items: center;
   position: relative;
   background-color: white;
-  border-radius: 15px;
+  border-radius: 6px;
   padding: 50px 80px;
   max-width: 950px;
   max-height: 90vh;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .close-btn {
@@ -74,4 +74,26 @@
   background-color: var(--mainColor);
   color: white;
   padding: 5px 10px;
+}
+
+form .MuiInput-underline::after {
+  border-bottom: 2px solid var(--secondaryColor);
+}
+
+form .MuiFormLabel-root.Mui-focused, form .MuiCheckbox-colorSecondary.Mui-checked {
+  color: var(--secondaryColor);
+}
+
+form .MuiCheckbox-colorSecondary.Mui-checked:hover, form .MuiIconButton-colorSecondary:hover {
+  background-color: var(--seethrough);
+}
+
+form .MuiFormGroup-root .group {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+form .MuiFormHelperText-root {
+  align-self: flex-end;
 }

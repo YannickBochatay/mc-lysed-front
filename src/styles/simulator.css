@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Ruda:wght@400;500;600;700;800;900&display=swap");
 
-
 /* /// SECTIONS */
 .sim-page {
   height: 92vh;
@@ -70,7 +69,6 @@
 #results-emissions h1 {
   margin-left: 16px;
 }
-
 
 #sim-nav-box {
   align-items: center;
@@ -352,7 +350,7 @@
 }
 
 .sticky .sim-categorie {
-  background: #b0e0e6;
+  background: #eda54e;
 }
 
 .sim-param-box {
@@ -442,17 +440,6 @@ input[type="radio"] {
   margin-bottom: 10px;
 }
 
-#results-button-box {
-  width: 100%;
-  height: calc(20% - 80px);
-  background: var(--mainColor);
-  padding: 20px;
-}
-
-#results-button-box .btn {
-  margin-left: 15px;
-}
-
 .results-content-box {
   width: 100%;
   height: calc(100% - 26px);
@@ -460,12 +447,33 @@ input[type="radio"] {
   justify-content: space-between;
 }
 
+/* ZONE III : Action buttons & icons */
+#results-button-box {
+  width: 100%;
+  height: calc(20% - 80px);
+  background: var(--mainColor);
+  padding: 0 20px;
+}
+
+#results-button-box .tool-box .icon-btn:not(:first-of-type) {
+  margin-left: 20px;
+}
+
+#results-button-box .button-box a {
+  margin-right: 20px;
+}
+
 /* GRAPH BOX */
 .graph-box {
   width: 35%;
   height: 100%;
 }
-.graph-box > p {color: #797979; font-size:13px;text-align: right;margin-bottom: 2px;}
+.graph-box > p {
+  color: #797979;
+  font-size: 13px;
+  text-align: right;
+  margin-bottom: 2px;
+}
 
 .graph-compo {
   width: calc(100%);
@@ -496,9 +504,15 @@ input[type="radio"] {
   margin-right: 0;
 }
 
-.results-title {color:var(--mainColor);font-size: 10px;}
+.results-title {
+  color: var(--mainColor);
+  font-size: 10px;
+}
 
-#results-climat-box .indicators-secondary-box .results-title {height: 32px;margin-top: -4px;}
+#results-climat-box .indicators-secondary-box .results-title {
+  height: 32px;
+  margin-top: -4px;
+}
 
 .results-figure {
   font-family: var(--mainPolice);
@@ -510,9 +524,15 @@ input[type="radio"] {
   height: 45px;
 }
 
-.indicator-tooltip {font-size: 14px;margin-left: 10px;opacity: 0.7;}
+.indicator-tooltip {
+  font-size: 14px;
+  margin-left: 10px;
+  opacity: 0.7;
+}
 
-.indicators-main-box .results-figure {font-size: 25px;}
+.indicators-main-box .results-figure {
+  font-size: 25px;
+}
 
 /* /// RESULTS OLD*/
 
@@ -661,7 +681,7 @@ input[type="radio"] {
 }
 
 #area-tooltip {
-  z-index:100;
+  z-index: 100;
   padding: 10px;
   width: 350px;
   align-items: flex-start;
@@ -693,13 +713,13 @@ input[type="radio"] {
 .chart-tooltip h4 {
   font-size: 1.1em;
   align-self: center;
-  color:var(--mainColor)
+  color: var(--mainColor);
 }
 
 .chart-tooltip p {
   font-size: 0.9em;
   align-self: center;
-  color:var(--mainColor)
+  color: var(--mainColor);
 }
 
 /* /// COMPOSANT INDICATEUR AVEC TITRE BOX ET LEGENDE */
@@ -820,13 +840,21 @@ input[type="radio"] {
 }
 
 @media screen and (max-height: 600px) {
-  .sim-categorie-emissions {font-size: 11px;}
+  .sim-categorie-emissions {
+    font-size: 11px;
+  }
 
-  #results-top-box {height: 150px; }
+  #results-top-box {
+    height: 150px;
+  }
 
-  #results-bottom-box {height: calc(100% - 150px);}
+  #results-bottom-box {
+    height: calc(100% - 150px);
+  }
 
-  .results-title {font-size: 9px;}
+  .results-title {
+    font-size: 9px;
+  }
 
   .results-figure {
     font-size: 1.2em;

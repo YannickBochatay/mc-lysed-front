@@ -7,14 +7,14 @@
   min-width: 120px;
 }
 
-.btn:hover {
+.btn:hover, .icon-btn:hover {
   filter: opacity(0.5);
 }
 
 .primary-btn {
   background-color: var(--secondaryColor);
   border: 2px solid var(--secondaryColor);
-  color: var(--text-main);
+  color: white;
 }
 
 .secondary-btn {
@@ -27,6 +27,14 @@
   background-color: white;
   border: 2px solid white;
   color: var(--text-main);
+}
+
+.icon-btn {
+  background: none;
+  font-size: 2rem;
+  line-height: 1;
+  color: white;
+  border: none;
 }
 
 /* RESTE */

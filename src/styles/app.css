@@ -17,6 +17,7 @@
   --secondaryColor: #c3b832;
   --shadow: 0 0 8px #aaaaaa;
   --underline: rgba(195, 184, 50, 0.5);
+  --seethrough: rgba(195, 184, 50, 0.2);
 
   /* TEXT */
   --text-main: #505050;
