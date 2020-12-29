@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 
 //COMPONENTS
-import Header from "components/partials/Header";
 import Modal from 'components/partials/Modal';
 
 import ModalCreateWorkshop from 'components/Workshops/ModalCreateWorkshop';
@@ -18,11 +17,6 @@ const Workshops = () => {
 
     return (
         <div id="workshops">
-            
-            <Header />
-            
-            
-
             <Modal 
                 isOpen={modalCreateWorkshop}
                 closeModal={()=>setModalCreateWorkshop(false)}

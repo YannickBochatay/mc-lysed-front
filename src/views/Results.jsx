@@ -153,8 +153,6 @@ const Results = (props) => {
         <link rel="canonical" href="http://mission-climat.io/licenses" />
       </Helmet>
 
-       <Header background="color"/>
-
       
       <article id="hero-article">
 

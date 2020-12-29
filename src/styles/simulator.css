@@ -39,7 +39,7 @@
 /* /// SIM-NAV */
 
 .title {
-  background-color: var(--dark-green);
+  background-color: var(--mainColor);
   border-radius: 2px;
   display: flex;
   align-items: center;
@@ -446,7 +446,7 @@ input[type="radio"] {
 #results-button-box {
   width: 100%;
   height: calc(20% - 80px);
-  background: var(--dark-green);
+  background: var(--mainColor);
   padding: 20px;
 }
 

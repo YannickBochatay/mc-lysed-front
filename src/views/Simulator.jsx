@@ -1,6 +1,6 @@
 /// BASIC
 import React, { useState, useEffect } from "react";
-import Header from "components/partials/Header";
+
 import { Helmet } from "react-helmet";
 import ReactGA from "react-ga";
 import jsonFile from "ressources/initialDatas.json";
@@ -162,7 +162,6 @@ const Simulator = (props) => {
 
   return (
     <>
-      <Header />
       <div className="sim-page flex-item">
         <Helmet>
           <meta charSet="utf-8" />
