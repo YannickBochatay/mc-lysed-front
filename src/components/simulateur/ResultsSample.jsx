@@ -1,17 +1,16 @@
 import React, { useState } from "react";
 
 import { Link } from "react-router-dom";
-import Title from "components/partials/Title";
-import ResultsIndicator from "components/simulateur/ResultsIndicator";
-import CompoChart from "components/resultats/compoChart";
+import Title from "../partials/Title";
+import ResultsIndicator from "./ResultsIndicator";
+import CompoChart from "../resultats/compoChart";
 
-//MODALS
-import Modal from "components/partials/Modal";
-import ModalVSWorkshopType from "components/Workshops/ModalVSWorkshopType";
-import ModalVSConfigureScenario from "components/Workshops/ModalVSConfigureScenario";
-import ModalVSGeneralConfirmation from "components/Workshops/ModalVSGeneralConfirmation";
-import ModalVSConfirmationSent from "components/Workshops/ModalVSConfirmationSent";
-
+// MODALS
+import Modal from "../partials/Modal";
+import ModalVSWorkshopType from "../Workshops/ModalVSWorkshopType";
+import ModalVSConfigureScenario from "../Workshops/ModalVSConfigureScenario";
+import ModalVSGeneralConfirmation from "../Workshops/ModalVSGeneralConfirmation";
+import ModalVSConfirmationSent from "../Workshops/ModalVSConfirmationSent";
 
 const ResultsSample = ({ results, values, jsonFile }) => {
   const [modalVSWorkshopType, setModalVSWorkshopType] = useState(false);
@@ -57,58 +56,51 @@ const ResultsSample = ({ results, values, jsonFile }) => {
   if (width > 600) {
     return (
       <section className="sim-results-box flex-item flex-column">
-
         <Modal
           isOpen={modalVSWorkshopType}
           closeModal={() => setModalVSWorkshopType(false)}
           okButton={false}
-          children={
-            <ModalVSWorkshopType
-              closeModal={() => setModalVSWorkshopType(false)}
-              setWorkshopType={setWorkshopType}
-            ></ModalVSWorkshopType>
-          }
-        ></Modal>
+        >
+          <ModalVSWorkshopType
+            closeModal={() => setModalVSWorkshopType(false)}
+            setWorkshopType={setWorkshopType}
+          />
+        </Modal>
 
         <Modal
           isOpen={modalVSGeneralConfirmation}
           closeModal={() => setModalVSGeneralConfirmation(false)}
           okButton={false}
-          children={
-            <ModalVSGeneralConfirmation
-              closeModal={() => setModalVSGeneralConfirmation(false)}
-              results={results}
-              val={values}
-              jsonFile={jsonFile}
-            ></ModalVSGeneralConfirmation>
-          }
-        ></Modal>
+        >
+          <ModalVSGeneralConfirmation
+            closeModal={() => setModalVSGeneralConfirmation(false)}
+            results={results}
+            val={values}
+            jsonFile={jsonFile}
+          />
+        </Modal>
 
         <Modal
           isOpen={modalVSConfigureScenario}
           closeModal={() => setModalVSConfigureScenario(false)}
           okButton={false}
-          children={
-            <ModalVSConfigureScenario
-              results={results}
-              val={values}
-              jsonFile={jsonFile}
-              closeModal={() => setModalVSConfigureScenario(false)}
-              setModalVSConfirmationSent={setModalVSConfirmationSent}
-            ></ModalVSConfigureScenario>
-          }
-        ></Modal>
+        >
+          <ModalVSConfigureScenario
+            results={results}
+            val={values}
+            jsonFile={jsonFile}
+            closeModal={() => setModalVSConfigureScenario(false)}
+            setModalVSConfirmationSent={setModalVSConfirmationSent}
+          />
+        </Modal>
 
         <Modal
           isOpen={modalVSConfirmationSent}
           closeModal={() => setModalVSConfirmationSent(false)}
           okButton={false}
-          children={
-            <ModalVSConfirmationSent
-              closeModal={() => setModalVSConfirmationSent(false)}
-            ></ModalVSConfirmationSent>
-          }
-        ></Modal>
+        >
+          <ModalVSConfirmationSent closeModal={() => setModalVSConfirmationSent(false)} />
+        </Modal>
 
         <Title id="results-top-box">Impacts sur le territoire - 2030</Title>
 
@@ -209,7 +201,6 @@ const ResultsSample = ({ results, values, jsonFile }) => {
         </div>
 
         <div id="results-button-box" className="flex-item acenter jcenter">
-
           <Link className="btn simulator-btn" to={{ pathname: "/results", state: { results } }}>
             Résultats
           </Link>
@@ -346,13 +337,14 @@ const ResultsSample = ({ results, values, jsonFile }) => {
 
               <p className="results-title b7">Empreinte carbone</p>
               <div className="results-figure b8 flex-item" style={{ backgroundColor: "#b0e0e6" }}>
-                {results.impacts.empreinteFr}t
+                {results.impacts.empreinteFr}
+                t
               </div>
               <p className="results-legend b9">tCO2e / an / hab. en 2030</p>
             </div>
             <div id="results-button" className="flex-item">
-              <Link to={{ pathname: "/results", state: { results: results } }}>
-                <button className="blue-btn">Résultats complets</button>
+              <Link to={{ pathname: "/results", state: { results } }}>
+                <button type="button" className="blue-btn">Résultats complets</button>
               </Link>
             </div>
           </div>
@@ -363,7 +355,8 @@ const ResultsSample = ({ results, values, jsonFile }) => {
         <div id="results-impacts-box" className="flex-item">
           <p className="results-title n1">Températures</p>
           <div className="results-figure n2 flex-item" style={{ color: "white" }}>
-            +{results.impacts.temperature}°C
+            +{results.impacts.temperature}
+            °C
           </div>
           <p className="results-legend n3">
             Hausse moy. mondiale / 2100 (de {results.impacts.temperatureRange})
@@ -386,7 +379,8 @@ const ResultsSample = ({ results, values, jsonFile }) => {
           </p>
           <p className="results-title n7">Empreinte carbone</p>
           <div className="results-figure n8 flex-item" style={{ backgroundColor: "#b0e0e6" }}>
-            {results.impacts.empreinteMonde}t
+            {results.impacts.empreinteMonde}
+            t
           </div>
           <p className="results-legend n9">tCO2e / an / hab. en 2030</p>
         </div>

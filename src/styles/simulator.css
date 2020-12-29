@@ -190,7 +190,6 @@
 }
 
 /* /// TITRES CATEGORIES */
-
 .sim-categorie {
   padding: 1.5% 1em;
   justify-content: space-between;
@@ -275,7 +274,6 @@
 }
 
 /* /// OPTIONS */
-
 #optionsContainer {
   position: fixed;
   top: 0px;
@@ -412,12 +410,12 @@ input[type="radio"] {
 .marker2 {
   z-index: 3;
 }
+
 /* /////////////////////// */
 /* /// RESULTS */
 /* /////////////////////// */
 
 /* SECTIONS */
-
 #results-top-box {
   width: 100%;
   height: 40px;
@@ -463,7 +461,6 @@ input[type="radio"] {
 }
 
 /* GRAPH BOX */
-
 .graph-box {
   width: 35%;
   height: 100%;
@@ -476,7 +473,6 @@ input[type="radio"] {
 }
 
 /* INDICATOR BOX */
-
 .indicators-box {
   width: calc(65% - 24px);
   height: 100%;
@@ -794,13 +790,6 @@ input[type="radio"] {
   font-size: 0.7em;
   font-weight: lighter;
   margin-top: -0.2em;
-}
-
-/* /// VALIDATE SCENARIO */
-
-.validate_scenario form {
-  display: flex;
-  flex-direction: column;
 }
 
 @media screen and (max-width: 1110px) {
