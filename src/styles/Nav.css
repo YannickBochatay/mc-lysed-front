@@ -15,7 +15,7 @@ nav h4 {
 }
 
 nav h4 span {
-  color: var(--light-green);
+  color: var(--secondaryColor);
 }
 
 nav img {
@@ -29,7 +29,7 @@ nav > p {
   font-style: italic;
   padding: 5px 40px;
   color: var(--text-main);
-  background-color: var(--light-green);
+  background-color: var(--secondaryColor);
 }
 
 nav ul {

@@ -11,12 +11,13 @@ import WorkshopInfos from "views/WorkshopInfos";
 import NotFound from "views/NotFound";
 
 /// COMPONENTS
+import Header from "components/partials/Header";
 import Modal from 'components/partials/Modal';
 import ModalAbout from 'components/partials/ModalAbout';
 
 /// STYLES
 import "./styles/app.css";
-import "./styles/reset.css";
+import "./styles/Reset.css";
 
 /// GOOGLE ANALYTICS
 import ReactGA from "react-ga";
@@ -71,6 +72,8 @@ function App() {
     const [open, setOpen] = useState(false); //pass to true for production
 
     return (
+      <>
+      <Header />
       <main id="content-main">
         <Modal 
         isOpen={open}
@@ -89,6 +92,7 @@ function App() {
           <Route path="*" component={NotFound} />
         </Switch>
       </main>
+      </>
     );
   };
 

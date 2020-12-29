@@ -4,7 +4,7 @@
   /* grid-template-columns: 7fr 1fr; */
   gap: 5px;
   font-family: var(--font-main);
-  background-color: var(--dark-green);
+  background-color: var(--mainColor);
   color: white;
   padding: 10px 20px;
 }
