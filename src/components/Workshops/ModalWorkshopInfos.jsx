@@ -8,7 +8,11 @@ const ModalWorkshopInfos = ({ workshopInfos, closeModal }) => {
       <h2 className="container_title">Atelier créé !</h2>
 
       <p>
-        L'atelier <b>{workshopInfos.workshop_name}</b> a bien été créé. Les résultats seront visibles ici :
+        L'atelier 
+        {' '}
+        <b>{workshopInfos.workshop_name}</b>
+        {' '}
+        a bien été créé. Les résultats seront visibles ici :
         <br />
         <span>
           <a href={`http://mission-climat.io/ateliers/${workshopInfos.id}`}>
@@ -18,7 +22,9 @@ const ModalWorkshopInfos = ({ workshopInfos, closeModal }) => {
       </p>
 
       <p>
-        Le code à partager avec les participants : <b>{workshopInfos.workshop_code}</b>
+        Le code à partager avec les participants : 
+        {' '}
+        <b>{workshopInfos.workshop_code}</b>
       </p>
 
       <p>
