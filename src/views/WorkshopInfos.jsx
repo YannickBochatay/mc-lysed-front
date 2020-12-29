@@ -7,10 +7,15 @@ import IndicatorSecondary from "../components/partials/IndicatorSecondary";
 import ParametersDistributionBox from "../components/partials/ParametersDistributionBox";
 import ParametersTables from "../components/partials/ParametersTables";
 import WSTable from "../components/partials/WSTable";
+import Modal from "components/partials/Modal";
+import ModalDeleteWorkshop from "components/Workshops/ModalDeleteWorkshop";
 
 import { getValuesFormatted } from "utils/getValuesFormatted";
+import { computeData } from "utils/computeData";
 import "../styles/workshop_infos.css";
 
+
+//TO DO : put in a config js
 const aggregatorInfos = {
   lysed: {
     front: "http://localhost:3000",
@@ -24,43 +29,6 @@ const aggregatorInfos = {
   },
 };
 
-function median(values) {
-  if (values.length === 0) return 0;
-
-  values.sort(function (a, b) {
-    return a - b;
-  });
-
-  var half = Math.floor(values.length / 2);
-
-  if (values.length % 2) return values[half];
-
-  return (values[half - 1] + values[half]) / 2.0;
-}
-
-function standardDeviation(values) {
-  var avg = average(values);
-
-  var squareDiffs = values.map(function (value) {
-    var diff = value - avg;
-    var sqrDiff = diff * diff;
-    return sqrDiff;
-  });
-
-  var avgSquareDiff = average(squareDiffs);
-
-  var stdDev = Math.sqrt(avgSquareDiff);
-  return stdDev;
-}
-
-function average(data) {
-  var sum = data.reduce(function (sum, value) {
-    return sum + value;
-  }, 0);
-
-  var avg = sum / data.length;
-  return avg;
-}
 
 const WorkshopInfos = (props) => {
   //data got from the workshop api
@@ -81,10 +49,13 @@ const WorkshopInfos = (props) => {
   const [meanParams, setMeanParams] = useState(null);
   const [missionClimatVersion, setMissionClimatVersion] = useState(null);
 
+  const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState("Synthèse");
-
-  const [sector, setSector] = useState("Habitat");
+  const [sector, setSector] = useState("Habitat"); //TO DO : generic init
   const [sectorTable, setSectorTable] = useState(null);
+
+  //MODALS
+  const [modalDeleteWS, setModalDeleteWS] = useState(false);
 
   const [time, setTime] = useState(Date.now());
 
@@ -95,20 +66,28 @@ const WorkshopInfos = (props) => {
     api
       .get(`/aggregator/workshop/${id}/`)
       .then((res) => {
+        
         console.log(res);
         setWorkshopDataData(res.data);
 
         console.log("wokshopdata loaded", Date.now() - time);
 
-        // getMissionClimatVersion
-        for (const aggregator in aggregatorInfos) {
-          if (res.data.results[0].url.includes(aggregatorInfos[aggregator]["front"])) {
-            setMissionClimatVersion(aggregator);
-            break;
+        //handle case if results
+        if (res.data.results.length!==0) {
+          // getMissionClimatVersion
+          for (const aggregator in aggregatorInfos) {
+            if (res.data.results[0].url.includes(aggregatorInfos[aggregator]["front"])) {
+              setMissionClimatVersion(aggregator);
+              break;
+            }
           }
+          console.log("MC version identified", Date.now() - time);
+        }
+        else { //handle case no results yes
+          setIsLoading(false)
         }
 
-        console.log("MC version identified", Date.now() - time);
+        
       })
       .catch((err) => console.log(err));
   }, []);
@@ -147,6 +126,7 @@ const WorkshopInfos = (props) => {
           console.log(res);
           setResults(resTemp);
           console.log("results received", Date.now() - time);
+          setIsLoading(false)
 
           let indicatorsTemps = [];
           for (const area in resTemp.indicators) {
@@ -159,113 +139,6 @@ const WorkshopInfos = (props) => {
         .catch((err) => console.log(err));
     }
   }, [medianParams, missionClimatVersion]);
-
-  const computeData = (wsData, jsonData) => {
-    // function used to get all datas needed to display
-    //     - mean, median, stdev, ambitious, used, isComplete
-
-    //TODO : handle list type parameter
-    //TODO : calculate the ambition
-
-    function onlyUnique(value, index, self) {
-      return self.indexOf(value) === index;
-    }
-
-    const categories = [];
-    wsData.results.map((res) => res.parameters.map((param) => categories.push(param.category)));
-    const uniqueCategories = categories.filter(onlyUnique);
-
-    const isComplete =
-      jsonData.categories
-        .map((category) => uniqueCategories.includes(category.data.name))
-        .filter((v) => !v).length > 0
-        ? false
-        : true;
-
-    let finalDatas = {
-      parameters: [],
-      uniqueCategories,
-      isComplete,
-    };
-    const wsParams = wsData.results
-      .map((result) => result.parameters)
-      .reduce((a, v) => [...a, ...v]);
-
-    jsonData.categories.map((category, i) => {
-      if (uniqueCategories.includes(category.data.name)) {
-        category.parameters.map((param, j) => {
-          finalDatas.parameters.push({
-            category: category.data.name,
-            color: category.data.color,
-            colorHover: category.data.colorHover,
-            ...param.type,
-            ...param.data,
-            // "parametersInfos" : {...param.type,...param.data}
-          });
-
-          let wsValues = wsParams.filter((v) => v.index === param.data.index).map((v) => v.value);
-
-          finalDatas.parameters[finalDatas.parameters.length - 1].wsValues = wsValues;
-          finalDatas.parameters[finalDatas.parameters.length - 1].median = Math.round(
-            median(wsValues),
-            1,
-          );
-          finalDatas.parameters[finalDatas.parameters.length - 1].average = Math.round(
-            average(wsValues),
-            1,
-          );
-          finalDatas.parameters[finalDatas.parameters.length - 1].stdev = Math.round(
-            standardDeviation(wsValues),
-            1,
-          );
-          finalDatas.parameters[finalDatas.parameters.length - 1].stdevRel = Math.round(
-            (finalDatas.parameters[finalDatas.parameters.length - 1].stdev /
-              finalDatas.parameters[finalDatas.parameters.length - 1].average) *
-              100,
-            1,
-          );
-          finalDatas.parameters[finalDatas.parameters.length - 1].nbModif = wsValues.filter(
-            (v) => v !== param.data.value,
-          ).length;
-          finalDatas.parameters[finalDatas.parameters.length - 1].nbResults = wsValues.length;
-          //ambition to add
-        });
-      }
-    });
-
-    const setTableDatas = (data, type, key) => {
-      let table = { titles: ["Category", "Parameter", type] };
-      let tableRev = { titles: table.titles };
-
-      let tableData = [];
-      data.parameters.map((param) => {
-        tableData.push([param.category, param.name, param[key]]);
-      });
-
-      table.data = [...tableData.sort((a, b) => b[2] - a[2])];
-      tableRev.data = [...tableData.sort((a, b) => a[2] - b[2])];
-
-      return [{ ...table }, { ...tableRev }];
-    };
-
-    const [nbModifTable, nbModifRevTable] = setTableDatas(
-      finalDatas,
-      "Nb de modifications",
-      "nbModif",
-    );
-    const [consensusTable, consensusRevTable] = setTableDatas(
-      finalDatas,
-      "Ecart type relatif",
-      "stdevRel",
-    );
-
-    finalDatas.nbModifTable = nbModifTable;
-    finalDatas.nbModifRevTable = nbModifRevTable;
-    finalDatas.consensusTable = consensusTable;
-    finalDatas.consensusRevTable = consensusRevTable;
-
-    return finalDatas;
-  };
 
   //GET SECTOR TABLE (PARAMETERS)
   useEffect(() => {
@@ -302,7 +175,6 @@ const WorkshopInfos = (props) => {
   }, [computedDatas, sector]);
 
   const handleSectorsDetailTable = (table, sector) => {
-    console.log(table, sector);
 
     let dataFinal = [...table.data];
     let titlesFinal = [...table.titles];
@@ -321,14 +193,19 @@ const WorkshopInfos = (props) => {
     );
     titlesFinal.shift();
 
-    console.log(dataFinal, titlesFinal);
-
     return { titles: titlesFinal, data: dataFinal };
   };
 
+  const handleDeleteWS = (admin_code) => {
+    api
+      .delete(`/aggregator/workshop/${id}/`, admin_code )
+      .then((res) => {console.log(res)})
+      .catch((err) => console.log(err));
+  }
+
   return (
     <div id="workshop_infos" className="flex-item acenter">
-      {!results && (
+      {isLoading && (
         <div id="sim_loader" className="modal-parent">
           <div id="sim_loader_content" className="modal-content">
             <Loader type={"Oval"} color="#163E59" height={100} width={100} />
@@ -336,10 +213,23 @@ const WorkshopInfos = (props) => {
         </div>
       )}
 
+      <Modal
+          isOpen={modalDeleteWS}
+          closeModal={() => setModalDeleteWS(false)}
+          okButton={false}
+          children={
+            <ModalDeleteWorkshop
+              closeModal={() => setModalDeleteWS(false)}
+              handleDeleteWS={handleDeleteWS}
+            ></ModalDeleteWorkshop>
+          }
+        ></Modal>
+
       {workshopData && (
         <div className="main_container">
           <h1 className="container_title">{workshopData.workshop_name}</h1>
           <p>Nombre de contributions : {workshopData.results.length}</p>
+          <button onClick={() => setModalDeleteWS(true)}>Supprimer l'atelier</button>
           <div>
             <button onClick={() => setPage("Synthèse")}>Synthèse</button>
             <button onClick={() => setPage("Secteurs")}>Secteurs et Paramètres</button>
