@@ -95,6 +95,7 @@ const WorkshopInfos = (props) => {
     api
       .get(`/aggregator/workshop/${id}/`)
       .then((res) => {
+        
         console.log(res);
         setWorkshopDataData(res.data);
 

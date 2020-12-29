@@ -1,7 +1,6 @@
 import React from "react";
 
 const ModalWorkshopInfos = ({ workshopInfos, closeModal }) => {
-  console.log(workshopInfos);
 
   return (
     <div id="modal-confirm" className="flex-column jcenter">
@@ -15,25 +14,25 @@ const ModalWorkshopInfos = ({ workshopInfos, closeModal }) => {
         a bien été créé. Les résultats seront visibles ici :
         <br />
         <span>
-          <a href={`http://mission-climat.io/ateliers/${workshopInfos.id}`}>
-            {`http://mission-climat.io/ateliers/${workshopInfos.id}`}
+          <a href={`http://lysed.mission-climat.io/ateliers/${workshopInfos.id}`}>
+            {`http://lysed.mission-climat.io/ateliers/${workshopInfos.id}`}
           </a>
         </span>
       </p>
 
       <p>
-        Le code à partager avec les participants : 
+        Le code atelier à transmettre aux participants, utile au moment de la validation du scénario (afin de lier leur travail à votre atelier) : 
         {' '}
         <b>{workshopInfos.workshop_code}</b>
       </p>
 
       <p>
-        Le code administrateur à conserver pour éditer ou supprimer l'atelier :
+        Le code administrateur, utile pour éditer ou supprimer l'atelier, à ne pas partager :
         <br />
         <b>{workshopInfos.admin_code}</b>
       </p>
 
-      <p>Vous recevrez également ces informations par e-mail.</p>
+      <p>Ces informations vous sont également transmises par e-mail.</p>
 
       <button className="btn primary-btn" type="button" onClick={() => closeModal()}>
         Ok
