@@ -9,6 +9,7 @@ import ParametersTables from "../components/partials/ParametersTables";
 import WSTable from "../components/partials/WSTable";
 import Modal from "components/partials/Modal";
 import ModalDeleteWorkshop from "components/Workshops/ModalDeleteWorkshop";
+import Participants from "components/Workshops/Participants";
 
 import { getValuesFormatted } from "utils/getValuesFormatted";
 import { getUrl } from "utils/getUrl";
@@ -234,6 +235,7 @@ const WorkshopInfos = (props) => {
           <div>
             <button onClick={() => setPage("Synthèse")}>Synthèse</button>
             <button onClick={() => setPage("Secteurs")}>Secteurs et Paramètres</button>
+            <button onClick={() => setPage("Participants")}>Participants</button>
           </div>
           {page === "Secteurs" && (
             <div>
@@ -349,6 +351,13 @@ const WorkshopInfos = (props) => {
           )}
         </>
       )}
+
+
+      {page === "Participants" && (
+        <Participants medianParams={medianParams} jsonFile={jsonFile} computedDatas={computedDatas} results={results} id={id}/>
+      )}
+
+
     </div>
   );
 };
