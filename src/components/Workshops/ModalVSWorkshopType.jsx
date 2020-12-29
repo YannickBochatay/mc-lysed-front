@@ -3,10 +3,13 @@ import React from 'react'
 const ModalVSWorkshopType = ({setWorkshopType, closeModal}) => {
     return (
         <div>
-            <h2>Êtes vous dans le cadre d'un atelier ?</h2>
+            <h2>Valider mon scénario</h2>
+            <button onClick={()=>setWorkshopType("workshop")}>Je suis dans le cadre d'un atelier</button>
+            <p>Munissez vous de votre code atelier, partagé par l'animateur</p>
+            <button onClick={()=>setWorkshopType("general")}>Je suis un utilisateur classique</button>
+            <p>Validez votre scénario et comparez le aux autres !</p>
             <button onClick={()=>closeModal()}>Annuler</button>
-            <button onClick={()=>setWorkshopType("general")}>Non</button>
-            <button onClick={()=>setWorkshopType("workshop")}>Oui</button>
+            
         </div>
     )
 }

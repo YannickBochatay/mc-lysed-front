@@ -9,10 +9,15 @@ import CompoChart from "components/resultats/compoChart";
 import Modal from "components/partials/Modal";
 import ModalVSWorkshopType from "components/Workshops/ModalVSWorkshopType";
 import ModalVSConfigureScenario from "components/Workshops/ModalVSConfigureScenario";
+import ModalVSGeneralConfirmation from "components/Workshops/ModalVSGeneralConfirmation";
+import ModalVSConfirmationSent from "components/Workshops/ModalVSConfirmationSent";
+
 
 const ResultsSample = ({ results, values, jsonFile }) => {
   const [modalVSWorkshopType, setModalVSWorkshopType] = useState(false);
   const [modalVSConfigureScenario, setModalVSConfigureScenario] = useState(false);
+  const [modalVSGeneralConfirmation, setModalVSGeneralConfirmation] = useState(false);
+  const [modalVSConfirmationSent, setModalVSConfirmationSent] = useState(false);
 
   const width = window.innerWidth;
 
@@ -25,6 +30,10 @@ const ResultsSample = ({ results, values, jsonFile }) => {
     if (type == "workshop") {
       setModalVSWorkshopType(false);
       setModalVSConfigureScenario(true);
+    }
+    if (type == "general") {
+      setModalVSWorkshopType(false);
+      setModalVSGeneralConfirmation(true);
     }
   };
 
@@ -48,6 +57,7 @@ const ResultsSample = ({ results, values, jsonFile }) => {
   if (width > 600) {
     return (
       <section className="sim-results-box flex-item flex-column">
+
         <Modal
           isOpen={modalVSWorkshopType}
           closeModal={() => setModalVSWorkshopType(false)}
@@ -61,6 +71,20 @@ const ResultsSample = ({ results, values, jsonFile }) => {
         ></Modal>
 
         <Modal
+          isOpen={modalVSGeneralConfirmation}
+          closeModal={() => setModalVSGeneralConfirmation(false)}
+          okButton={false}
+          children={
+            <ModalVSGeneralConfirmation
+              closeModal={() => setModalVSGeneralConfirmation(false)}
+              results={results}
+              val={values}
+              jsonFile={jsonFile}
+            ></ModalVSGeneralConfirmation>
+          }
+        ></Modal>
+
+        <Modal
           isOpen={modalVSConfigureScenario}
           closeModal={() => setModalVSConfigureScenario(false)}
           okButton={false}
@@ -70,7 +94,19 @@ const ResultsSample = ({ results, values, jsonFile }) => {
               val={values}
               jsonFile={jsonFile}
               closeModal={() => setModalVSConfigureScenario(false)}
+              setModalVSConfirmationSent={setModalVSConfirmationSent}
             ></ModalVSConfigureScenario>
+          }
+        ></Modal>
+
+        <Modal
+          isOpen={modalVSConfirmationSent}
+          closeModal={() => setModalVSConfirmationSent(false)}
+          okButton={false}
+          children={
+            <ModalVSConfirmationSent
+              closeModal={() => setModalVSConfirmationSent(false)}
+            ></ModalVSConfirmationSent>
           }
         ></Modal>
 
