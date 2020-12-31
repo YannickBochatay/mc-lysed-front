@@ -130,15 +130,18 @@ const ResultsSample = ({ results, values, jsonFile }) => {
               </div>
 
               <div className="indicators-secondary-box">
-                {results.indicators.climate.secondary.map((indicator, i) => (
-                  <ResultsIndicator
-                    i={i}
-                    indicator={indicator}
-                    backgroundColor={secondaryColor}
-                    color={fontColor}
-                    width={handleIndicatorWidth(results.indicators.climate.secondary.length)}
-                  />
-                ))}
+                {results.indicators.climate.secondary.map((indicator, i) => {
+                  return (
+                    <ResultsIndicator
+                      key={indicator.name}
+                      i={i}
+                      indicator={indicator}
+                      backgroundColor={secondaryColor}
+                      color={fontColor}
+                      width={handleIndicatorWidth(results.indicators.climate.secondary.length)}
+                    />
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -167,15 +170,18 @@ const ResultsSample = ({ results, values, jsonFile }) => {
               </div>
 
               <div className="indicators-secondary-box">
-                {results.indicators.energy.secondary.map((indicator, i) => (
-                  <ResultsIndicator
-                    i={i}
-                    indicator={indicator}
-                    backgroundColor={secondaryColor}
-                    color={fontColor}
-                    width={handleIndicatorWidth(results.indicators.energy.secondary.length)}
-                  />
-                ))}
+                {results.indicators.energy.secondary.map((indicator, i) => {
+                  return (
+                    <ResultsIndicator
+                      key={indicator.name}
+                      i={i}
+                      indicator={indicator}
+                      backgroundColor={secondaryColor}
+                      color={fontColor}
+                      width={handleIndicatorWidth(results.indicators.energy.secondary.length)}
+                    />
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -187,17 +193,20 @@ const ResultsSample = ({ results, values, jsonFile }) => {
             <div className="graph-box"></div>
             <div className="indicators-box">
               <div className="indicators-secondary-box">
-                {results.indicators.air.secondary.map((indicator, i) => (
-                  <ResultsIndicator
-                    indicator={indicator}
-                    backgroundColor={handleIndicatorColor(
-                      indicator.value,
-                      indicatorObjectives.air[i],
-                    )}
-                    color={fontColor}
-                    width={handleIndicatorWidth(results.indicators.air.secondary.length)}
-                  />
-                ))}
+                {results.indicators.air.secondary.map((indicator, i) => {
+                  return (
+                    <ResultsIndicator
+                      key={indicator.name}
+                      indicator={indicator}
+                      backgroundColor={handleIndicatorColor(
+                        indicator.value,
+                        indicatorObjectives.air[i],
+                      )}
+                      color={fontColor}
+                      width={handleIndicatorWidth(results.indicators.air.secondary.length)}
+                    />
+                  );
+                })}
               </div>
             </div>
           </div>
