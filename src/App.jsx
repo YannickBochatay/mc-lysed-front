@@ -4,7 +4,6 @@ import { Route, Switch } from "react-router-dom";
 
 // GOOGLE ANALYTICS
 import ReactGA from "react-ga";
-import api from "./api/APIHandler";
 
 // PAGES
 import Simulator from "./views/Simulator";
@@ -15,15 +14,13 @@ import NotFound from "./views/NotFound";
 import GlobalSimulator from "./components/GlobalSimulator";
 
 /// COMPONENTS
+import Header from "components/partials/Header";
 import Modal from "components/partials/Modal";
 import ModalAbout from "components/partials/ModalAbout";
 
 // STYLES
 import "./styles/app.css";
 import "./styles/Reset.css";
-
-/// GOOGLE ANALYTICS
-import ReactGA from "react-ga";
 
 // TODO => Set in own useEffect ?
 if (window.location.hostname !== "localhost") {

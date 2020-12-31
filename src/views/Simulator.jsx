@@ -1,29 +1,29 @@
-// BASIC
+/// BASIC
 import React, { useState, useEffect } from "react";
-
+import Header from "components/partials/Header";
 import { Helmet } from "react-helmet";
 import ReactGA from "react-ga";
-import jsonFile from "../ressources/initialDatas.json";
+import jsonFile from "ressources/initialDatas.json";
 
-// COMPONENTS
-import SimulatorSettings from "../components/simulateur/SimulatorSettings";
-import SimulatorNavigation from "../components/simulateur/SimulatorNavigation";
-import Title from "../components/partials/Title";
-import OptionsBox from "../components/simulateur/OptionsBox";
-import ResultsSample from "../components/simulateur/ResultsSample";
-import SimulatorLoader from "../components/simulateur/SimulatorLoader";
+/// COMPONENTS
+import SimulatorSettings from "components/simulateur/SimulatorSettings";
+import SimulatorNavigation from "components/simulateur/SimulatorNavigation";
+import Title from "components/partials/Title";
+import OptionsBox from "components/simulateur/OptionsBox";
+import ResultsSample from "components/simulateur/ResultsSample";
+import SimulatorLoader from "components/simulateur/SimulatorLoader";
 
 // Custom Hooks
-import { useVisibility } from "../hooks/useVisibility";
+import { useVisibility } from "hooks/useVisibility";
 
 // Utility functions
-import { getUrl } from "../utils/getUrl";
-import { getValuesFormatted } from "../utils/getValuesFormatted";
-import { getValuesFromUrl } from "../utils/getValuesFromUrl";
+import { getUrl } from "utils/getUrl";
+import { getValuesFormatted } from "utils/getValuesFormatted";
+import { getValuesFromUrl } from "utils/getValuesFromUrl";
 
-import api from "../api/APIHandler";
-import "../styles/simulator.css";
-import "../styles/sim-modals.css";
+import api from "api/APIHandler";
+import "styles/simulator.css";
+import "styles/app.css";
 
 const Simulator = (props) => {
   const [values, setValues] = useState(null);

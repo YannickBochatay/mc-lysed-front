@@ -10,12 +10,12 @@ import Slider from "@material-ui/core/Slider";
 import SimulatorInformationBox from "components/simulateur/SimulatorInformationBox";
 import "styles/simParametreSlide.css";
 
-const SimParametreSlide = ({ data, value, setOneValue, cat }) => {
+const SimParametreSlide = ({ data, value, setOneValue, category }) => {
   const [componentClass, setComponentClass] = useState("");
 
   // Classes
-  const sliderClasses = useSliderStyles({ backgroundColor: cat.colorHover });
-  const classesToolTip = useToolTipStyles({ backgroundColor: cat.colorHover });
+  const sliderClasses = useSliderStyles({ backgroundColor: category.colorHover });
+  const classesToolTip = useToolTipStyles({ backgroundColor: category.colorHover });
 
   useEffect(() => {
     if (data.expert) {
@@ -28,21 +28,49 @@ const SimParametreSlide = ({ data, value, setOneValue, cat }) => {
   const classes = useStyles();
   const expanded = componentClass.includes("expanded");
 
-  const marks = [
-    {
-      value: data.min,
-      label: `${data.min}${data.unit}`,
-    },
-    {
-      value: data.value,
-    },
-    {
-      value: data.max,
-      label: `${data.max}${data.unit}`,
-    },
-  ];
+  const getMarks = () => {
+    return data.min === data.value
+      ? [
+          {
+            value: data.min,
+            label: `${data.min}${data.unit}`,
+          },
 
-  const handleChange = (event, val) => {
+          {
+            value: data.max,
+            label: `${data.max}${data.unit}`,
+          },
+        ]
+      : [
+          {
+            value: data.min,
+            label: `${data.min}${data.unit}`,
+          },
+          {
+            value: data.value,
+          },
+          {
+            value: data.max,
+            label: `${data.max}${data.unit}`,
+          },
+        ];
+  };
+
+  // const marks = [
+  //   {
+  //     value: data.min,
+  //     label: `${data.min}${data.unit}`,
+  //   },
+  //   {
+  //     value: data.value,
+  //   },
+  //   {
+  //     value: data.max,
+  //     label: `${data.max}${data.unit}`,
+  //   },
+  // ];
+
+  const handleChange = (_, val) => {
     setOneValue(val, data.index);
   };
 
@@ -67,21 +95,23 @@ const SimParametreSlide = ({ data, value, setOneValue, cat }) => {
   // ValueLabelComponent component for the Slider otherwise the Tooltip has it's ref lost
   // resulting in a tooltip that disappears / reappears on mouseup.
   const CustomValueLabel = React.useMemo(() => {
-    return React.forwardRef(({ children, value, ...restProps }, ref) => {
-      return (
-        <Tooltip
-          {...restProps}
-          classes={classesToolTip}
-          ref={ref}
-          enterTouchDelay={0}
-          placement="top"
-          title={value}
-          arrow
-        >
-          {children}
-        </Tooltip>
-      );
-    });
+    return React.forwardRef(
+      ({ children, value, valueLabelFormat, valueLabelDisplay, ...restProps }, ref) => {
+        return (
+          <Tooltip
+            {...restProps}
+            classes={classesToolTip}
+            ref={ref}
+            enterTouchDelay={0}
+            placement="top"
+            title={value}
+            arrow
+          >
+            {children}
+          </Tooltip>
+        );
+      },
+    );
   }, []);
 
   return (
@@ -111,7 +141,7 @@ const SimParametreSlide = ({ data, value, setOneValue, cat }) => {
           min={data.min}
           max={data.max}
           step={sliderStep}
-          marks={marks}
+          marks={getMarks()}
           scale={(x) => x + data.unit}
           ValueLabelComponent={CustomValueLabel}
           valueLabelDisplay="auto"
@@ -120,13 +150,12 @@ const SimParametreSlide = ({ data, value, setOneValue, cat }) => {
         />
       </div>
 
-      {expanded && <SimulatorInformationBox style={{ backgroundColor: "#E5EAEC" }} data={data} />}
+      {expanded && <SimulatorInformationBox style={{ backgroundColor: "red" }} data={data} />}
     </div>
   );
 };
 
 /** STYLES HOOKS */
-
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
