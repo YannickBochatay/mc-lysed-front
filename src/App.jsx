@@ -22,6 +22,10 @@ import ModalAbout from "components/partials/ModalAbout";
 import "./styles/app.css";
 import "./styles/Reset.css";
 
+/// GOOGLE ANALYTICS
+import ReactGA from "react-ga";
+
+// TODO => Set in own useEffect ?
 if (window.location.hostname !== "localhost") {
   ReactGA.initialize("G-2ZWYF277Q1");
   ReactGA.pageview(window.location.pathname + window.location.search);

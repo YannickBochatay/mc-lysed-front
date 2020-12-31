@@ -14,7 +14,7 @@ const initialData = {
   results: [],
 };
 
-export const ValuesContext = React.createContext();
+export const GlobalContext = React.createContext();
 
 const ValuesProvider = (props) => {
   const { children } = props;
@@ -107,14 +107,14 @@ const ValuesProvider = (props) => {
   }, [globalState.values]);
 
   return (
-    <ValuesContext.Provider
+    <GlobalContext.Provider
       value={{
         globalState,
         dispatch,
       }}
     >
       {children}
-    </ValuesContext.Provider>
+    </GlobalContext.Provider>
   );
 };
 
