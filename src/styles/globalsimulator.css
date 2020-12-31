@@ -1,0 +1,5 @@
+.graph_box {width:100%;height:300px;display: flex; justify-content: space-between;}
+.graph_box > * {width: 48%;}
+
+.slider_box {width:100%;display: flex; justify-content: space-between;}
+.slider_box > * {width: 48%;}

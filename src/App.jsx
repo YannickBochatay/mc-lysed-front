@@ -12,6 +12,7 @@ import Results from "./views/Results";
 import Workshops from "./views/Workshops";
 import WorkshopInfos from "./views/WorkshopInfos";
 import NotFound from "./views/NotFound";
+import GlobalSimulator from "./components/GlobalSimulator";
 
 // COMPONENTS
 import Header from "./components/partials/Header";
@@ -86,6 +87,7 @@ function App() {
             <Route exact path="/" component={Simulator} />
             {/* SIMULATOR */}
             <Route path="/simulator" component={Simulator} />
+            <Route path="/confidentialstuff" component={GlobalSimulator} />
             <Route path="/results" component={Results} />
             <Route path="/workshops" component={Workshops} />
             <Route path="/workshop/:id" component={WorkshopInfos} />
