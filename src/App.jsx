@@ -20,7 +20,7 @@ import ModalAbout from "components/partials/ModalAbout";
 
 // STYLES
 import "./styles/app.css";
-import "./styles/reset.css";
+import "./styles/Reset.css";
 
 if (window.location.hostname !== "localhost") {
   ReactGA.initialize("G-2ZWYF277Q1");
