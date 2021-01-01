@@ -25,7 +25,7 @@ const Header = () => {
       </Modal>
 
       <Link className="flex-item acenter" to="/">
-        <img src="./images/logo/missionclimat_blue.svg" alt="Logo" />
+        <img src="/images/logo/missionclimat_blue.svg" alt="Logo" />
         <h4>
           mission climat <span>#Lysed</span>
         </h4>
