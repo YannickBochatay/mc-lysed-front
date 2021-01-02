@@ -1,27 +1,27 @@
 import React, { useState, useEffect } from "react";
-import { faLink, faDownload } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleUp } from "@fortawesome/free-solid-svg-icons";
-import { Helmet } from "react-helmet";
-
-import ResultsIndicator from "components/simulateur/ResultsIndicator";
-import Header from "components/partials/Header";
-import ChartContainer from "components/resultats/ChartContainer";
-import ResultsSocial from "components/resultats/ResultsSocial";
-import CopyToClipboard from "components/CopyToClipboard";
-
-import "styles/results.css";
-import "styles/simulator.css";
 
 import ReactGA from "react-ga";
+
+import { faLink, faDownload, faAngleUp } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Helmet } from "react-helmet";
+
+import ResultsIndicator from "../components/simulateur/ResultsIndicator";
+import Header from "../components/partials/Header";
+import ChartContainer from "../components/resultats/ChartContainer";
+import ResultsSocial from "../components/resultats/ResultsSocial";
+import CopyToClipboard from "../components/CopyToClipboard";
+
+import "../styles/results.css";
+import "../styles/simulator.css";
 
 const Results = (props) => {
   const [arrowVisibility, setArrowVisibility] = useState("hidden");
   const [results, setResults] = useState(null);
-  
-  const indicatorObjectives = {climate:-27, energy:-11, air: [-70, -57]}
+
+  const indicatorObjectives = { climate: -27, energy: -11, air: [-70, -57] };
   const secondaryColor = "var(--lightgrey)";
-  const fontColor= "white"
+  const fontColor = "white";
 
   useEffect(() => {
     let results = null;
@@ -36,12 +36,12 @@ const Results = (props) => {
   }, [props.location.state]);
 
   function handleIndicatorColor(data, obj) {
-    const objReached = data / obj * 100
+    const objReached = (data / obj) * 100;
     return objReached >= 100
       ? "#B0E440"
       : objReached >= 50 && objReached < 100
       ? "#FFF176"
-      : "#EB1818"
+      : "#EB1818";
   }
 
   // useEffect(() => {
@@ -52,8 +52,6 @@ const Results = (props) => {
   //     action: "temp:" + results.impacts.temperature,
   //   });
   // }, [results]);
-
-
 
   function handleClickTracking(type) {
     ReactGA.event({
@@ -68,8 +66,8 @@ const Results = (props) => {
 
   function areaLegend(datas, type) {
     let dataValues = {};
-    var datasKey = "";
-    var unit = "";
+    let datasKey = "";
+    let unit = "";
     if (type === "area") {
       datasKey = "areaDatas";
       dataValues = datas.data.data;
@@ -83,29 +81,27 @@ const Results = (props) => {
     function formatThousands(nb) {
       nb += "";
       if (nb.length > 3) {
-        var nbSplitted = nb.split(".");
+        const nbSplitted = nb.split(".");
         nb = nbSplitted[0];
 
-        var finalNb = "";
+        let finalNb = "";
         for (let i = nb.length - 1; i >= 0; i--) {
           if ((i - nb.length + 1) % 3 === 0 && i - nb.length + 1 !== 0) {
-            finalNb = nb[i] + " " + finalNb;
+            finalNb = `${nb[i]  } ${  finalNb}`;
           } else {
             finalNb = nb[i] + finalNb;
           }
         }
-        return nbSplitted.length > 1 ? finalNb + "." + nbSplitted[1] : finalNb;
+        return nbSplitted.length > 1 ? `${finalNb  }.${  nbSplitted[1]}` : finalNb;
       }
       return nb;
     }
 
     datas[datasKey].map((data) => {
-      data.subText =
-        formatThousands(dataValues[dataValues.length - 1][data.dataKey]) +
-        " " +
-        unit +
-        " / Evolution : ";
-      let evolution = Math.round(
+      data.subText = `${formatThousands(
+        dataValues[dataValues.length - 1][data.dataKey],
+      )} ${unit} / Evolution : `;
+      const evolution = Math.round(
         ((dataValues[dataValues.length - 1][data.dataKey] - dataValues[0][data.dataKey]) /
           dataValues[0][data.dataKey]) *
           100,
@@ -113,12 +109,12 @@ const Results = (props) => {
       dataValues[0][data.dataKey] === 0
         ? (data.subText += " n/a")
         : evolution >= 0
-        ? (data.subText += "+" + evolution + "%")
-        : (data.subText += evolution + "%");
+        ? (data.subText += `+${  evolution  }%`)
+        : (data.subText += `${evolution  }%`);
       return data;
     });
 
-    let dataReversed = [...datas[datasKey]];
+    const dataReversed = [...datas[datasKey]];
     dataReversed.reverse();
 
     return dataReversed;
@@ -127,7 +123,7 @@ const Results = (props) => {
   function pieLegend(datas) {
     datas.data01.map((data) => {
       data.dataKey = data.name;
-      data.subText = Math.round(data.value) + " MtCO2";
+      data.subText = `${Math.round(data.value)  } MtCO2`;
       return data;
     });
 
@@ -153,9 +149,7 @@ const Results = (props) => {
         <link rel="canonical" href="http://mission-climat.io/licenses" />
       </Helmet>
 
-      
       <article id="hero-article">
-
         {/* nav */}
         {/* <div className="flex-item full-width">
           <div className="flex-column">
@@ -208,47 +202,51 @@ const Results = (props) => {
             permettant de visualiser les conséquences de votre scénario.
           </p>
         </div>
-
-        
-
-
       </article>
 
-
       <section id="res-synthese" className="flex-item flex-column">
-          <h2>Synthèse</h2>
+        <h2>Synthèse</h2>
 
-          <div className="flex-item flex-column">
-            <div id="res-synthese-indicator" className="flex-item">
+        <div className="flex-item flex-column">
+          <div id="res-synthese-indicator" className="flex-item">
+            <div className="tag-container flex-item flex-column">
+              <ResultsIndicator
+                indicator={results.indicators.climate.main[0]}
+                backgroundColor={handleIndicatorColor(
+                  results.indicators.climate.main[0].value,
+                  indicatorObjectives.climate,
+                )}
+                color={fontColor}
+                width="100%"
+              />
+            </div>
+            <div className="tag-container flex-item flex-column">
+              <ResultsIndicator
+                indicator={results.indicators.energy.main[0]}
+                backgroundColor={handleIndicatorColor(
+                  results.indicators.energy.main[0].value,
+                  indicatorObjectives.energy,
+                )}
+                color={fontColor}
+                width="100%"
+              />
+            </div>
+            {results.indicators.air.secondary.map((indicator, i) => (
               <div className="tag-container flex-item flex-column">
                 <ResultsIndicator
-                  indicator={results.indicators.climate.main[0]}
-                  backgroundColor={handleIndicatorColor(results.indicators.climate.main[0].value,indicatorObjectives.climate)}
+                  indicator={indicator}
+                  backgroundColor={handleIndicatorColor(
+                    indicator.value,
+                    indicatorObjectives.air[i],
+                  )}
                   color={fontColor}
                   width="100%"
                 />
               </div>
-              <div className="tag-container flex-item flex-column">
-                <ResultsIndicator
-                    indicator={results.indicators.energy.main[0]}
-                    backgroundColor={handleIndicatorColor(results.indicators.energy.main[0].value,indicatorObjectives.energy)}
-                    color={fontColor}
-                    width="100%"
-                  />
-              </div>
-              {results.indicators.air.secondary.map((indicator, i) => (
-                <div className="tag-container flex-item flex-column">
-                  <ResultsIndicator
-                    indicator={indicator}
-                    backgroundColor={handleIndicatorColor(indicator.value, indicatorObjectives.air[i])}
-                    color={fontColor}
-                    width="100%"
-                  />
-                </div>
-                ))}
-            </div>
+            ))}
+          </div>
 
-            {/* <div id="res-synthese-buttons" className="flex-item">
+          {/* <div id="res-synthese-buttons" className="flex-item">
               <div title="Copier l'url avec mes paramètres">
                 <CopyToClipboard text={results.url} fn={handleClickTracking.bind(null, "copyURL")}>
                   <FontAwesomeIcon icon={faLink} />
@@ -271,32 +269,27 @@ const Results = (props) => {
                 handleClickTracking={handleClickTracking}
               />
             </div> */}
-          </div>
-        </section>
+        </div>
+      </section>
 
-      <button id="blinking-results" style={{ visibility: arrowVisibility }}>
+      <button type="button" id="blinking-results" style={{ visibility: arrowVisibility }}>
         <a href="#hero-article">
           <FontAwesomeIcon icon={faAngleUp} />
         </a>
       </button>
 
-      <article id="res-emi-fr" className="flex-item flex-column">
-
+      <article id="res-emi-fr" className="flex-column">
         {Object.keys(results.completeResults).map((key, i) => (
           <>
             <h2>{results.completeResults[key].title}</h2>
-            <p dangerouslySetInnerHTML={handleInnerHTML(results.completeResults[key].intro)}></p>
+            <p dangerouslySetInnerHTML={handleInnerHTML(results.completeResults[key].intro)} />
 
-            {results.completeResults[key].graphs.map((graph,i)=> (
-              <ChartContainer {...graph}/>
+            {results.completeResults[key].graphs.map((graph, i) => (
+              <ChartContainer {...graph} />
             ))}
           </>
         ))}
-
       </article>
-
-
-      
     </div>
   );
 };

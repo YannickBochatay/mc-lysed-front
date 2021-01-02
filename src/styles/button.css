@@ -40,14 +40,47 @@
 .tab-btn {
   background: none;
   border: none;
-  border-radius: 0;
-  border-bottom: 4px solid var(--grey);
-  transition: ease-in-out 0.3s;
+  display: inline-block;
+  min-width: auto;
 }
 
-.tab-btn.active {
-  border-bottom: 4px solid var(--mainColor);
-  transition: ease-in-out 0.3s;
+.tab-btn::after {
+  content: '';
+  background-color: transparent;
+  height: 5px;
+  display: block;
+  margin-top: -2px;
+}
+
+.tab-btn.active::after {
+  content: '';
+  background-color: var(--underline);
+  height: 5px;
+  display: block;
+  margin-top: -2px;
+}
+
+.tab-bis-btn {
+  background: none;
+  border: none;
+  display: inline-block;
+  min-width: auto;
+}
+
+.tab-bis-btn::after {
+  content: '';
+  background-color: transparent;
+  height: 5px;
+  display: block;
+  margin-top: -2px;
+}
+
+.tab-bis-btn.active::after {
+  content: '';
+  background-color: var(--dark-underline);
+  height: 5px;
+  display: block;
+  margin-top: -2px;
 }
 
 /* RESTE */

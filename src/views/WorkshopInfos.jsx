@@ -2,17 +2,24 @@ import React, { useState, useEffect } from "react";
 import Loader from "react-loader-spinner";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDownload, faTrash, faUser, faLink, faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faDownload,
+  faTrash,
+  faUser,
+  faLink,
+  faCalendarAlt,
+  faLongArrowAltUp,
+  faLongArrowAltDown,
+} from "@fortawesome/free-solid-svg-icons";
 
 import api from "../api/APIHandler";
 import IndicatorMain from "../components/partials/IndicatorMain";
-import IndicatorSecondary from "../components/partials/IndicatorSecondary";
 import ParametersDistributionBox from "../components/partials/ParametersDistributionBox";
 import ParametersTables from "../components/partials/ParametersTables";
 import WSTable from "../components/partials/WSTable";
-import Modal from "components/partials/Modal";
-import ModalDeleteWorkshop from "components/Workshops/ModalDeleteWorkshop";
-import Participants from "components/Workshops/Participants";
+import Modal from "../components/partials/Modal";
+import ModalDeleteWorkshop from "../components/Workshops/ModalDeleteWorkshop";
+import Participants from "../components/Workshops/Participants";
 
 import { getValuesFormatted } from "../utils/getValuesFormatted";
 import { getUrl } from "../utils/getUrl";
@@ -208,10 +215,8 @@ const WorkshopInfos = (props) => {
   return (
     <div id="workshop_infos" className="flex-column acenter">
       {isLoading && (
-        <div id="sim_loader" className="modal-parent">
-          <div id="sim_loader_content" className="modal-content">
-            <Loader type="Oval" color="#163E59" height={100} width={100} />
-          </div>
+        <div id="sim_loader" className="modal-parent flex-item jcenter acenter">
+          <Loader type="Oval" color="var(--mainColor)" height={100} width={100} />
         </div>
       )}
 
@@ -275,22 +280,38 @@ const WorkshopInfos = (props) => {
           </div>
 
           <div className="workshop-tabs flex-item acenter jcenter">
-            <button className={page === "Synthèse" ? "btn tab-btn active" : "btn tab-btn"} type="button" onClick={() => setPage("Synthèse")}>
+            <button
+              className={page === "Synthèse" ? "btn tab-btn active" : "btn tab-btn"}
+              type="button"
+              onClick={() => setPage("Synthèse")}
+            >
               Synthèse
             </button>
-            <button className={page === "Secteurs" ? "btn tab-btn active" : "btn tab-btn"} type="button" onClick={() => setPage("Secteurs")}>
+            <button
+              className={page === "Secteurs" ? "btn tab-btn active" : "btn tab-btn"}
+              type="button"
+              onClick={() => setPage("Secteurs")}
+            >
               Secteurs et Paramètres
             </button>
-            <button className={page === "Participants" ? "btn tab-btn active" : "btn tab-btn"} type="button" onClick={() => setPage("Participants")}>
+            <button
+              className={page === "Participants" ? "btn tab-btn active" : "btn tab-btn"}
+              type="button"
+              onClick={() => setPage("Participants")}
+            >
               Participants
             </button>
           </div>
 
-
           {page === "Secteurs" && (
             <div className="sectors-menu flex-item acenter jcenter">
               {computedDatas.uniqueCategories.map((cat, i) => (
-                <button className={sector === cat ? "btn tab-btn active" : "btn tab-btn"} type="button" id={i} onClick={() => setSector(cat)}>
+                <button
+                  className={sector === cat ? "btn tab-bis-btn active" : "btn tab-bis-btn"}
+                  type="button"
+                  id={i}
+                  onClick={() => setSector(cat)}
+                >
                   {cat}
                 </button>
               ))}
@@ -302,30 +323,38 @@ const WorkshopInfos = (props) => {
       {/* /// SYNTHESE /// */}
       {page === "Synthèse" && (
         <>
+          {/* >> RESULTATS */}
           {indicators && (
-            <div className="main_container">
+            <div className="main_container result-box">
               <h2 className="container_title">Résultats</h2>
 
               <h3 className="container_secondary_title">Impacts généraux</h3>
-              <div className="indicator_box">
+
+              {/* BADGES */}
+              <div className="indicator_box main-box flex-item">
                 {indicators
                   .filter((v) => v.impactGnl === "1")
-                  .map((indicator) => (
+                  .map((indicator, i) => (
                     <IndicatorMain
+                      icon={i}
                       value={indicator.value}
                       unit={indicator.unit}
                       description={indicator.name}
                     />
                   ))}
               </div>
+
+              {/* TABLE */}
               <WSTable table={results.aggregator.impactGnlTable} numberDisplayed="all" />
 
               <h3 className="container_secondary_title">Impacts sur le territoire</h3>
-              <div className="indicator_box">
+
+              {/* BADGES */}
+              <div className="indicator_box secondary-box flex-item">
                 {indicators
                   .filter((v) => v.impactLcl === "1")
                   .map((indicator) => (
-                    <IndicatorSecondary
+                    <IndicatorMain
                       value={indicator.value}
                       unit={indicator.unit}
                       description={indicator.name}
@@ -335,33 +364,60 @@ const WorkshopInfos = (props) => {
             </div>
           )}
 
+          {/* >> PARAMETRES */}
           {indicators && (
             <div className="main_container">
               <h2 className="container_title">Paramètres clés</h2>
 
               <h3 className="container_secondary_title">Contributions</h3>
-              <ParametersTables
-                title="les plus utilisés"
-                table={computedDatas.nbModifTable}
-                numberDisplayed={3}
-              />
-              <ParametersTables
-                title="les moins utilisés"
-                table={computedDatas.nbModifRevTable}
-                numberDisplayed={3}
-              />
+
+              <div className="param-box flex-item acenter jbetween">
+                <ParametersTables
+                  title={(
+                    <h4 className="tab-btn active">
+                      <FontAwesomeIcon icon={faLongArrowAltUp} />
+                      Les plus utilisés
+                    </h4>
+                  )}
+                  table={computedDatas.nbModifTable}
+                  numberDisplayed={3}
+                />
+                <ParametersTables
+                  title={(
+                    <h4 className="tab-btn active">
+                      <FontAwesomeIcon icon={faLongArrowAltDown} />
+                      Les moins utilisés
+                    </h4>
+                  )}
+                  table={computedDatas.nbModifRevTable}
+                  numberDisplayed={3}
+                />
+              </div>
 
               <h3 className="container_secondary_title">Consensus</h3>
-              <ParametersTables
-                title="les plus consensuels"
-                table={computedDatas.consensusRevTable}
-                numberDisplayed={3}
-              />
-              <ParametersTables
-                title="les moins consensuels"
-                table={computedDatas.consensusTable}
-                numberDisplayed={3}
-              />
+
+              <div className="param-box flex-item acenter jbetween">
+                <ParametersTables
+                  title={(
+                    <h4 className="tab-btn active">
+                      <FontAwesomeIcon icon={faLongArrowAltUp} />
+                      Les plus consensuels
+                    </h4>
+                  )}
+                  table={computedDatas.consensusRevTable}
+                  numberDisplayed={3}
+                />
+                <ParametersTables
+                  title={(
+                    <h4 className="tab-btn active">
+                      <FontAwesomeIcon icon={faLongArrowAltDown} />
+                      Les moins consensuels
+                    </h4>
+                  )}
+                  table={computedDatas.consensusTable}
+                  numberDisplayed={3}
+                />
+              </div>
             </div>
           )}
         </>
@@ -371,12 +427,12 @@ const WorkshopInfos = (props) => {
       {page === "Secteurs" && (
         <>
           {computedDatas && (
-            <div className="main_container">
+            <div className="main_container sector-page">
               <h2 className="container_title">Détails par secteur</h2>
 
-              <h3 className="container_secondary_title">Secteurs / Résumé</h3>
+              <h3 className="container_secondary_title">Secteurs - Résumé</h3>
 
-              {results && (
+              {/* {results && (
                 <WSTable
                   table={handleSectorsDetailTable(
                     { ...results.aggregator.sectorsDetailTable },
@@ -384,15 +440,15 @@ const WorkshopInfos = (props) => {
                   )}
                   numberDisplayed="all"
                 />
-              )}
+              )} */}
 
-              <h3 className="container_secondary_title">Paramètres / Résumé</h3>
+              <h3 className="container_secondary_title">Paramètres - Résumé</h3>
 
               {sectorTable && <WSTable table={sectorTable} numberDisplayed="all" />}
 
-              <h3 className="container_secondary_title">Paramètres / Distribution</h3>
+              <h3 className="container_secondary_title">Paramètres - Distribution</h3>
 
-              <div id="parameters_distribution_container">
+              <div id="parameters_distribution_container" className="flex-item jbetween">
                 {computedDatas.parameters
                   .filter((param) => param.category === sector)
                   .map((param) => (
@@ -403,13 +459,17 @@ const WorkshopInfos = (props) => {
           )}
         </>
       )}
-
-
+      
+      {/* /// PARTICIPANTS /// */}
       {page === "Participants" && (
-        <Participants medianParams={medianParams} jsonFile={jsonFile} computedDatas={computedDatas} results={results} id={id}/>
+        <Participants
+          medianParams={medianParams}
+          jsonFile={jsonFile}
+          computedDatas={computedDatas}
+          results={results}
+          id={id}
+        />
       )}
-
-
     </div>
   );
 };

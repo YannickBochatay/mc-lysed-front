@@ -7,11 +7,11 @@ const Modal = ({ isOpen, closeModal, children, okButton }) => {
   console.log(children)
 
   return (
-    <div className="modal-parent">
-      <div className="modal-content">
+    <div className="modal-parent flex-item jcenter acenter">
+      <div className="modal-content flex-column acenter">
         {children}
         {okButton && (
-          <button type="button" className="close-btn" onClick={closeModal}>
+          <button type="button" className="btn primary-btn close-btn" onClick={closeModal}>
             Ok
           </button>
         )}

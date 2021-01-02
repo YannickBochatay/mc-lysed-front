@@ -16,11 +16,11 @@ const Header = () => {
 
   return (
     <nav>
-      <Modal isOpen={openAbout} closeModal={() => setOpenAbout(false)}>
+      <Modal isOpen={openAbout} closeModal={() => setOpenAbout(false)} okButton>
         <ModalAbout />
       </Modal>
 
-      <Modal isOpen={openHelp} closeModal={() => setOpenHelp(false)}>
+      <Modal isOpen={openHelp} closeModal={() => setOpenHelp(false)} okButton>
         <ModalHelp />
       </Modal>
 

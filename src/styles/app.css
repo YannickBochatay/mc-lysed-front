@@ -16,7 +16,9 @@
   --mainColor: #4c7777;
   --secondaryColor: #c3b832;
   --shadow: 0 0 8px #aaaaaa;
+  --light-shadow: 0 0 8px #dddddd;
   --underline: rgba(195, 184, 50, 0.5);
+  --dark-underline: rgba(76, 119, 119, 0.5);
   --seethrough: rgba(195, 184, 50, 0.2);
 
   /* TEXT */
@@ -186,15 +188,6 @@ h3 {
   font-size: 25px;
   margin-bottom: 5px;
   line-height: 28px;
-}
-
-h4 {
-  font-family: var(--mainPolice);
-  font-size: 22px;
-  font-weight: bold;
-  color: var(--mainColor);
-  margin-bottom: 2px;
-  line-height: 1.5rem;
 }
 
 .nopad {

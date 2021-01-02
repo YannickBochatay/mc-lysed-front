@@ -1,14 +1,15 @@
-import React from 'react'
+import React from "react";
 import ParametersDistributionChart from "./ParametersDistributionChart";
 
-const ParametersDistributionBox = ({data}) => {
-    return (
-        <div className="parameter_distribution_box">
-            <h5>{data.name}</h5>
-            <h5>{data.description}</h5>
-            <ParametersDistributionChart data={data} />
-        </div>
-    )
-}
+const ParametersDistributionBox = ({ data }) => {
+  return (
+    <div className="parameter_distribution_box">
+      <h4 className="tab-btn active">{data.name}</h4>
+      <p>{data.description}</p>
 
-export default ParametersDistributionBox
+      <ParametersDistributionChart data={data} />
+    </div>
+  );
+};
+
+export default ParametersDistributionBox;

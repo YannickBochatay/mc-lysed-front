@@ -1,8 +1,5 @@
 .modal-parent {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
@@ -12,39 +9,23 @@
 }
 
 .modal-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   position: relative;
   background-color: white;
   border-radius: 6px;
   padding: 50px 80px;
   max-width: 950px;
   max-height: 90vh;
-  overflow-y: auto;
+  overflow-y: scroll;
 }
 
-.close-btn {
-  margin-top: 20px;
-  font-family: var(--mainPolice);
-  font-size: 18px;
-  line-height: 18px;
-  font-weight: normal;
-  align-self: center;
-  border: none;
-  cursor: pointer;
-  padding: 12px 40px;
-  background: var(--mainColor);
-  border-radius: 2px;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
+.modal-content table {
+  margin-top: 0;
+}
+
+.modal-content .close-btn {
   align-self: flex-end;
 }
 
-.close-btn:hover {
-  background-color: #012340;
-}
 
 /* /// INTRO */
 #intro-modal ul {
