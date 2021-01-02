@@ -432,7 +432,7 @@ const WorkshopInfos = (props) => {
 
               <h3 className="container_secondary_title">Secteurs - Résumé</h3>
 
-              {/* {results && (
+              {results && (
                 <WSTable
                   table={handleSectorsDetailTable(
                     { ...results.aggregator.sectorsDetailTable },
@@ -440,7 +440,7 @@ const WorkshopInfos = (props) => {
                   )}
                   numberDisplayed="all"
                 />
-              )} */}
+              )}
 
               <h3 className="container_secondary_title">Paramètres - Résumé</h3>
 

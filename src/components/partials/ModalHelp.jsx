@@ -1,38 +1,35 @@
 import React from "react";
 
+import { faQuestionCircle } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 const ModalHelp = () => {
   return (
     <div id="intro-modal">
-      <h3>Aide</h3>
+      <h2 className="container_title">Aide</h2>
+
       <p>
-        <b>
-          Avec Mission Climat Territoires, imaginez le futur de votre territoire grâce à l’évolution
-          des mesures prises dans les différents secteurs d’actions
-        </b>{" "}
-        (des bâtiments, de l’énergie, des transports, de l’industrie ou encore des énergies
-        renouvelables).
+        Avec <b>Mission Climat Territoires</b>, imaginez le futur de votre territoire grâce à l’<b>évolution des mesures prises</b> dans les différents <b>secteurs d’actions</b> (bâtiment, tertiaire, transports, industrie ou énergie).
       </p>
+
       <p>
-        <b>En déplaçant les curseurs, vous visualiserez</b> les effets sur le territoire à horizon
-        2030 pour tester votre niveau d’ambition par rapport aux objectifs. Il s’agit d’un véritable{" "}
-        <b>simulateur climat</b>, permettant de visualiser les efforts à réaliser pour atténuer le
-        réchauffement climatique.
+        En <b>déplaçant les curseurs</b>, vous visualiserez les effets sur le territoire à horizon 2030 pour tester votre niveau d’ambition par rapport aux <b>objectifs</b>. Il s’agit d’un <b>véritable simulateur climat</b>, permettant de <b>visualiser les efforts</b> à réaliser pour <b>atténuer le réchauffement climatique</b>.
       </p>
+
       <ol>
         <li>
           Dans un premier temps, <b>prenez connaissance des différents paramètres modifiables</b>{" "}
-          des 5 secteurs d’actions. Pour une meilleure compréhension, cliquez sur (?) si vous avez
+          des secteurs d’actions. Pour une meilleure compréhension, cliquez sur le symbole <FontAwesomeIcon icon={faQuestionCircle} /> si vous avez
           besoin de précisions.{" "}
         </li>
         <li>
-          Puis, réalisez votre scenario en{" "}
+          Puis, réalisez votre scénario en{" "}
           <b>déplaçant les curseurs des différents paramètres d’actions</b> pour que{" "}
           <b>les indicateurs d’impacts apparaissent en vert.</b> Cela signifiera que les objectifs
           ont été atteints.{" "}
         </li>
         <li>
-          Enfin, cliquez sur <b>« voir mes résultats complets »</b> afin de prendre connaissance des
-          impacts de votre scenario de manière plus détaillée.{" "}
+          Enfin, cliquez sur <b>« Résultats »</b> afin de prendre connaissance des impacts de votre scenario de manière plus détaillée.{" "}
         </li>
       </ol>
     </div>

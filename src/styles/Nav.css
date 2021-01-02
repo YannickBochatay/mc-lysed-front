@@ -13,6 +13,7 @@ nav {
 nav h4 {
   font-family: var(--font-fun);
   color: var(--text-main);
+  font-size: 22px;
 }
 
 nav h4 span {
@@ -33,7 +34,7 @@ nav > p {
   background-color: var(--secondaryColor);
 }
 
-nav ul {
+nav > ul {
   list-style-type: none;
   justify-content: flex-end;
 }
@@ -42,31 +43,7 @@ nav button {
   margin-left: 15px;
 }
 
-nav .indicator {
-  background: #e5eaec;
-  border-radius: 2px;
-  color: var(--mainColor);
-  cursor: pointer;
-  padding: 4px 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-nav .indicator-tooltip {
+.main-nav button svg {
   color: var(--mainColor);
   margin-right: 8px;
-  font-size: 16px;
-  opacity: 1;
-  margin-left: 0;
-  margin-top: 1px;
-}
-nav .indicator:hover {
-  background: var(--mainColor);
-  color: white;
-}
-nav .indicator:hover .indicator-tooltip {
-  color: white;
-}
-nav li {
-  color: var(--mainColor);
 }
