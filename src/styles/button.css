@@ -23,6 +23,16 @@
   color: var(--mainText);
 }
 
+
+/* TOOLTIP : SIMULATOR */
+.see-more-btn {
+  color: var(--darkblue);
+  line-height: 0.5em;
+  font-size: 1.2em;
+}
+
+
+/* ZONE 3 : SIMULATOR */
 .simulator-btn {
   background-color: white;
   border: 2px solid white;
@@ -37,6 +47,8 @@
   border: none;
 }
 
+
+/* TABS : WORKSHOPS + RESULTS*/
 .tab-btn {
   background: none;
   border: none;
@@ -60,22 +72,7 @@
   margin-top: -2px;
 }
 
-.tab-bis-btn {
-  background: none;
-  border: none;
-  display: inline-block;
-  min-width: auto;
-}
-
-.tab-bis-btn::after {
-  content: "";
-  background-color: transparent;
-  height: 5px;
-  display: block;
-  margin-top: -2px;
-}
-
-.tab-bis-btn.active::after {
+.tab-btn.active-bis::after {
   content: "";
   background-color: var(--light-mainColor);
   height: 5px;
@@ -83,27 +80,14 @@
   margin-top: -2px;
 }
 
-/* RESTE */
 
-.valid-button {
-  color: #021438;
-  font-size: 0.8em;
-  background-image: var(--backgreen);
-  background-size: 120% 120%;
-  background-position: center;
-  border: 2px solid transparent;
-  font-weight: bold;
+/* BLINKING ARROW : HOME + RESULTS*/
+.blinking {
+  animation: blinker 2s linear infinite;
 }
 
-#cta-btn {
-  font-size: 1.3em;
-  color: #021438;
-}
-
-.see-more-btn {
-  /* border-color: var(--darkblue); */
-  color: var(--darkblue);
-  /* background-color: var(--darkblue); */
-  line-height: 0.5em;
-  font-size: 1.2em;
+@keyframes blinker {
+  50% {
+      opacity: 0;
+  }
 }

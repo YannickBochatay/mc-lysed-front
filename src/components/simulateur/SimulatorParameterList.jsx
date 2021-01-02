@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
-import { faMinusSquare } from "@fortawesome/free-solid-svg-icons";
-import "styles/simParametreSlide.css";
+import { faQuestionCircle, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
+
+import "../../styles/simParametreSlide.css";
 
 const SimParametreList = ({ data, value, setOneValue, cat }) => {
   const [defaultValue, setDefaultValue] = useState(value[0]);
@@ -22,13 +23,13 @@ const SimParametreList = ({ data, value, setOneValue, cat }) => {
   };
 
   function toggleClass() {
-    var componentClassSt = "";
+    let componentClassSt = "";
     if (data.expert) componentClassSt += "mode-expert";
     if (componentClass.includes("param-container-normal")) {
-      setComponentClass(componentClassSt + " param-container-expanded");
+      setComponentClass(`${componentClassSt  } param-container-expanded`);
       setInfoClass("param-info-container-visible flex-item");
     } else {
-      setComponentClass(componentClassSt + " param-container-normal");
+      setComponentClass(`${componentClassSt  } param-container-normal`);
       setInfoClass("param-info-container-hidden");
     }
   }
@@ -37,12 +38,12 @@ const SimParametreList = ({ data, value, setOneValue, cat }) => {
 
   return (
     <div className={componentClass}>
-      <div id={"param" + data.index}>
+      <div id={`param${  data.index}`}>
         <div className="param-header flex-item nomarge nopad">
           <h6 className="param-name nomarge">{data.name}</h6>
           <button type="button" className="see-more-btn icon-box nomarge nopad" onClick={toggleClass}>
             {!expanded && <FontAwesomeIcon icon={faQuestionCircle} />}
-            {expanded && <FontAwesomeIcon icon={faMinusSquare} />}
+            {expanded && <FontAwesomeIcon icon={faTimesCircle} />}
           </button>
         </div>
         {data.description && <p className="small-param-desc">{data.description}</p>}
@@ -59,7 +60,7 @@ const SimParametreList = ({ data, value, setOneValue, cat }) => {
                   onChange={handleChange}
                   checked={val === defaultValue}
                 />
-                <label className="small-param-desc" key={"lab" + i} htmlFor={val}>
+                <label className="small-param-desc" key={`lab${  i}`} htmlFor={val}>
                   {val}
                 </label>
               </div>

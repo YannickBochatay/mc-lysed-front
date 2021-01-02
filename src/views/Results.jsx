@@ -7,20 +7,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Helmet } from "react-helmet";
 
 import ResultsIndicator from "../components/simulateur/ResultsIndicator";
-import Header from "../components/partials/Header";
 import ChartContainer from "../components/resultats/ChartContainer";
 import ResultsSocial from "../components/resultats/ResultsSocial";
 import CopyToClipboard from "../components/CopyToClipboard";
 
 import "../styles/results.css";
-import "../styles/simulator.css";
 
 const Results = (props) => {
   const [arrowVisibility, setArrowVisibility] = useState("hidden");
   const [results, setResults] = useState(null);
 
   const indicatorObjectives = { climate: -27, energy: -11, air: [-70, -57] };
-  const secondaryColor = "var(--lightgrey)";
   const fontColor = "white";
 
   useEffect(() => {
@@ -87,12 +84,12 @@ const Results = (props) => {
         let finalNb = "";
         for (let i = nb.length - 1; i >= 0; i--) {
           if ((i - nb.length + 1) % 3 === 0 && i - nb.length + 1 !== 0) {
-            finalNb = `${nb[i]  } ${  finalNb}`;
+            finalNb = `${nb[i]} ${finalNb}`;
           } else {
             finalNb = nb[i] + finalNb;
           }
         }
-        return nbSplitted.length > 1 ? `${finalNb  }.${  nbSplitted[1]}` : finalNb;
+        return nbSplitted.length > 1 ? `${finalNb}.${nbSplitted[1]}` : finalNb;
       }
       return nb;
     }
@@ -109,8 +106,8 @@ const Results = (props) => {
       dataValues[0][data.dataKey] === 0
         ? (data.subText += " n/a")
         : evolution >= 0
-        ? (data.subText += `+${  evolution  }%`)
-        : (data.subText += `${evolution  }%`);
+        ? (data.subText += `+${evolution}%`)
+        : (data.subText += `${evolution}%`);
       return data;
     });
 
@@ -123,7 +120,7 @@ const Results = (props) => {
   function pieLegend(datas) {
     datas.data01.map((data) => {
       data.dataKey = data.name;
-      data.subText = `${Math.round(data.value)  } MtCO2`;
+      data.subText = `${Math.round(data.value)} MtCO2`;
       return data;
     });
 
@@ -141,7 +138,7 @@ const Results = (props) => {
   if (!results) return null;
 
   return (
-    <div className="results-page flex-item flex-column">
+    <div className="results-page flex-column acenter jcenter">
       <Helmet>
         <meta charSet="utf-8" />
         <title>Mission Climat / Résultats</title>
@@ -149,63 +146,27 @@ const Results = (props) => {
         <link rel="canonical" href="http://mission-climat.io/licenses" />
       </Helmet>
 
-      <article id="hero-article">
-        {/* nav */}
-        {/* <div className="flex-item full-width">
-          <div className="flex-column">
-            <a href="#res-synthese">
-              <div className="chapter-selection">
-                <img src="/images/results/fiche synthèse - blanc.svg" alt="" />
-                <br />
-                <span>Synthèse</span>
-              </div>
-            </a>
-          </div>
+      <button
+        type="button"
+        className="btn blinking"
+      >
+        <a href="#hero-article">
+          <FontAwesomeIcon icon={faAngleUp} />
+        </a>
+      </button>
 
-          <div className="flex-column">
-            <a href="#res-emi-fr">
-              <div className="chapter-selection">
-                <img src="/images/results/nuage CO2 - blanc.svg" alt="" />
-                <br />
-                <span>Emissions françaises</span>
-              </div>
-            </a>
-          </div>
-
-          <div className="flex-column">
-            <a href="#res-emi-world">
-              <div className="chapter-selection">
-                <img src="/images/results/emission monde - blanc.svg" alt="" />
-                <br />
-                <span>Emissions mondiales</span>
-              </div>
-            </a>
-          </div>
-
-          <div className="flex-column">
-            <a href="#res-impacts">
-              <div className="chapter-selection">
-                <img src="/images/results/impact - blanc.svg" alt="" />
-                <br />
-                <span>Impacts</span>
-              </div>
-            </a>
-          </div>
-        </div> */}
-
-        <div className="contribuer-title flex-item flex-column">
-          <h1>Résultats Complets</h1>
-        </div>
+      <section id="hero-article" className="main_container">
+        <h1 className="container_title">Résultats</h1>
         <div className="contact-white">
           <p>
-            Retrouvez sur cette page une synthèse de vos résultats et de nombreux graphiques vous
-            permettant de visualiser les conséquences de votre scénario.
+            Retrouvez sur cette page une synthèse de vos résultats et des graphiques vous permettant
+            de visualiser les conséquences de votre scénario.
           </p>
         </div>
-      </article>
+      </section>
 
-      <section id="res-synthese" className="flex-item flex-column">
-        <h2>Synthèse</h2>
+      <section id="res-synthese" className="main_container flex-column">
+        <h2 className="container_title">Synthèse</h2>
 
         <div className="flex-item flex-column">
           <div id="res-synthese-indicator" className="flex-item">
@@ -272,16 +233,10 @@ const Results = (props) => {
         </div>
       </section>
 
-      <button type="button" id="blinking-results" style={{ visibility: arrowVisibility }}>
-        <a href="#hero-article">
-          <FontAwesomeIcon icon={faAngleUp} />
-        </a>
-      </button>
-
-      <article id="res-emi-fr" className="flex-column">
+      <section id="res-emi-fr" className="main_container flex-column">
         {Object.keys(results.completeResults).map((key, i) => (
           <>
-            <h2>{results.completeResults[key].title}</h2>
+            <h2 className="container_title">{results.completeResults[key].title}</h2>
             <p dangerouslySetInnerHTML={handleInnerHTML(results.completeResults[key].intro)} />
 
             {results.completeResults[key].graphs.map((graph, i) => (
@@ -289,7 +244,7 @@ const Results = (props) => {
             ))}
           </>
         ))}
-      </article>
+      </section>
     </div>
   );
 };
