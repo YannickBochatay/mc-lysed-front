@@ -1,9 +1,25 @@
 import React, { useState, useEffect } from "react";
-import SimulatorProgressBarMarker from "./SimulatorProgressBarMarker";
 
 function getGradient(colorA, colorB) {
   return `linear-gradient(to right, ${colorA}, ${colorB})`;
 }
+
+const Marker = (props) => {
+  const { backgroundColor, position } = props;
+
+  return (
+    <div
+      className="marker1"
+      style={{
+        height: "18.5px",
+        width: "2px",
+        position: "absolute",
+        left: `${position}`,
+        backgroundColor,
+      }}
+    ></div>
+  );
+};
 
 const SimulatorProgressBar = ({ results, progressBarColor }) => {
   const [translateValue, setTranslateValue] = useState(0);
@@ -51,8 +67,8 @@ const SimulatorProgressBar = ({ results, progressBarColor }) => {
         position: "relative",
       }}
     >
-      <SimulatorProgressBarMarker backgroundColor="#0b8c85" position={m1} />
-      <SimulatorProgressBarMarker backgroundColor="#ff6868" position={m2} />
+      <Marker backgroundColor="#0b8c85" position={m1} />
+      <Marker backgroundColor="#ff6868" position={m2} />
       <div
         style={{
           left: `calc(${value})`,
