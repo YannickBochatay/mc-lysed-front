@@ -183,22 +183,13 @@ const WorkshopInfos = (props) => {
   }, [computedDatas, sector]);
 
   const handleSectorsDetailTable = (table, sector) => {
-    let dataFinal = [...table.data];
+    
     const titlesFinal = [...table.titles];
-    dataFinal = dataFinal.filter((line) => line[0] === sector);
-
-    if (dataFinal.length === 0) {
-      return null;
-    }
-
-    dataFinal.map((line) =>
-      line.map((val, i) => {
-        if (i > 0) {
-          return val;
-        }
-      }),
-    );
     titlesFinal.shift();
+
+    let dataFinal = table.data.filter((line) => line[0] === sector)
+    if (dataFinal.length === 0) {return null;}
+    dataFinal.map((line) => {return line.shift()})
 
     return { titles: titlesFinal, data: dataFinal };
   };
