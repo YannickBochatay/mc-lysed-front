@@ -1,8 +1,8 @@
 import React from "react";
 
-const SimulatorInformationBox = ({ data, style }) => {
+const SimulatorInformationBox = ({ data }) => {
   return (
-    <div className="param-info-container-visible flex-item" style={style}>
+    <div className={`param-info-container-visible flex-item`}>
       <div className="right-btn">
         <div>
           <h6>Calcul des émissions</h6>

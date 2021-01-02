@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-
+import React, { useState, useContext } from "react";
+import { GlobalContext } from "Contexts/GlobalContext";
+import * as actions from "Contexts/actions";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDownload, faCog, faLink } from "@fortawesome/free-solid-svg-icons";
@@ -7,6 +8,7 @@ import { faDownload, faCog, faLink } from "@fortawesome/free-solid-svg-icons";
 import Title from "../partials/Title";
 import ResultsIndicator from "./ResultsIndicator";
 import CompoChart from "../resultats/compoChart";
+// import AreaChart from "../resultats/Area";
 
 // MODALS
 import Modal from "../partials/Modal";
@@ -15,7 +17,16 @@ import ModalVSConfigureScenario from "../Workshops/ModalVSConfigureScenario";
 import ModalVSGeneralConfirmation from "../Workshops/ModalVSGeneralConfirmation";
 import ModalVSConfirmationSent from "../Workshops/ModalVSConfirmationSent";
 
-const ResultsSample = ({ results, values, jsonFile }) => {
+import { RESULTS_TITLE, RESULTS_SAMPLE_DISPLAY } from "config";
+
+const ResultsSample = ({ jsonFile }) => {
+  const { globalState } = useContext(GlobalContext);
+
+  const results = globalState.results;
+  const values = globalState.values;
+
+  const [modal, setModal] = useState("");
+
   const [modalVSWorkshopType, setModalVSWorkshopType] = useState(false);
   const [modalVSConfigureScenario, setModalVSConfigureScenario] = useState(false);
   const [modalVSGeneralConfirmation, setModalVSGeneralConfirmation] = useState(false);
@@ -29,6 +40,8 @@ const ResultsSample = ({ results, values, jsonFile }) => {
   const indicatorObjectives = { climate: -50, energy: -50, air: [-70, -70] };
 
   const setWorkshopType = (type) => {
+    // setModal(type);
+
     if (type == "workshop") {
       setModalVSWorkshopType(false);
       setModalVSConfigureScenario(true);
@@ -40,10 +53,13 @@ const ResultsSample = ({ results, values, jsonFile }) => {
   };
 
   const handleValidateScenario = () => {
+    // setModal("worksho");
     setModalVSWorkshopType(true);
   };
 
-  function handleIndicatorColor(data, obj) {
+  function handleIndicatorColor(data, objective) {
+    const obj = Array.isArray(objective) ? objective[0] : objective;
+
     const objReached = (data / obj) * 100;
     return objReached >= 100
       ? "#B0E440"
@@ -55,6 +71,8 @@ const ResultsSample = ({ results, values, jsonFile }) => {
   function handleIndicatorWidth(length) {
     return `calc(${100 / length}% - ${((length - 1) * 10) / 3}px`;
   }
+
+  console.log(results);
 
   if (width > 600) {
     return (
@@ -105,112 +123,65 @@ const ResultsSample = ({ results, values, jsonFile }) => {
           <ModalVSConfirmationSent closeModal={() => setModalVSConfirmationSent(false)} />
         </Modal>
 
-        <Title id="results-top-box">Impacts sur le territoire - 2030</Title>
+        <Title id="results-top-box">{RESULTS_TITLE}</Title>
 
-        <div id="results-climat-box" className="flex-item flex-column">
-          <h4>Climat</h4>
-          <div className="results-content-box">
-            <div className="graph-box">
-              <p>Émissions Totales</p>
-              <div className="graph-compo">
-                <CompoChart datas={results.graphs.climate} />
+        {RESULTS_SAMPLE_DISPLAY.map((item) => {
+          const title = item.title;
+          const subtitle = item.subtitle;
+          const indicators = results.indicators;
+          const graphs = results.graphs[item.key];
+
+          return (
+            <div key={item.key} id="results-climat-box" className="flex-item flex-column">
+              <h4>{title}</h4>
+              <div className="results-content-box">
+                <div className="graph-box">
+                  {subtitle && <p>{subtitle}</p>}
+                  <div className="graph-compo">
+                    {item.graphType && <CompoChart datas={graphs} />}
+                  </div>
+                </div>
+                <div className="indicators-box">
+                  <div className="indicators-main-box">
+                    {indicators[item.key].main && (
+                      <ResultsIndicator
+                        indicator={indicators[item.key].main[0]}
+                        backgroundColor={handleIndicatorColor(
+                          indicators[item.key].main[0].value,
+                          indicatorObjectives[item.key],
+                        )}
+                        color={fontColor}
+                        width="100%"
+                      />
+                    )}
+                  </div>
+
+                  <div className="indicators-secondary-box">
+                    {indicators[item.key].secondary.map((indicator, i) => {
+                      return (
+                        <ResultsIndicator
+                          key={indicator.name}
+                          i={i}
+                          indicator={indicator}
+                          backgroundColor={
+                            item.priority === "secondary"
+                              ? handleIndicatorColor(
+                                  indicator.value,
+                                  indicatorObjectives[item.key][i],
+                                )
+                              : secondaryColor
+                          }
+                          color={fontColor}
+                          width={handleIndicatorWidth(indicators[item.key].secondary.length)}
+                        />
+                      );
+                    })}
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="indicators-box">
-              <div className="indicators-main-box">
-                <ResultsIndicator
-                  indicator={results.indicators.climate.main[0]}
-                  backgroundColor={handleIndicatorColor(
-                    results.indicators.climate.main[0].value,
-                    indicatorObjectives.climate,
-                  )}
-                  color={fontColor}
-                  width="100%"
-                />
-              </div>
-
-              <div className="indicators-secondary-box">
-                {results.indicators.climate.secondary.map((indicator, i) => {
-                  return (
-                    <ResultsIndicator
-                      key={indicator.name}
-                      i={i}
-                      indicator={indicator}
-                      backgroundColor={secondaryColor}
-                      color={fontColor}
-                      width={handleIndicatorWidth(results.indicators.climate.secondary.length)}
-                    />
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div id="results-energie-box">
-          <h4>Énergie</h4>
-          <div className="results-content-box">
-            <div className="graph-box">
-              <p>Consommation</p>
-              <div className="graph-compo">
-                <CompoChart datas={results.graphs.energy} isXAxis={false} isYAxis={false} />
-              </div>
-            </div>
-            <div className="indicators-box">
-              <div className="indicators-main-box">
-                <ResultsIndicator
-                  indicator={results.indicators.energy.main[0]}
-                  backgroundColor={handleIndicatorColor(
-                    results.indicators.energy.main[0].value,
-                    indicatorObjectives.energy,
-                  )}
-                  color={fontColor}
-                  width="100%"
-                />
-              </div>
-
-              <div className="indicators-secondary-box">
-                {results.indicators.energy.secondary.map((indicator, i) => {
-                  return (
-                    <ResultsIndicator
-                      key={indicator.name}
-                      i={i}
-                      indicator={indicator}
-                      backgroundColor={secondaryColor}
-                      color={fontColor}
-                      width={handleIndicatorWidth(results.indicators.energy.secondary.length)}
-                    />
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div id="results-air-box">
-          <h4>Qualité de l'Air</h4>
-          <div className="results-content-box">
-            <div className="graph-box"></div>
-            <div className="indicators-box">
-              <div className="indicators-secondary-box">
-                {results.indicators.air.secondary.map((indicator, i) => {
-                  return (
-                    <ResultsIndicator
-                      key={indicator.name}
-                      indicator={indicator}
-                      backgroundColor={handleIndicatorColor(
-                        indicator.value,
-                        indicatorObjectives.air[i],
-                      )}
-                      color={fontColor}
-                      width={handleIndicatorWidth(results.indicators.air.secondary.length)}
-                    />
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        </div>
+          );
+        })}
 
         <div id="results-button-box" className="flex-item acenter jbetween">
           <div className="tool-box flex-item acenter">
@@ -233,11 +204,7 @@ const ResultsSample = ({ results, values, jsonFile }) => {
               Résultats
             </Link>
 
-            <button
-              type="button"
-              className="btn simulator-btn"
-              onClick={() => handleValidateScenario()}
-            >
+            <button type="button" className="btn simulator-btn" onClick={handleValidateScenario}>
               Valider
             </button>
           </div>

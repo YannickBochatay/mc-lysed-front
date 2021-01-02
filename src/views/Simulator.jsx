@@ -1,6 +1,6 @@
 /// BASIC
-import React, { useState, useEffect } from "react";
-import Header from "components/partials/Header";
+import React, { useContext, useState, useEffect } from "react";
+
 import { Helmet } from "react-helmet";
 import ReactGA from "react-ga";
 import jsonFile from "ressources/initialDatas.json";
@@ -185,17 +185,11 @@ const Simulator = (props) => {
               />
             )}
 
-            <SimulatorSettings
-              categories={jsonFile.categories}
-              results={results}
-              values={values}
-              modeExpert={modeExpert}
-              handleValue={setOneValue}
-            />
+            <SimulatorSettings modeExpert={modeExpert} handleValue={setOneValue} />
           </div>
         </section>
 
-        <ResultsSample results={results} values={values} jsonFile={jsonFile} />
+        <ResultsSample jsonFile={jsonFile} />
       </div>
     </>
   );

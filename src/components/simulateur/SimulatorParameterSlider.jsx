@@ -150,7 +150,7 @@ const SimParametreSlide = ({ data, value, setOneValue, category }) => {
         />
       </div>
 
-      {expanded && <SimulatorInformationBox style={{ backgroundColor: "red" }} data={data} />}
+      {expanded && <SimulatorInformationBox data={data} />}
     </div>
   );
 };
