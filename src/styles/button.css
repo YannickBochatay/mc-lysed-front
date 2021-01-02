@@ -23,7 +23,6 @@
   color: var(--mainText);
 }
 
-
 /* TOOLTIP : SIMULATOR */
 .see-more-btn {
   background: none;
@@ -31,7 +30,6 @@
   line-height: 0.5em;
   font-size: 1.2em;
 }
-
 
 /* ZONE 3 : SIMULATOR */
 .simulator-btn {
@@ -47,7 +45,6 @@
   color: white;
   border: none;
 }
-
 
 /* TABS : WORKSHOPS + RESULTS*/
 .tab-btn {
@@ -81,7 +78,6 @@
   margin-top: -2px;
 }
 
-
 /* BLINKING ARROW : HOME + RESULTS*/
 .blinking-btn {
   position: fixed;
@@ -96,6 +92,15 @@
 
 @keyframes blinker {
   50% {
-      opacity: 0;
+    opacity: 0;
   }
+}
+
+.see-more-btn {
+  /* border-color: var(--darkblue); */
+  color: var(--darkblue);
+  background-color: inherit;
+  /* background-color: var(--darkblue); */
+  line-height: 0.5em;
+  font-size: 1.2em;
 }
