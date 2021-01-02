@@ -165,7 +165,7 @@ const Simulator = (props) => {
         <meta name="description" content="Simulateur de scénarios climat à l'échelle nationale" />
         <link rel="canonical" href="http://mission-climat.io/simulator/" />
       </Helmet>
-      <Header />
+
       <div className="sim-page flex-item">
         <section className="sim-container-box">
           <Title id="sim-title">Mesures sur le territoire - 2030</Title>
