@@ -11,22 +11,27 @@
 :root {
   /* GRADIENT BACKGROUND */
   --gradient: linear-gradient(180deg, rgba(195, 184, 50, 0.4) 0%, rgba(76, 119, 119, 0.6) 100%);
+  --gradient-h: linear-gradient(90deg, rgba(195, 184, 50, 0.4) 0%, rgba(76, 119, 119, 0.6) 100%);
 
-  /* COLORS */
+  /* THEME COLORS */
   --mainColor: #4c7777;
+  --light-mainColor: rgba(76, 119, 119, 0.5);
   --secondaryColor: #c3b832;
+  --light-secondaryColor: rgba(195, 184, 50, 0.5);
+  --grey: rgb(228, 228, 228);
+  --darkgrey: darkgrey;
+  --lightgrey: #e5eaec;
+
+  /* EFFECTS */
+  --seethrough: rgba(195, 184, 50, 0.2);
   --shadow: 0 0 8px #aaaaaa;
   --light-shadow: 0 0 8px #dddddd;
-  --underline: rgba(195, 184, 50, 0.5);
-  --dark-underline: rgba(76, 119, 119, 0.5);
-  --seethrough: rgba(195, 184, 50, 0.2);
 
   /* TEXT */
-  --text-main: #505050;
-  --text-accent: #4c7777;
-  --font-main: "Open Sans", sans-serif;
-  --font-accent: "Circular Std";
-  --font-fun: "Fugaz One", cursive;
+  --mainText: #505050;
+  --mainFont: "Open Sans", sans-serif;
+  --accentFont: "Circular Std";
+  --funFont: "Fugaz One", cursive;
 
   /* CHARTS */
   --darkblue: #012340;
@@ -34,9 +39,6 @@
   --purple: #8b4f8c;
   --green: #77d9b5;
   --lightgreen: #88f2b6;
-  --grey: rgb(228, 228, 228);
-  --darkgrey: darkgrey;
-  --lightgrey: #e5eaec;
 
   /* TEMP DATA */
   --tempgreen: rgb(56, 177, 126);
@@ -58,10 +60,10 @@
 }
 
 body {
-  color: var(--text-main);
+  color: var(--mainText);
   font-size: 1rem;
   justify-content: center;
-  font-family: var(--font-accent);
+  font-family: var(--mainFont);
   scroll-behavior: smooth;
   text-rendering: optimizeSpeed;
   line-height: 1.5;
@@ -69,7 +71,7 @@ body {
 }
 
 p {
-  font-family: var(--font-main);
+  font-family: var(--mainFont);
 }
 
 #header {
@@ -97,11 +99,12 @@ p {
   font-size: 36px;
   line-height: 42px;
   display: inline-block;
+  font-family: var(--accentFont);
 }
 
 .container_title::after {
-  content: '';
-  background-color: var(--underline);
+  content: "";
+  background-color: var(--light-secondaryColor);
   height: 10px;
   display: block;
   margin-top: -12px;
@@ -176,18 +179,21 @@ h1 {
   font-size: 5em;
   margin-bottom: 0.2em;
   line-height: 5rem;
+  font-family: var(--accentFont);
 }
 
 h2 {
   font-size: 3em;
   margin-bottom: 0.2em;
   line-height: 3rem;
+  font-family: var(--accentFont);
 }
 
 h3 {
   font-size: 25px;
   margin-bottom: 5px;
   line-height: 28px;
+  font-family: var(--accentFont);
 }
 
 .nopad {
@@ -204,6 +210,7 @@ h3 {
 
 #loader h4 {
   color: white;
+  font-weight: bold;
 }
 
 @media (max-width: 800px) and (orientation: portrait) {
@@ -244,7 +251,7 @@ h3 {
 #mobile-message p {
   font-size: 18px;
   text-align: center;
-  font-family: var(--font-main);
+  font-family: var(--mainFont);
   font-weight: 300;
 }
 

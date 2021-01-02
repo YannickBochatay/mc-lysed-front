@@ -92,7 +92,7 @@ const ParametersDistributionChart = ({ data }) => {
             value={data.description}
             offset={0}
             position="insideBottom"
-            style={{ textAnchor: "middle", fill: "var(--text-main)", fontSize: "12px" }}
+            style={{ textAnchor: "middle", fill: "var(--mainText)", fontSize: "12px" }}
           />
         </XAxis>
 
@@ -101,7 +101,7 @@ const ParametersDistributionChart = ({ data }) => {
             value="Nb Résultats"
             offset={0}
             position="center"
-            style={{ textAnchor: "middle", fill: "var(--text-main)", fontSize: "12px" }}
+            style={{ textAnchor: "middle", fill: "var(--mainText)", fontSize: "12px" }}
             angle={-90}
           />
         </YAxis>

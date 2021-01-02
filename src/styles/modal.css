@@ -28,35 +28,41 @@
 
 
 /* /// INTRO */
-#intro-modal ul {
-  margin-left: 30px;
-}
-#intro-modal h3 {
-  color: var(--mainColor);
-  text-align: center;
-  font-weight: 500;
+#intro-modal h2 {
   margin-bottom: 20px;
 }
-#intro-modal a {
-  color: var(--mainColor);
-  text-decoration: underline;
-}
-#intro-modal p {
-  font-size: 13px;
-  color: var(--mainColor);
-  margin-bottom: 10px;
-}
-#intro-modal li {
-  font-size: 13px;
-  color: var(--mainColor);
-  font-family: var(--textPolice);
-}
-#modal_contact {
-  background-color: var(--mainColor);
-  color: white;
-  padding: 5px 10px;
+
+#intro-modal p, #intro-modal ol {
+  margin: 25px 0;
+  font-size: 14px;
 }
 
+#intro-modal li {
+  margin-left: 50px;
+}
+
+#intro-modal ol li {
+  margin-bottom: 20px;
+}
+
+#intro-modal strong, #intro-modal b {
+  color: var(--mainColor);
+}
+
+#intro-modal a {
+  border-bottom: 2px solid var(--secondaryColor);
+}
+
+#intro-modal a:hover {
+  opacity: 0.6;
+}
+
+#intro-modal svg {
+  color: var(--secondaryColor);
+}
+
+
+/* FORM */
 form .MuiInput-underline::after {
   border-bottom: 2px solid var(--secondaryColor);
 }

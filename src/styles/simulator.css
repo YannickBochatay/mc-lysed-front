@@ -4,7 +4,7 @@
 .sim-page {
   height: 92vh;
   background-color: #e5e5e5;
-  color: var(--text-main);
+  color: var(--mainText);
   padding: 10px;
   min-height: 500px;
   max-width: 1400px;
@@ -55,7 +55,7 @@
 #sim-title h1,
 #results-top-box h1,
 #results-emissions h1 {
-  font-family: var(--font-main);
+  font-family: var(--mainFont);
   font-size: 18px;
   font-weight: normal;
   color: white;
