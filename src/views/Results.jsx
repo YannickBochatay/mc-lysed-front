@@ -18,7 +18,6 @@ const Results = (props) => {
   const [results, setResults] = useState(null);
 
   const indicatorObjectives = { climate: -27, energy: -11, air: [-70, -57] };
-  const fontColor = "white";
 
   useEffect(() => {
     let results = null;
@@ -146,66 +145,46 @@ const Results = (props) => {
         <link rel="canonical" href="http://mission-climat.io/licenses" />
       </Helmet>
 
-      <button
-        type="button"
-        className="btn blinking"
-      >
+      <button type="button" className="btn blinking-btn" style={{ visibility: arrowVisibility }}>
         <a href="#hero-article">
           <FontAwesomeIcon icon={faAngleUp} />
         </a>
       </button>
 
-      <section id="hero-article" className="main_container">
+      <section className="main_container">
         <h1 className="container_title">Résultats</h1>
-        <div className="contact-white">
-          <p>
-            Retrouvez sur cette page une synthèse de vos résultats et des graphiques vous permettant
-            de visualiser les conséquences de votre scénario.
-          </p>
-        </div>
+        <p>
+          Retrouvez sur cette page une synthèse de vos résultats et des graphiques vous permettant
+          de visualiser les conséquences de votre scénario.
+        </p>
       </section>
 
       <section id="res-synthese" className="main_container flex-column">
         <h2 className="container_title">Synthèse</h2>
 
-        <div className="flex-item flex-column">
-          <div id="res-synthese-indicator" className="flex-item">
-            <div className="tag-container flex-item flex-column">
-              <ResultsIndicator
-                indicator={results.indicators.climate.main[0]}
-                backgroundColor={handleIndicatorColor(
-                  results.indicators.climate.main[0].value,
-                  indicatorObjectives.climate,
-                )}
-                color={fontColor}
-                width="100%"
-              />
-            </div>
-            <div className="tag-container flex-item flex-column">
-              <ResultsIndicator
-                indicator={results.indicators.energy.main[0]}
-                backgroundColor={handleIndicatorColor(
-                  results.indicators.energy.main[0].value,
-                  indicatorObjectives.energy,
-                )}
-                color={fontColor}
-                width="100%"
-              />
-            </div>
-            {results.indicators.air.secondary.map((indicator, i) => (
-              <div className="tag-container flex-item flex-column">
-                <ResultsIndicator
-                  indicator={indicator}
-                  backgroundColor={handleIndicatorColor(
-                    indicator.value,
-                    indicatorObjectives.air[i],
-                  )}
-                  color={fontColor}
-                  width="100%"
-                />
-              </div>
-            ))}
-          </div>
+        <div className="flex-item jcenter">
+          <ResultsIndicator
+            indicator={results.indicators.climate.main[0]}
+            color={handleIndicatorColor(
+              results.indicators.climate.main[0].value,
+              indicatorObjectives.climate,
+            )}
+          />
+
+          <ResultsIndicator
+            indicator={results.indicators.energy.main[0]}
+            color={handleIndicatorColor(
+              results.indicators.energy.main[0].value,
+              indicatorObjectives.energy,
+            )}
+          />
+
+          {results.indicators.air.secondary.map((indicator, i) => (
+            <ResultsIndicator
+              indicator={indicator}
+              color={handleIndicatorColor(indicator.value, indicatorObjectives.air[i])}
+            />
+          ))}
 
           {/* <div id="res-synthese-buttons" className="flex-item">
               <div title="Copier l'url avec mes paramètres">
@@ -233,18 +212,19 @@ const Results = (props) => {
         </div>
       </section>
 
-      <section id="res-emi-fr" className="main_container flex-column">
+      <div id="res-emi-fr">
         {Object.keys(results.completeResults).map((key, i) => (
-          <>
+          <section className="main_container flex-column">
             <h2 className="container_title">{results.completeResults[key].title}</h2>
+
             <p dangerouslySetInnerHTML={handleInnerHTML(results.completeResults[key].intro)} />
 
             {results.completeResults[key].graphs.map((graph, i) => (
               <ChartContainer {...graph} />
             ))}
-          </>
+          </section>
         ))}
-      </section>
+      </div>
     </div>
   );
 };

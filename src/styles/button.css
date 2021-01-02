@@ -26,6 +26,7 @@
 
 /* TOOLTIP : SIMULATOR */
 .see-more-btn {
+  background: none;
   color: var(--darkblue);
   line-height: 0.5em;
   font-size: 1.2em;
@@ -82,8 +83,15 @@
 
 
 /* BLINKING ARROW : HOME + RESULTS*/
-.blinking {
+.blinking-btn {
+  position: fixed;
+  top: 30px;
+  right: 30px;
+  min-width: auto;
   animation: blinker 2s linear infinite;
+  border: none;
+  font-size: 26px;
+  box-shadow: var(--shadow);
 }
 
 @keyframes blinker {

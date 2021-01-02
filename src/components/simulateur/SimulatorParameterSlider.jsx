@@ -2,14 +2,17 @@ import React, { useState, useEffect } from "react";
 
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
-import { faQuestionCircle } from "@fortawesome/free-regular-svg-icons";
-import { faMinusSquare } from "@fortawesome/free-solid-svg-icons";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faQuestionCircle, faTimesCircle } from "@fortawesome/free-regular-svg-icons";
+
 import Slider from "@material-ui/core/Slider";
-import SimulatorInformationBox from "components/simulateur/SimulatorInformationBox";
+import SimulatorInformationBox from "./SimulatorInformationBox";
+
 // import SimulatorSlider from "components/simulateur/SimulatorSlider";
-import SimulatorIcon from "components/simulateur/SimulatorIcon";
-import "styles/simParametreSlide.css";
+import SimulatorIcon from "./SimulatorIcon";
+
+import "../../styles/simParametreSlide.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -56,7 +59,6 @@ function ValueLabelComponent(props) {
 }
 
 const SimParametreSlide = ({ data, value, setOneValue, cat }) => {
-
   const [componentClass, setComponentClass] = useState("");
 
   const SimulatorSlider = withStyles({
@@ -88,7 +90,7 @@ const SimParametreSlide = ({ data, value, setOneValue, cat }) => {
       borderRadius: 1,
     },
     mark: {
-      backgroundColor: '#C7C7C7',
+      backgroundColor: "#C7C7C7",
       height: 12,
       width: 3,
       marginTop: -2.5,
@@ -101,8 +103,8 @@ const SimParametreSlide = ({ data, value, setOneValue, cat }) => {
     } else setComponentClass("param-container-normal");
   }, [data.expert]);
 
-  const unit = data.unit;
-  const sliderStep = data.step; //(data.max-data.min)/100
+  const {unit} = data;
+  const sliderStep = data.step; // (data.max-data.min)/100
   const classes = useStyles();
   const expanded = componentClass.includes("expanded");
 
@@ -112,7 +114,7 @@ const SimParametreSlide = ({ data, value, setOneValue, cat }) => {
       label: `${data.min}${data.unit}`,
     },
     {
-      value: data.value
+      value: data.value,
     },
     {
       value: data.max,
@@ -125,21 +127,20 @@ const SimParametreSlide = ({ data, value, setOneValue, cat }) => {
   };
 
   function toggleClass() {
-    var componentClassSt = "";
+    let componentClassSt = "";
     if (data.expert) componentClassSt += "mode-expert";
     if (componentClass.includes("param-container-normal")) {
-      setComponentClass(componentClassSt + " param-container-expanded");
+      setComponentClass(`${componentClassSt  } param-container-expanded`);
     } else {
-      setComponentClass(componentClassSt + " param-container-normal");
+      setComponentClass(`${componentClassSt  } param-container-normal`);
     }
   }
 
   function handleValue() {
     if (unit === "%") {
       return Math.round(value);
-    } else {
+    } 
       return value[0];
-    }
   }
 
   return (
@@ -147,9 +148,9 @@ const SimParametreSlide = ({ data, value, setOneValue, cat }) => {
       <div className="param-header flex-item nomarge nopad">
         <h6 className="param-name nomarge">{data.name}</h6>
 
-        <button className="see-more-btn icon-box nomarge nopad" onClick={toggleClass}>
+        <button type="button" className="see-more-btn icon-box nomarge nopad" onClick={toggleClass}>
           {!expanded && <FontAwesomeIcon icon={faQuestionCircle} />}
-          {expanded && <FontAwesomeIcon icon={faMinusSquare} />}
+          {expanded && <FontAwesomeIcon icon={faTimesCircle} />}
         </button>
       </div>
       {data.description && <p className="small-param-desc">{data.description}</p>}
