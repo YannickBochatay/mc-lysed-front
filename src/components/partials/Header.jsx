@@ -32,6 +32,10 @@ const Header = () => {
 
       <ul className="flex-item acenter">
         <li>
+          <Link to="/workshops">
+           <button className="btn secondary-btn" type="button">Ateliers</button></Link>
+        </li>
+        <li>
           <button className="btn secondary-btn" type="button" onClick={() => setOpenAbout(true)}>
             À propos
           </button>

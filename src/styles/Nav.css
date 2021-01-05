@@ -39,7 +39,7 @@ nav > ul {
   justify-content: flex-end;
 }
 
-nav button {
+nav button, a {
   margin-left: 15px;
 }
 
