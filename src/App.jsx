@@ -1,10 +1,9 @@
-// BASIC
+/// BASIC
 import React, { useState } from "react";
 import { Route, Switch } from "react-router-dom";
 
 // GOOGLE ANALYTICS
 import ReactGA from "react-ga";
-import api from "./api/APIHandler";
 
 // PAGES
 import Simulator from "./views/Simulator";
@@ -14,15 +13,16 @@ import WorkshopInfos from "./views/WorkshopInfos";
 import NotFound from "./views/NotFound";
 import GlobalSimulator from "./components/GlobalSimulator";
 
-// COMPONENTS
-import Header from "./components/partials/Header";
-import Modal from "./components/partials/Modal";
-import ModalAbout from "./components/partials/ModalAbout";
+/// COMPONENTS
+import Header from "components/partials/Header";
+import Modal from "components/partials/Modal";
+import ModalAbout from "components/partials/ModalAbout";
 
 // STYLES
 import "./styles/app.css";
 import "./styles/reset.css";
 
+// TODO => Set in own useEffect ?
 if (window.location.hostname !== "localhost") {
   ReactGA.initialize("G-2ZWYF277Q1");
   ReactGA.pageview(window.location.pathname + window.location.search);

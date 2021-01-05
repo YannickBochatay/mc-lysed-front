@@ -153,10 +153,6 @@
   .home-page p {
     font-size: 1em;
   }
-
-  #cta-btn {
-    font-size: 1.1em;
-  }
 }
 
 @media (min-height: 1100px) {

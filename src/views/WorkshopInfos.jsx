@@ -298,7 +298,7 @@ const WorkshopInfos = (props) => {
             <div className="sectors-menu flex-item acenter jcenter">
               {computedDatas.uniqueCategories.map((cat, i) => (
                 <button
-                  className={sector === cat ? "btn tab-bis-btn active" : "btn tab-bis-btn"}
+                  className={sector === cat ? "btn tab-btn active-bis" : "btn tab-btn"}
                   type="button"
                   id={i}
                   onClick={() => setSector(cat)}

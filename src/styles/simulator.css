@@ -30,6 +30,7 @@
 #loader {
   height: 100%;
   width: 100%;
+  color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -418,6 +419,7 @@ input[type="radio"] {
   width: 100%;
   height: 40px;
 }
+
 #results-climat-box {
   width: 100%;
   height: 31%;
@@ -425,6 +427,7 @@ input[type="radio"] {
   padding: 10px;
   margin-bottom: 10px;
 }
+
 #results-energie-box {
   width: 100%;
   height: 31%;
@@ -432,6 +435,7 @@ input[type="radio"] {
   padding: 10px;
   margin-bottom: 10px;
 }
+
 #results-air-box {
   width: 100%;
   height: 18%;

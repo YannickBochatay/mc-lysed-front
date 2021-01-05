@@ -1,27 +1,22 @@
-import React, { useState, useEffect } from "react";
-import SimulatorProgressBarMarker from "./SimulatorProgressBarMarker";
+import React from "react";
+import { makeStyles } from "@material-ui/core";
 
-function getGradient(colorA, colorB) {
-  return `linear-gradient(to right, ${colorA}, ${colorB})`;
-}
+const Marker = (props) => {
+  const { position, type } = props;
+
+  const classes = useMarkerStyles({ type, position });
+
+  return <div className={classes.marker}></div>;
+};
 
 const SimulatorProgressBar = ({ results, progressBarColor }) => {
-  const [translateValue, setTranslateValue] = useState(0);
-  const [parentWidth, setParentWidth] = useState(0);
   const data = results[0];
   const max = data.ranges[2];
   const m1 = (data.markers[0] / max) * 100 - 0.25 + "%";
   const m2 = (data.markers[1] / max) * 100 - 0.25 + "%";
   const jaugeStart = -(data.markers[1] / max) * 100 + 0.5 + "%";
-  const value = (data.measures[0] / max) * 100 + "%";
+  const value = (data.measures[0] / max) * 100;
   const parentRef = React.createRef(null);
-
-  useEffect(() => {
-    let palue = Number(value.replace("%", ""));
-    const width = parentRef.current.getBoundingClientRect().width;
-    const translateVal = (width * palue) / 100;
-    setTranslateValue(translateVal - 24 / 2);
-  }, [results, parentRef]);
 
   // useEffect(() => {
   //   function handleResize(event) {
@@ -51,13 +46,13 @@ const SimulatorProgressBar = ({ results, progressBarColor }) => {
         position: "relative",
       }}
     >
-      <SimulatorProgressBarMarker backgroundColor="#0b8c85" position={m1} />
-      <SimulatorProgressBarMarker backgroundColor="#ff6868" position={m2} />
+      <Marker type="success" position={m1} />
+      <Marker type="failure" position={m2} />
       <div
-        style={{
-          left: `calc(${value})`,
-        }}
         className="tooltip sim-categorie-emissions"
+        style={{
+          left: `calc(${value > 100 ? 100 : value}%)`,
+        }}
       >
         <p> Emissions: {Math.round(results[0].measures[0])} ktCO2e</p>
       </div>
@@ -66,7 +61,7 @@ const SimulatorProgressBar = ({ results, progressBarColor }) => {
         style={{
           borderRadius: "none",
           height: "18.5px",
-          width: `${value}`,
+          width: `${value > 100 ? 100 : value}%`,
           position: "absolute",
           left: `${jaugeStart}px`,
           transition: "1s",
@@ -76,5 +71,17 @@ const SimulatorProgressBar = ({ results, progressBarColor }) => {
     </div>
   );
 };
+
+const useMarkerStyles = makeStyles((theme) => ({
+  marker: {
+    backgroundColor: (props) =>
+      props.type === "success" ? theme.palette.success.main : theme.palette.error.main,
+    height: "18.5px",
+    width: "2px",
+    position: "absolute",
+    left: (props) => `${props.position}`,
+    zIndex: 4,
+  },
+}));
 
 export default SimulatorProgressBar;

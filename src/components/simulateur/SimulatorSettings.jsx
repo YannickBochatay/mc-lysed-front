@@ -1,53 +1,73 @@
-import React from "react";
+import React, { useContext } from "react";
+import { GlobalContext } from "Contexts/GlobalContext";
+import * as actions from "Contexts/actions";
+
 import SimulatorCategory from "components/simulateur/SimulatorCategory";
 import SimulatorParameterList from "components/simulateur/SimulatorParameterList";
 import SimulatorParameterSlider from "components/simulateur/SimulatorParameterSlider";
+import { makeStyles } from "@material-ui/core";
 
-const SimulatorSettings = ({ categories, results, values, modeExpert, handleValue }) => {
-  function handleParameterType(cat, param, key, values) {
-    // TODO New implementation of handleParameterType
-    // issue: param.type needs to be a string eg: "list", "slider"
-    // for now the object is as follows: {param.type.list: 1, param.type.slider: 0}
-
-    const props = {
-      key: key,
-      data: param.data,
-      value: values[param.data.index],
-      setOneValue: handleValue,
-      cat: cat.data,
-    };
-
-    const paramComponent = {
-      list: <SimulatorParameterList {...props} />,
-      slider: <SimulatorParameterSlider {...props} />,
-    };
-
-    //gestion mode expert
-    if (!param.data.expert || (param.data.expert && modeExpert)) {
-      //gestion type de paramètre
-      const type = param.type;
-      // TODO if param.type resolves to a string, we can access the component with paramComponent[param.type]
-      return paramComponent[type.list ? "list" : type.slider ? "slider" : null];
-    }
+const SimulatorParameter = ({ slider, list, ...rest }) => {
+  if (list) {
+    return <SimulatorParameterList {...rest} />;
   }
-
-  return categories.map((category, i) => (
-    <div
-      key={i}
-      className="sim-cat-params-box"
-      style={{ backgroundColor: i % 2 === 0 ? "#FFFFFF" : "#E5EAEC" }}
-    >
-      <SimulatorCategory
-        key={category.data.index}
-        data={category.data}
-        index={i}
-        results={results.jaugeDatas[i]}
-      />
-      <div key={"p" + i} id={"param-box" + i} className="sim-param-box grid-item">
-        {category.parameters.map((param, j) => handleParameterType(category, param, j, values))}
-      </div>
-    </div>
-  ));
+  if (slider) {
+    return <SimulatorParameterSlider {...rest} />;
+  }
+  return null;
 };
+
+const SimulatorSettings = ({ modeExpert }) => {
+  const classes = useStyles();
+
+  const { globalState, dispatch } = useContext(GlobalContext);
+
+  const values = globalState.values;
+  const results = globalState.results;
+  const categories = globalState.categories;
+
+  const handleValue = (value, index) => {
+    dispatch({
+      type: actions.UPDATE_VALUE,
+      value,
+      index,
+    });
+  };
+
+  return categories.map((category, i) => {
+    return (
+      <div key={category.data.name} className={`sim-cat-params-box ${classes.container}`}>
+        <SimulatorCategory
+          key={category.data.index}
+          data={category.data}
+          index={i}
+          results={results.jaugeDatas[i]}
+        />
+        <div className="sim-param-box grid-item">
+          {category.parameters.map((param) => (
+            <SimulatorParameter
+              key={param.data.name}
+              setOneValue={handleValue}
+              slider={Boolean(param.type.slider)}
+              list={Boolean(param.type.list)}
+              value={values[param.data.index]}
+              category={category.data}
+              data={param.data}
+            />
+          ))}
+        </div>
+      </div>
+    );
+  });
+};
+
+const useStyles = makeStyles((theme) => ({
+  container: {
+    backgroundColor: theme.palette.background.secondary,
+    "&:nth-of-type(odd)": {
+      backgroundColor: theme.palette.background.default,
+    },
+  },
+}));
 
 export default SimulatorSettings;

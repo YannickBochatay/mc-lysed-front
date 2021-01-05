@@ -1,0 +1,3 @@
+export const UPDATE_VALUE = "UPDATE_VALUE";
+export const LOAD_VALUES = "LOAD_VALUES";
+export const UPDATE_RESULTS = "UPDATE_RESULTS";
