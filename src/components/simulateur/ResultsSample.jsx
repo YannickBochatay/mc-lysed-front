@@ -22,6 +22,9 @@ import { RESULTS_TITLE, RESULTS_SAMPLE_DISPLAY } from "config";
 const ResultsSample = ({ jsonFile }) => {
   const { globalState } = useContext(GlobalContext);
 
+  console.log(jsonFile)
+  console.log(GlobalContext)
+
   const results = globalState.results;
   const values = globalState.values;
 
