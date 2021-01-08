@@ -27,9 +27,9 @@ import { computeData } from "../utils/computeData";
 import "../styles/workshop_infos.css";
 
 // TO DO : put in a config js
-const aggregatorInfos = {
+const aggregatorInfos = { //TO DO : gérer le https
   lysed: {
-    front: "http://localhost:3000",
+    front: ["http://localhost:3000","http://lysed.mission-climat.io/", "https://lysed.mission-climat.io/"],
     back: "http://localhost:4000",
     spreadsheetId: "1aXmD5u-MIiRPq0MYZ2DPFR7TWOVQezS8zJkgTLN-zHk",
   },
@@ -88,10 +88,11 @@ const WorkshopInfos = (props) => {
         if (res.data.results.length !== 0) {
           // getMissionClimatVersion
           for (const aggregator in aggregatorInfos) {
-            if (res.data.results[0].url.includes(aggregatorInfos[aggregator]["front"])) {
-              setMissionClimatVersion(aggregator);
-              break;
-            }
+            aggregatorInfos[aggregator]["front"].map(version => {
+              if (res.data.results[0].url.includes(version)) {
+                setMissionClimatVersion(aggregator);
+                // break;
+              }})
           }
           console.log("MC version identified", Date.now() - time);
         } else {
@@ -270,7 +271,7 @@ const WorkshopInfos = (props) => {
             </div>
           </div>
 
-          <div className="workshop-tabs flex-item acenter jcenter">
+          {workshopData.results.length>0 && <div className="workshop-tabs flex-item acenter jcenter">
             <button
               className={page === "Synthèse" ? "btn tab-btn active" : "btn tab-btn"}
               type="button"
@@ -292,7 +293,7 @@ const WorkshopInfos = (props) => {
             >
               Participants
             </button>
-          </div>
+          </div>}
 
           {page === "Secteurs" && (
             <div className="sectors-menu flex-item acenter jcenter">
