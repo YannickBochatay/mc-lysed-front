@@ -92,7 +92,7 @@ function computeData(wsData, jsonData) {
 
   var setTableDatas = function setTableDatas(data, type, key) {
     var table = {
-      titles: ["Category", "Parameter", type]
+      titles: ["Secteur", "Paramêtre", type]
     };
     var tableRev = {
       titles: table.titles

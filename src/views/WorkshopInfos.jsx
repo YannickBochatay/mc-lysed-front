@@ -28,13 +28,18 @@ import "../styles/workshop_infos.css";
 
 // TO DO : put in a config js
 const aggregatorInfos = { //TO DO : gérer le https
-  lysed: {
-    front: ["http://localhost:3000","http://lysed.mission-climat.io/", "https://lysed.mission-climat.io/"],
+  dev: {
+    front: ["http://localhost:3000","https://localhost:3000"],
     back: "http://localhost:4000",
     spreadsheetId: "1aXmD5u-MIiRPq0MYZ2DPFR7TWOVQezS8zJkgTLN-zHk",
   },
+  lysed_prod_heroku: {
+    front: ["https://mc-lysed.herokuapp.com/", "http://mc-lysed.herokuapp.com//"],
+    back: "https://mc-lysed.herokuapp.com",
+    spreadsheetId: "1aXmD5u-MIiRPq0MYZ2DPFR7TWOVQezS8zJkgTLN-zHk",
+  },
   national: {
-    front: "http://mission-climat.io/",
+    front: ["http://mission-climat.io/", "https://mission-climat.io/"],
     back: "https://mission1degre5server.herokuapp.com",
     spreadsheetId: "1aXmD5u-MIiRPq0MYZ2DPFR7TWOVQezS8zJkgTLN-zHk",
   },

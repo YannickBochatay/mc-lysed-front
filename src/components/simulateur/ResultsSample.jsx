@@ -20,10 +20,8 @@ import ModalVSConfirmationSent from "../Workshops/ModalVSConfirmationSent";
 import { RESULTS_TITLE, RESULTS_SAMPLE_DISPLAY } from "config";
 
 const ResultsSample = ({ jsonFile }) => {
-  const { globalState } = useContext(GlobalContext);
 
-  console.log(jsonFile)
-  console.log(GlobalContext)
+  const { globalState } = useContext(GlobalContext);
 
   const results = globalState.results;
   const values = globalState.values;
@@ -74,8 +72,6 @@ const ResultsSample = ({ jsonFile }) => {
   function handleIndicatorWidth(length) {
     return `calc(${100 / length}% - ${((length - 1) * 10) / 3}px`;
   }
-
-  console.log(results);
 
   if (width > 600) {
     return (

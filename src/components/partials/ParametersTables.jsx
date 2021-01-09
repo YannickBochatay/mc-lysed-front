@@ -3,10 +3,9 @@ import WSTable from "./WSTable";
 import Modal from "./Modal";
 
 const ParametersTables = ({ title, table, numberDisplayed }) => {
+  
   const [isViewAll, setIsViewAll] = useState(false);
   const [table2, setTable2] = useState(table);
-
-  console.log(isViewAll);
 
   return (
     <div className="flex-column acenter">

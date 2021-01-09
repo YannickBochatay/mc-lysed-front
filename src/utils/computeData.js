@@ -76,7 +76,7 @@ export function computeData(wsData, jsonData) {
     });
 
     const setTableDatas = (data, type, key) => {
-      let table = { titles: ["Category", "Parameter", type] };
+      let table = { titles: ["Secteur", "Paramêtre", type] };
       let tableRev = { titles: table.titles };
 
       let tableData = [];
