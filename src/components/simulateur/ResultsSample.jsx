@@ -20,7 +20,6 @@ import ModalVSConfirmationSent from "../Workshops/ModalVSConfirmationSent";
 import { RESULTS_TITLE, RESULTS_SAMPLE_DISPLAY } from "config";
 
 const ResultsSample = ({ jsonFile }) => {
-
   const { globalState } = useContext(GlobalContext);
 
   const results = globalState.results;
@@ -141,8 +140,8 @@ const ResultsSample = ({ jsonFile }) => {
                   </div>
                 </div>
                 <div className="indicators-box">
-                  <div className="indicators-main-box">
-                    {indicators[item.key].main && (
+                  {indicators[item.key].main && (
+                    <div className="indicators-main-box">
                       <ResultsIndicator
                         indicator={indicators[item.key].main[0]}
                         backgroundColor={handleIndicatorColor(
@@ -152,8 +151,8 @@ const ResultsSample = ({ jsonFile }) => {
                         color={fontColor}
                         width="100%"
                       />
-                    )}
-                  </div>
+                    </div>
+                  )}
 
                   <div className="indicators-secondary-box">
                     {indicators[item.key].secondary.map((indicator, i) => {
