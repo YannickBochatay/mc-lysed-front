@@ -165,6 +165,7 @@
   font-size: 18px;
   font-weight: normal;
   font-family: var(--mainFont);
+  margin-bottom: 8px;
 }
 
 #workshop_infos h4::after {
