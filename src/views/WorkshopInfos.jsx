@@ -27,9 +27,14 @@ import { computeData } from "../utils/computeData";
 import "../styles/workshop_infos.css";
 
 // TO DO : put in a config js
-const aggregatorInfos = { //TO DO : gérer le https
+const aggregatorInfos = {
+  //TO DO : gérer le https
   lysed: {
-    front: ["http://localhost:3000","http://lysed.mission-climat.io/", "https://lysed.mission-climat.io/"],
+    front: [
+      "http://localhost:3000",
+      "http://lysed.mission-climat.io/",
+      "https://lysed.mission-climat.io/",
+    ],
     back: "http://localhost:4000",
     spreadsheetId: "1aXmD5u-MIiRPq0MYZ2DPFR7TWOVQezS8zJkgTLN-zHk",
   },
@@ -88,11 +93,12 @@ const WorkshopInfos = (props) => {
         if (res.data.results.length !== 0) {
           // getMissionClimatVersion
           for (const aggregator in aggregatorInfos) {
-            aggregatorInfos[aggregator]["front"].map(version => {
+            aggregatorInfos[aggregator]["front"].map((version) => {
               if (res.data.results[0].url.includes(version)) {
                 setMissionClimatVersion(aggregator);
                 // break;
-              }})
+              }
+            });
           }
           console.log("MC version identified", Date.now() - time);
         } else {
@@ -184,13 +190,16 @@ const WorkshopInfos = (props) => {
   }, [computedDatas, sector]);
 
   const handleSectorsDetailTable = (table, sector) => {
-    
     const titlesFinal = [...table.titles];
     titlesFinal.shift();
 
-    let dataFinal = table.data.filter((line) => line[0] === sector)
-    if (dataFinal.length === 0) {return null;}
-    dataFinal.map((line) => {return line.shift()})
+    let dataFinal = table.data.filter((line) => line[0] === sector);
+    if (dataFinal.length === 0) {
+      return null;
+    }
+    dataFinal.map((line) => {
+      return line.shift();
+    });
 
     return { titles: titlesFinal, data: dataFinal };
   };
@@ -222,31 +231,16 @@ const WorkshopInfos = (props) => {
       {/* /// HEADER /// */}
       {workshopData && (
         <div className="main_container workshop-header flex-column acenter">
-          <h1 className="container_title">{workshopData.workshop_name}</h1>
-
+          {/* TOP : GENERAL */}
           <div className="workshop-summary">
-            {/* LEFT PANNEL */}
-            <div className="flex-column jcenter">
-              <button
-                className="btn primary-btn"
-                type="button"
-                onClick={() => setModalDeleteWS(true)}
-              >
-                <FontAwesomeIcon icon={faTrash} />
-                Supprimer l'atelier
-              </button>
+            {/* LEFT : NAME */}
+            <h1 className="workshop-name">{workshopData.workshop_name}</h1>
 
-              {/* <button className="btn secondary-btn" type="button" onClick="">
-                <FontAwesomeIcon icon={faDownload} />
-                Télécharger les données
-              </button> */}
-            </div>
-
-            {/* RIGHT PANNEL */}
-            <div className="flex-column jcenter">
+            {/* MIDDLE : SPECS */}
+            <div className="workshop-specs flex-item acenter">
               <div className="flex-item acenter">
                 <FontAwesomeIcon icon={faUser} />
-                <p>Nombre de contributions : {workshopData.results.length}</p>
+                <p>{workshopData.results.length} contributions</p>
               </div>
 
               <div className="flex-item acenter">
@@ -259,56 +253,69 @@ const WorkshopInfos = (props) => {
               {/* <div className="flex-item acenter">
                 <FontAwesomeIcon icon={faCalendarAlt} />
                 <p>
-                  Sélection : du
-                  {" "}
-                  <input type="date" name="startDate" id="startDate" />
-                  {" "}
-                  au
-                  {" "}
+                  Du <input type="date" name="startDate" id="startDate" /> au{" "}
                   <input type="date" name="endDate" id="endDate" />
                 </p>
               </div> */}
             </div>
+
+            {/* RIGHT : ACTIONS */}
+            <div className="workshop-actions flex-item">
+              <button className="icon-btn" type="button" onClick={() => setModalDeleteWS(true)}>
+                <FontAwesomeIcon icon={faTrash} />
+              </button>
+
+              {/* <button className="icon-btn" type="button" onClick="">
+                <FontAwesomeIcon icon={faDownload} />
+              </button> */}
+            </div>
           </div>
 
-          {workshopData.results.length>0 && <div className="workshop-tabs flex-item acenter jcenter">
-            <button
-              className={page === "Synthèse" ? "btn tab-btn active" : "btn tab-btn"}
-              type="button"
-              onClick={() => setPage("Synthèse")}
-            >
-              Synthèse
-            </button>
-            <button
-              className={page === "Secteurs" ? "btn tab-btn active" : "btn tab-btn"}
-              type="button"
-              onClick={() => setPage("Secteurs")}
-            >
-              Secteurs et Paramètres
-            </button>
-            <button
-              className={page === "Participants" ? "btn tab-btn active" : "btn tab-btn"}
-              type="button"
-              onClick={() => setPage("Participants")}
-            >
-              Participants
-            </button>
-          </div>}
-
-          {page === "Secteurs" && (
-            <div className="sectors-menu flex-item acenter jcenter">
-              {computedDatas.uniqueCategories.map((cat, i) => (
+          <hr />
+          
+          {/* BOTTOM : NAV */}
+          <div className="workshop-nav flex-column">
+            {workshopData.results.length > 0 && (
+              <div className="workshop-tabs flex-item acenter jcenter">
                 <button
-                  className={sector === cat ? "btn tab-btn active-bis" : "btn tab-btn"}
+                  className={page === "Synthèse" ? "btn tab-btn active" : "btn tab-btn"}
                   type="button"
-                  id={i}
-                  onClick={() => setSector(cat)}
+                  onClick={() => setPage("Synthèse")}
                 >
-                  {cat}
+                  Synthèse
                 </button>
-              ))}
-            </div>
-          )}
+                <button
+                  className={page === "Secteurs" ? "btn tab-btn active" : "btn tab-btn"}
+                  type="button"
+                  onClick={() => setPage("Secteurs")}
+                >
+                  Secteurs et Paramètres
+                </button>
+                <button
+                  className={page === "Participants" ? "btn tab-btn active" : "btn tab-btn"}
+                  type="button"
+                  onClick={() => setPage("Participants")}
+                >
+                  Participants
+                </button>
+              </div>
+            )}
+
+            {page === "Secteurs" && (
+              <div className="sectors-menu flex-item acenter jcenter">
+                {computedDatas.uniqueCategories.map((cat, i) => (
+                  <button
+                    className={sector === cat ? "btn tab-btn active-bis" : "btn tab-btn"}
+                    type="button"
+                    id={i}
+                    onClick={() => setSector(cat)}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       )}
 
@@ -365,22 +372,22 @@ const WorkshopInfos = (props) => {
 
               <div className="param-box flex-item acenter jbetween">
                 <ParametersTables
-                  title={(
+                  title={
                     <h4 className="tab-btn active">
                       <FontAwesomeIcon icon={faLongArrowAltUp} />
                       Les plus utilisés
                     </h4>
-                  )}
+                  }
                   table={computedDatas.nbModifTable}
                   numberDisplayed={3}
                 />
                 <ParametersTables
-                  title={(
+                  title={
                     <h4 className="tab-btn active">
                       <FontAwesomeIcon icon={faLongArrowAltDown} />
                       Les moins utilisés
                     </h4>
-                  )}
+                  }
                   table={computedDatas.nbModifRevTable}
                   numberDisplayed={3}
                 />
@@ -390,22 +397,22 @@ const WorkshopInfos = (props) => {
 
               <div className="param-box flex-item acenter jbetween">
                 <ParametersTables
-                  title={(
+                  title={
                     <h4 className="tab-btn active">
                       <FontAwesomeIcon icon={faLongArrowAltUp} />
                       Les plus consensuels
                     </h4>
-                  )}
+                  }
                   table={computedDatas.consensusRevTable}
                   numberDisplayed={3}
                 />
                 <ParametersTables
-                  title={(
+                  title={
                     <h4 className="tab-btn active">
                       <FontAwesomeIcon icon={faLongArrowAltDown} />
                       Les moins consensuels
                     </h4>
-                  )}
+                  }
                   table={computedDatas.consensusTable}
                   numberDisplayed={3}
                 />
@@ -451,7 +458,7 @@ const WorkshopInfos = (props) => {
           )}
         </>
       )}
-      
+
       {/* /// PARTICIPANTS /// */}
       {page === "Participants" && (
         <Participants

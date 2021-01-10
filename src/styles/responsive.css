@@ -55,7 +55,7 @@
   }
 
   body #results-top-box {
-    height: auto;
+    height: 100%;
   }
 
   body #loader {

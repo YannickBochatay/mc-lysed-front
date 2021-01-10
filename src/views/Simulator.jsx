@@ -4,11 +4,12 @@ import React, { useContext, useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import ReactGA from "react-ga";
 import jsonFile from "ressources/initialDatas.json";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCog } from "@fortawesome/free-solid-svg-icons";
 
 /// COMPONENTS
 import SimulatorSettings from "components/simulateur/SimulatorSettings";
 import SimulatorNavigation from "components/simulateur/SimulatorNavigation";
-import Title from "components/partials/Title";
 import OptionsBox from "components/simulateur/OptionsBox";
 import ResultsSample from "components/simulateur/ResultsSample";
 import SimulatorLoader from "components/simulateur/SimulatorLoader";
@@ -168,7 +169,13 @@ const Simulator = (props) => {
 
       <div className="sim-page flex-item">
         <section className="sim-container-box">
-          <Title id="sim-title">Mesures sur le territoire - 2030</Title>
+          <div id="sim-title" className="title">
+            <h1>Mesures sur le territoire - 2030</h1>
+            {/* options */}
+            <button className="icon-btn" type="button">
+              <FontAwesomeIcon icon={faCog} />
+            </button>
+          </div>
           <SimulatorNavigation
             leftNavData={jsonFile.nav[0]}
             showOptions={showOptions}

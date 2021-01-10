@@ -15,7 +15,7 @@ const ModalVSWorkshopType = ({ setWorkshopType, closeModal }) => {
       </button>
       <p>validez votre scénario et comparez-le aux autres !</p>
 
-      <button className="btn secondary-btn" type="button" onClick={() => closeModal()}>
+      <button className="btn secondary-btn close-btn" type="button" onClick={() => closeModal()}>
         Annuler
       </button>
     </div>

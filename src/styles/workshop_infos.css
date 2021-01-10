@@ -4,7 +4,6 @@
   height: 100%;
 }
 
-#workshop_infos h1,
 #workshop_infos h2,
 #workshop_infos h3 {
   align-self: flex-start;
@@ -12,62 +11,89 @@
 }
 
 /* HEADER */
+.workshop-header {
+  padding: 0;
+}
+
 .workshop-summary {
-  display: grid;
   width: 100%;
-  grid-template-columns: 1fr 1fr;
-  justify-items: center;
-  gap: 60px;
-  margin-bottom: 40px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 35px;
+  font-size: 14px;
+  padding: 20px 60px;
 }
 
-.workshop-summary > div {
-  align-items: flex-start;
-  height: 100%;
+/* LEFT : NAME */
+.workshop-name {
+  font-size: 1rem;
+  line-height: 1.5em;
+  color: var(--secondaryColor);
+  text-transform: uppercase;
+  margin: 0;
 }
 
-.workshop-summary .btn {
-  margin: 10px 0;
-  width: 270px;
+/* MIDDLE : SPECS */
+.workshop-specs div {
+  margin-right: 20px;
 }
 
-.workshop-summary svg {
-  margin-right: 15px;
-}
-
-.workshop-summary div div {
-  margin: 5px 0;
-}
-
-.workshop-summary div > svg {
+.workshop-specs div > svg {
   color: var(--mainColor);
+  margin-right: 8px;
 }
 
-.workshop-summary a {
+.workshop-specs a {
   font-family: var(--mainFont);
   text-decoration: underline;
 }
 
-.workshop-summary a:hover {
+.workshop-specs a:hover {
   color: var(--mainColor);
 }
 
-.workshop-tabs {
-  margin-top: 20px;
+.workshop-specs input {
+  font-size: inherit;
+  color: var(--secondaryColor);
+  width: 100px;
 }
 
-.workshop-tabs .btn {
-  margin: 20px 20px 0;
+/* HEADER RIGHT : ACTIONS */
+.workshop-actions {
+  align-items: flex-start;
+}
+
+.workshop-actions .icon-btn {
+  color: var(--secondaryColor);
+  font-size: 1rem;
+  line-height: 1.5em;
+}
+
+.workshop-actions .icon-btn:not(:last-child) {
+  margin-right: 10px;
+}
+
+#workshop_infos hr {
+  width: 90%;
+  border: 0.5px solid var(--lightgrey);
+}
+
+/* BOTTOM : NAV */
+.workshop-nav {
+  padding: 20px;
+}
+
+.workshop-tabs .btn, .sectors-menu .btn {
+  margin: 0 20px;
+  padding: 0;
+  font-size: inherit;
 }
 
 .sectors-menu {
-  margin-top: 10px;
   padding-top: 10px;
   border-top: 2px solid var(--light-mainColor);
-}
-
-.sectors-menu .btn {
-  margin: 0 10px;
+  width: fit-content;
+  margin: 10px auto 0;
 }
 
 /* >>> PAGE SYNTHESE */

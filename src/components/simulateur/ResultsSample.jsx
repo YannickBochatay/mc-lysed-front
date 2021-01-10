@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDownload, faCog, faLink } from "@fortawesome/free-solid-svg-icons";
 
-import Title from "../partials/Title";
 import ResultsIndicator from "./ResultsIndicator";
 import CompoChart from "../resultats/compoChart";
 // import AreaChart from "../resultats/Area";
@@ -16,14 +15,15 @@ import ModalVSWorkshopType from "../Workshops/ModalVSWorkshopType";
 import ModalVSConfigureScenario from "../Workshops/ModalVSConfigureScenario";
 import ModalVSGeneralConfirmation from "../Workshops/ModalVSGeneralConfirmation";
 import ModalVSConfirmationSent from "../Workshops/ModalVSConfirmationSent";
+import ModalSimValidation from "./ModalSimValidation";
 
 import { RESULTS_TITLE, RESULTS_SAMPLE_DISPLAY } from "config";
 
 const ResultsSample = ({ jsonFile }) => {
   const { globalState } = useContext(GlobalContext);
 
-  console.log(jsonFile)
-  console.log(GlobalContext)
+  console.log(jsonFile);
+  console.log(GlobalContext);
 
   const results = globalState.results;
   const values = globalState.values;
@@ -34,6 +34,7 @@ const ResultsSample = ({ jsonFile }) => {
   const [modalVSConfigureScenario, setModalVSConfigureScenario] = useState(false);
   const [modalVSGeneralConfirmation, setModalVSGeneralConfirmation] = useState(false);
   const [modalVSConfirmationSent, setModalVSConfirmationSent] = useState(false);
+  const [modalSimValidation, setModalSimValidation] = useState(false);
 
   const width = window.innerWidth;
 
@@ -79,7 +80,7 @@ const ResultsSample = ({ jsonFile }) => {
 
   if (width > 600) {
     return (
-      <section className="sim-results-box flex-item flex-column">
+      <section className="sim-results-box">
         <Modal
           isOpen={modalVSWorkshopType}
           closeModal={() => setModalVSWorkshopType(false)}
@@ -126,7 +127,21 @@ const ResultsSample = ({ jsonFile }) => {
           <ModalVSConfirmationSent closeModal={() => setModalVSConfirmationSent(false)} />
         </Modal>
 
-        <Title id="results-top-box">{RESULTS_TITLE}</Title>
+        <Modal
+          isOpen={modalSimValidation}
+          closeModal={() => setModalSimValidation(false)}
+          okButton={false}
+        >
+          <ModalSimValidation
+            closeModal={() => setModalSimValidation(false)}
+            onClick={handleValidateScenario}
+            results={results}
+          />
+        </Modal>
+
+        <div id="results-top-box" className="title">
+          <h1>{RESULTS_TITLE}</h1>
+        </div>
 
         {RESULTS_SAMPLE_DISPLAY.map((item) => {
           const title = item.title;
@@ -186,32 +201,9 @@ const ResultsSample = ({ jsonFile }) => {
           );
         })}
 
-        <div id="results-button-box" className="flex-item acenter jbetween">
-          <div className="tool-box flex-item acenter">
-            {/* options */}
-            <button className="icon-btn" type="button">
-              <FontAwesomeIcon icon={faCog} />
-            </button>
-            {/* download */}
-            <button className="icon-btn" type="button">
-              <FontAwesomeIcon icon={faDownload} />
-            </button>
-            {/* share link */}
-            <button className="icon-btn" type="button">
-              <FontAwesomeIcon icon={faLink} />
-            </button>
-          </div>
-
-          <div className="button-box flex-item acenter">
-            <Link className="btn simulator-btn" to={{ pathname: "/results", state: { results } }}>
-              Résultats
-            </Link>
-
-            <button type="button" className="btn simulator-btn" onClick={handleValidateScenario}>
-              Valider
-            </button>
-          </div>
-        </div>
+        <button type="button" className="btn primary-btn sim-main-btn" onClick={() => setModalSimValidation(true)}>
+          Valider mon scénario
+        </button>
       </section>
     );
   }

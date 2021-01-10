@@ -5,6 +5,7 @@
   line-height: 1;
   font-family: var(--mainFont);
   min-width: 120px;
+  text-align: center;
 }
 
 .btn:hover,
@@ -31,16 +32,9 @@
   font-size: 1.2em;
 }
 
-/* ZONE 3 : SIMULATOR */
-.simulator-btn {
-  background-color: white;
-  border: 2px solid white;
-  color: var(--mainText);
-}
-
 .icon-btn {
   background: none;
-  font-size: 2rem;
+  font-size: 1.5rem;
   line-height: 1;
   color: white;
   border: none;

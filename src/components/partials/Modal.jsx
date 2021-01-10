@@ -1,5 +1,6 @@
 import React from "react";
 import "../../styles/modal.css";
+import "../../styles/sim-modals.css";
 
 const Modal = ({ isOpen, closeModal, children, okButton }) => {
   if (!isOpen) return null;

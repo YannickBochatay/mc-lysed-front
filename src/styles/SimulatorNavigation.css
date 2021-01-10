@@ -1,7 +1,7 @@
 #SimulatorNavigation {
   width: 100%;
   display: grid;
-  /* grid-template-columns: 7fr 1fr; */
+  height: 100%;
   gap: 5px;
   font-family: var(--mainFont);
   background-color: var(--mainColor);
@@ -21,6 +21,7 @@
   font-size: 16px;
   line-height: 21px;
   border-bottom: 1px solid white;
+  margin-bottom: 0;
 }
 
 #SimulatorNavigation .icons {
