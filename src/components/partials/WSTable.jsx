@@ -14,8 +14,8 @@ const WSTable = ({ table, numberDisplayed }) => {
     <table>
       <thead>
         <tr>
-          {table.titles.map((cell) => (
-            <th>{cell}</th>
+          {table.titles.map((cell, i) => (
+            <th key={i}>{cell}</th>
           ))}
         </tr>
       </thead>
@@ -23,9 +23,9 @@ const WSTable = ({ table, numberDisplayed }) => {
         {table.data.map(
           (line, i) =>
             i < numberDisplayed && (
-              <tr>
-                {line.map((cell) => (
-                  <td>{cell}</td>
+              <tr key={i}>
+                {line.map((cell, j) => (
+                  <td key={j}>{cell}</td>
                 ))}
               </tr>
             ),
