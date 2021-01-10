@@ -28,7 +28,7 @@ import "../styles/workshop_infos.css";
 
 // TO DO : put in a config js
 const aggregatorInfos = {
-  //TO DO : gérer le https
+  // TO DO : gérer le https
   lysed: {
     front: [
       "http://localhost:3000",
@@ -186,7 +186,7 @@ const WorkshopInfos = (props) => {
             param.stdevRel,
             param.nbModif,
             param.nbResults,
-            `${(param.nbModif / param.nbResults) * 100} %`,
+            `${((param.nbModif / param.nbResults) * 100).toFixed(2)} %`,
           ]);
         }
       });
