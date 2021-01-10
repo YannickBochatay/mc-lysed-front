@@ -55,7 +55,6 @@ const ModalVSConfigureScenario = ({
     api
       .post("/aggregator/result/", { ...values, data })
       .then((res) => {
-        console.log(res);
         setIsLoading(false);
         closeModal();
         setModalVSConfirmationSent(true);

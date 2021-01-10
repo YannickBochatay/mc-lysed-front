@@ -16,7 +16,6 @@ const Participants = ({ medianParams, jsonFile, computedDatas, results, id }) =>
     api
       .get(`/aggregator/workshopsandresults/`)
       .then((res) => {
-        console.log(res);
         const ws = res.data.workshops.filter((w) => w.id === id)[0];
         const resultsTemp = res.data.results.filter((r) => r.workshop_code_id === ws.workshop_code);
         setWSResults(resultsTemp);
@@ -31,8 +30,6 @@ const Participants = ({ medianParams, jsonFile, computedDatas, results, id }) =>
     //  - écart type relatif
     //  - nb de modifs
     //  - t°
-
-    console.log(jsonFile);
 
     if (WSResults) {
       WSResults.map((ws) => {
@@ -65,7 +62,7 @@ const Participants = ({ medianParams, jsonFile, computedDatas, results, id }) =>
       });
 
       const tableTemp = {
-        titles: ["Participant", "Nb modifs", "Nb Results", "% Modifs", "% Proximité à la médiance"],
+        titles: ["Groupe / Participant", "Nb modifications", "Nb résultats", "% modifications", "% Proximité à la médiane"],
         data: WSResults.map((ws) => [
           ws.group_name,
           ws.nbModifs,
@@ -74,8 +71,6 @@ const Participants = ({ medianParams, jsonFile, computedDatas, results, id }) =>
           ws.average,
         ]),
       };
-
-      console.log(tableTemp);
 
       setDetailsTable(tableTemp);
     }

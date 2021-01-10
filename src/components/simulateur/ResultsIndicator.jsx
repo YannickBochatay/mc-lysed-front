@@ -14,21 +14,25 @@ const LightTooltip = withStyles((theme) => ({
   },
 }))(Tooltip);
 
-const ResultsIndicator = ({ indicator, i, color }) => {
+const ResultsIndicator = ({ indicator, i, backgroundColor, color, width }) => {
   return (
-    <div key={i} className="indicator flex-column acenter">
-      <div className="results-figure flex-item" style={{ color }}>
+    <div key={i} className="indicator" style={{ width: width }}>
+      <p className="results-title">{indicator.name}</p>
+
+      <div
+        className="results-figure flex-item"
+        style={{ backgroundColor: backgroundColor, color: color }}
+      >
         {indicator.value}
         {indicator.unit}
-
         {indicator.infos && (
-          <LightTooltip title={<>{parse(indicator.infos)}</>}>
-            <FontAwesomeIcon icon={faQuestionCircle} />
+          <LightTooltip title={<React.Fragment>{parse(indicator.infos)}</React.Fragment>}>
+            <span className="indicator-tooltip">
+              <FontAwesomeIcon icon={faQuestionCircle} />
+            </span>
           </LightTooltip>
         )}
       </div>
-
-      <p className="results-title">{indicator.name}</p>
     </div>
   );
 };

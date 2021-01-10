@@ -3,9 +3,8 @@ import "../../styles/modal.css";
 import "../../styles/sim-modals.css";
 
 const Modal = ({ isOpen, closeModal, children, okButton }) => {
+  
   if (!isOpen) return null;
-
-  console.log(children)
 
   return (
     <div className="modal-parent flex-item jcenter acenter">

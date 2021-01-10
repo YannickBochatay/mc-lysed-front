@@ -38,8 +38,13 @@ const aggregatorInfos = {
     back: "http://localhost:4000",
     spreadsheetId: "1aXmD5u-MIiRPq0MYZ2DPFR7TWOVQezS8zJkgTLN-zHk",
   },
+  lysed_prod_heroku: {
+    front: ["https://mc-lysed.herokuapp.com/", "http://mc-lysed.herokuapp.com//"],
+    back: "https://mc-lysed.herokuapp.com",
+    spreadsheetId: "1aXmD5u-MIiRPq0MYZ2DPFR7TWOVQezS8zJkgTLN-zHk",
+  },
   national: {
-    front: "http://mission-climat.io/",
+    front: ["http://mission-climat.io/", "https://mission-climat.io/"],
     back: "https://mission1degre5server.herokuapp.com",
     spreadsheetId: "1aXmD5u-MIiRPq0MYZ2DPFR7TWOVQezS8zJkgTLN-zHk",
   },
