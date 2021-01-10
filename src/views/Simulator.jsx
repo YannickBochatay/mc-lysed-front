@@ -172,8 +172,9 @@ const Simulator = (props) => {
           <div id="sim-title" className="title">
             <h1>Mesures sur le territoire - 2030</h1>
             {/* options */}
-            <button className="icon-btn" type="button">
+            <button className="icon-btn flex-item acenter" type="button">
               <FontAwesomeIcon icon={faCog} />
+              <span>Options</span>
             </button>
           </div>
           <SimulatorNavigation
