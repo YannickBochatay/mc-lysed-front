@@ -9,6 +9,8 @@ export function computeData(wsData, jsonData) {
     //TODO : handle list type parameter
     //TODO : calculate the ambition
 
+    console.log(jsonData)
+
     const onlyUnique = (value, index, self) => {
       return self.indexOf(value) === index;
     }
@@ -66,6 +68,7 @@ export function computeData(wsData, jsonData) {
               100,
             1,
           );
+          console.log(param.data.value, wsValues)
           finalDatas.parameters[finalDatas.parameters.length - 1].nbModif = wsValues.filter(
             (v) => v !== param.data.value,
           ).length;

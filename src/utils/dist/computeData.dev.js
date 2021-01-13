@@ -38,6 +38,8 @@ function computeData(wsData, jsonData) {
   //     - mean, median, stdev, ambitious, used, isComplete
   //TODO : handle list type parameter
   //TODO : calculate the ambition
+  console.log(jsonData);
+
   var onlyUnique = function onlyUnique(value, index, self) {
     return self.indexOf(value) === index;
   };
@@ -82,6 +84,7 @@ function computeData(wsData, jsonData) {
         finalDatas.parameters[finalDatas.parameters.length - 1].average = Math.round((0, _average.average)(wsValues), 1);
         finalDatas.parameters[finalDatas.parameters.length - 1].stdev = Math.round((0, _standardDeviation.standardDeviation)(wsValues), 1);
         finalDatas.parameters[finalDatas.parameters.length - 1].stdevRel = Math.round(finalDatas.parameters[finalDatas.parameters.length - 1].stdev / finalDatas.parameters[finalDatas.parameters.length - 1].average * 100, 1);
+        console.log(param.data.value, wsValues);
         finalDatas.parameters[finalDatas.parameters.length - 1].nbModif = wsValues.filter(function (v) {
           return v !== param.data.value;
         }).length;
