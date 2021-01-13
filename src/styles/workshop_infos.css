@@ -10,35 +10,7 @@
   margin-bottom: 40px;
 }
 
-/* HEADER */
-.workshop-header {
-  padding: 0;
-}
-
-.workshop-summary {
-  width: 100%;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  gap: 35px;
-  font-size: 14px;
-  padding: 20px 60px;
-}
-
-/* LEFT : NAME */
-.workshop-name {
-  font-size: 1rem;
-  line-height: 1.5em;
-  color: var(--secondaryColor);
-  text-transform: uppercase;
-  margin: 0;
-}
-
-/* MIDDLE : SPECS */
-.workshop-specs div {
-  margin-right: 20px;
-}
-
-.workshop-specs div > svg {
+.workshop-specs svg {
   color: var(--mainColor);
   margin-right: 8px;
 }
@@ -55,45 +27,74 @@
 .workshop-specs input {
   font-size: inherit;
   color: var(--secondaryColor);
-  width: 100px;
 }
 
-/* HEADER RIGHT : ACTIONS */
-.workshop-actions {
-  align-items: flex-start;
-}
-
-.workshop-actions .icon-btn {
-  color: var(--secondaryColor);
-  font-size: 1rem;
-  line-height: 1.5em;
-}
-
-.workshop-actions .icon-btn:not(:last-child) {
-  margin-right: 10px;
-}
-
-#workshop_infos hr {
-  width: 90%;
-  border: 0.5px solid var(--lightgrey);
-}
-
-/* BOTTOM : NAV */
-.workshop-nav {
-  padding: 20px;
-}
-
-.workshop-tabs .btn, .sectors-menu .btn {
-  margin: 0 20px;
-  padding: 0;
+.workshop-nav .btn,
+.sectors-menu .btn {
   font-size: inherit;
 }
 
-.sectors-menu {
-  padding: 10px;
-  width: fit-content;
-  margin: 10px auto 0;
-  background-color: var(--lightgrey);
+/* HEADER */
+.workshop-summary {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  align-items: center;
+  justify-items: center;
+  gap: 35px;
+  font-size: 14px;
+}
+
+/* 1 : NAME */
+.workshop-name {
+  font-size: 1.2rem;
+  line-height: 1.5em;
+  color: var(--secondaryColor);
+  text-transform: uppercase;
+  justify-self: flex-start;
+}
+
+/* 2 : NAV */
+.workshop-nav {
+  border-radius: 6px;
+  border: 1px solid var(--light-mainColor);
+  box-shadow: var(--light-shadow);
+  padding: 5px 10px;
+}
+
+/* 3 : SPECS + MENU */
+.workshop-header-right {
+  justify-self: flex-end;
+}
+
+.workshop-header-right .primary-btn {
+  margin-left: 30px;
+}
+
+/* MODAL MENU */
+.workshop-options > div, .workshop-options > button:not(:last-of-type) {
+  margin-bottom: 40px;
+}
+
+.workshop-options .primary-btn {
+  width: 350px;
+  margin: 0 auto;
+}
+
+.workshop-options .primary-btn svg {
+  margin-right: 8px;
+}
+
+.modal-delete-ws p {
+  margin-bottom: 30px;
+}
+
+.modal-delete-ws .button-box {
+  justify-content: flex-end;
+}
+
+.modal-delete-ws button:not(:last-of-type) {
+  margin-right: 20px;
 }
 
 /* >>> PAGE SYNTHESE */
@@ -176,6 +177,15 @@
 }
 
 /* >>> PAGE SECTEURS */
+.sectors-menu {
+  border-radius: 6px;
+  border: 1px solid var(--light-mainColor);
+  box-shadow: var(--light-shadow);
+  padding: 5px 10px;
+  width: fit-content;
+  margin: 0 auto 40px;
+}
+
 #workshop_infos .sector-page table,
 #workshop_infos .users-page table {
   margin: 50px 0;

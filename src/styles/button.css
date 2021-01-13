@@ -24,6 +24,12 @@
   color: var(--mainText);
 }
 
+.danger-btn {
+  background-color: white;
+  border: 2px solid rgb(255, 142, 142);
+  color: var(--mainText);
+}
+
 /* TOOLTIP : SIMULATOR */
 .see-more-btn {
   background: none;

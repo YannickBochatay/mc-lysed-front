@@ -54,7 +54,7 @@ const ResultsSample = ({ jsonFile }) => {
   };
 
   const handleValidateScenario = () => {
-    // setModal("worksho");
+    // setModal("workshop");
     setModalVSWorkshopType(true);
   };
 

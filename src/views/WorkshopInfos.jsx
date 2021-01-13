@@ -3,11 +3,7 @@ import Loader from "react-loader-spinner";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faDownload,
-  faTrash,
   faUser,
-  faLink,
-  faCalendarAlt,
   faLongArrowAltUp,
   faLongArrowAltDown,
 } from "@fortawesome/free-solid-svg-icons";
@@ -18,6 +14,7 @@ import ParametersDistributionBox from "../components/partials/ParametersDistribu
 import ParametersTables from "../components/partials/ParametersTables";
 import WSTable from "../components/partials/WSTable";
 import Modal from "../components/partials/Modal";
+import ModalOptionsWorkshop from "../components/Workshops/ModalOptionsWorkshop";
 import ModalDeleteWorkshop from "../components/Workshops/ModalDeleteWorkshop";
 import Participants from "../components/Workshops/Participants";
 
@@ -78,7 +75,9 @@ const WorkshopInfos = (props) => {
   const [sectorTable, setSectorTable] = useState(null);
 
   // MODALS
+  const [modalOptionsWS, setModalOptionsWS] = useState(false);
   const [modalDeleteWS, setModalDeleteWS] = useState(false);
+
 
   const [time, setTime] = useState(Date.now());
 
@@ -209,6 +208,10 @@ const WorkshopInfos = (props) => {
     return { titles: titlesFinal, data: dataFinal };
   };
 
+  const handleDeleteOption = () => {
+    setModalDeleteWS(true);
+  }
+
   const handleDeleteWS = (admin_code) => {
     api
       .delete(`/aggregator/workshop/`, `${id}/?admin_code=${admin_code}`)
@@ -218,6 +221,8 @@ const WorkshopInfos = (props) => {
       .catch((err) => console.log(err));
   };
 
+
+
   return (
     <div id="workshop_infos" className="flex-column acenter">
       {isLoading && (
@@ -226,7 +231,17 @@ const WorkshopInfos = (props) => {
         </div>
       )}
 
-      <Modal isOpen={modalDeleteWS} closeModal={() => setModalDeleteWS(false)} okButton={false}>
+      <Modal isOpen={modalOptionsWS} closeModal={() => setModalOptionsWS(false)} cancelButton>
+        <ModalOptionsWorkshop
+          openDelete={handleDeleteOption}
+          closeModal={() => setModalOptionsWS(false)}
+          url={url}
+          api={api}
+          id={id}
+        />
+      </Modal>
+
+      <Modal isOpen={modalDeleteWS} closeModal={() => setModalDeleteWS(false)}>
         <ModalDeleteWorkshop
           closeModal={() => setModalDeleteWS(false)}
           handleDeleteWS={handleDeleteWS}
@@ -235,91 +250,47 @@ const WorkshopInfos = (props) => {
 
       {/* /// HEADER /// */}
       {workshopData && (
-        <div className="main_container workshop-header flex-column acenter">
-          {/* TOP : GENERAL */}
-          <div className="workshop-summary">
-            {/* LEFT : NAME */}
-            <h1 className="workshop-name">{workshopData.workshop_name}</h1>
+        <div className="main_container workshop-summary">
+          {/* 1 : NAME */}
+          <h1 className="workshop-name">{workshopData.workshop_name}</h1>
 
-            {/* MIDDLE : SPECS */}
-            <div className="workshop-specs flex-item acenter">
-              <div className="flex-item acenter">
-                <FontAwesomeIcon icon={faUser} />
-                <p>{workshopData.results.length} contributions</p>
-              </div>
-
-              <div className="flex-item acenter">
-                <FontAwesomeIcon icon={faLink} />
-                <a href={url} target="_blank" rel="noreferrer">
-                  Simulateur avec scénario médian
-                </a>
-              </div>
-
-              {/* <div className="flex-item acenter">
-                <FontAwesomeIcon icon={faCalendarAlt} />
-                <p>
-                  Du <input type="date" name="startDate" id="startDate" /> au{" "}
-                  <input type="date" name="endDate" id="endDate" />
-                </p>
-              </div> */}
-            </div>
-
-            {/* RIGHT : ACTIONS */}
-            <div className="workshop-actions flex-item">
-              <button className="icon-btn" type="button" onClick={() => setModalDeleteWS(true)}>
-                <FontAwesomeIcon icon={faTrash} />
+          {/* 2 : NAV */}
+          {workshopData.results.length > 0 && (
+            <div className="workshop-nav flex-item acenter jcenter">
+              <button
+                className={page === "Synthèse" ? "btn tab-btn active" : "btn tab-btn"}
+                type="button"
+                onClick={() => setPage("Synthèse")}
+              >
+                Synthèse
               </button>
-
-              {/* <button className="icon-btn" type="button" onClick="">
-                <FontAwesomeIcon icon={faDownload} />
-              </button> */}
+              <button
+                className={page === "Secteurs" ? "btn tab-btn active" : "btn tab-btn"}
+                type="button"
+                onClick={() => setPage("Secteurs")}
+              >
+                Secteurs et Paramètres
+              </button>
+              <button
+                className={page === "Participants" ? "btn tab-btn active" : "btn tab-btn"}
+                type="button"
+                onClick={() => setPage("Participants")}
+              >
+                Participants
+              </button>
             </div>
-          </div>
+          )}
 
-          <hr />
-          
-          {/* BOTTOM : NAV */}
-          <div className="workshop-nav flex-column">
-            {workshopData.results.length > 0 && (
-              <div className="workshop-tabs flex-item acenter jcenter">
-                <button
-                  className={page === "Synthèse" ? "btn tab-btn active" : "btn tab-btn"}
-                  type="button"
-                  onClick={() => setPage("Synthèse")}
-                >
-                  Synthèse
-                </button>
-                <button
-                  className={page === "Secteurs" ? "btn tab-btn active" : "btn tab-btn"}
-                  type="button"
-                  onClick={() => setPage("Secteurs")}
-                >
-                  Secteurs et Paramètres
-                </button>
-                <button
-                  className={page === "Participants" ? "btn tab-btn active" : "btn tab-btn"}
-                  type="button"
-                  onClick={() => setPage("Participants")}
-                >
-                  Participants
-                </button>
-              </div>
-            )}
+          {/* 3 : SPECS + MENU */}
+          <div className="workshop-header-right flex-item acenter">
+            <div className="workshop-specs flex-item acenter">
+              <FontAwesomeIcon icon={faUser} />
+              <p>{workshopData.results.length}</p>
+            </div>
 
-            {page === "Secteurs" && (
-              <div className="sectors-menu flex-item acenter jcenter">
-                {computedDatas.uniqueCategories.map((cat, i) => (
-                  <button
-                    className={sector === cat ? "btn tab-btn active-bis" : "btn tab-btn"}
-                    type="button"
-                    id={i}
-                    onClick={() => setSector(cat)}
-                  >
-                    {cat}
-                  </button>
-                ))}
-              </div>
-            )}
+            <button className="btn primary-btn" type="button" onClick={() => setModalOptionsWS(true)}>
+              Options
+            </button>
           </div>
         </div>
       )}
@@ -432,6 +403,21 @@ const WorkshopInfos = (props) => {
         <>
           {computedDatas && (
             <div className="main_container sector-page">
+              {page === "Secteurs" && (
+                <div className="sectors-menu flex-item acenter jcenter">
+                  {computedDatas.uniqueCategories.map((cat, i) => (
+                    <button
+                      className={sector === cat ? "btn tab-btn active-bis" : "btn tab-btn"}
+                      type="button"
+                      id={i}
+                      onClick={() => setSector(cat)}
+                    >
+                      {cat}
+                    </button>
+                  ))}
+                </div>
+              )}
+
               <h2 className="container_title">Détails par secteur</h2>
 
               <h3 className="container_secondary_title">Secteurs - Résumé</h3>
