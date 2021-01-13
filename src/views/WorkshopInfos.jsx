@@ -194,15 +194,25 @@ const WorkshopInfos = (props) => {
   }, [computedDatas, sector]);
 
   const handleSectorsDetailTable = (table, sector) => {
-    const titlesFinal = [...table.titles];
-    titlesFinal.shift();
+  
+    const titlesFinal = [];
+    table.titles.map((v,i)=>{
+      if (i>0) {titlesFinal.push(v)}
+    })
+  
 
-    let dataFinal = table.data.filter((line) => line[0] === sector);
-    if (dataFinal.length === 0) {
+    let sectorData = [...table.data.filter((line) => line[0] === sector)];
+    if (sectorData.length === 0) {
       return null;
     }
-    dataFinal.map((line) => {
-      return line.shift();
+
+    let dataFinal=[];
+    sectorData.map((line) => {
+      let data=[];
+      line.map((v,i)=>{
+        if (i>0) {data.push(v)}
+      })
+      dataFinal.push(data)
     });
 
     return { titles: titlesFinal, data: dataFinal };
@@ -311,6 +321,7 @@ const WorkshopInfos = (props) => {
                   .filter((v) => v.impactGnl === "1")
                   .map((indicator, i) => (
                     <IndicatorMain
+                      key={i}
                       icon={i}
                       value={indicator.value}
                       unit={indicator.unit}
@@ -328,8 +339,9 @@ const WorkshopInfos = (props) => {
               <div className="indicator_box secondary-box flex-item">
                 {indicators
                   .filter((v) => v.impactLcl === "1")
-                  .map((indicator) => (
+                  .map((indicator,i) => (
                     <IndicatorMain
+                      key={i}
                       value={indicator.value}
                       unit={indicator.unit}
                       description={indicator.name}
@@ -441,8 +453,8 @@ const WorkshopInfos = (props) => {
               <div id="parameters_distribution_container" className="flex-item jbetween">
                 {computedDatas.parameters
                   .filter((param) => param.category === sector)
-                  .map((param) => (
-                    <ParametersDistributionBox data={param} />
+                  .map((param, i) => (
+                    <ParametersDistributionBox key={i} data={param} />
                   ))}
               </div>
             </div>
