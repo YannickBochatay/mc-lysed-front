@@ -16,7 +16,7 @@ const ModalWorkshopInfos = ({ workshopInfos, closeModal }) => {
         a bien été créé. Les résultats seront visibles ici :
         <br />
         <span>
-          <a href={`https://mc-lysed.herokuapp.com//workshop/${workshopInfos.id}`}>
+          <a href={`https://mc-lysed.herokuapp.com/workshop/${workshopInfos.id}`}>
             {`https://mc-lysed.herokuapp.com/workshop/${workshopInfos.id}`}
           </a>
         </span>
