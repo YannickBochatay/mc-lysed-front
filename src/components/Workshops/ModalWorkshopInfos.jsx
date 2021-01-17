@@ -1,5 +1,7 @@
 import React from "react";
 
+//TO DO : url fonction de la version
+
 const ModalWorkshopInfos = ({ workshopInfos, closeModal }) => {
 
   return (
@@ -14,8 +16,8 @@ const ModalWorkshopInfos = ({ workshopInfos, closeModal }) => {
         a bien été créé. Les résultats seront visibles ici :
         <br />
         <span>
-          <a href={`http://lysed.mission-climat.io/ateliers/${workshopInfos.id}`}>
-            {`http://lysed.mission-climat.io/ateliers/${workshopInfos.id}`}
+          <a href={`https://mc-lysed.herokuapp.com//workshop/${workshopInfos.id}`}>
+            {`https://mc-lysed.herokuapp.com/workshop/${workshopInfos.id}`}
           </a>
         </span>
       </p>
