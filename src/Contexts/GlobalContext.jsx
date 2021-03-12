@@ -90,7 +90,6 @@ const ValuesProvider = (props) => {
   //Fonction appellée à chaque actualisation de la variable state "values". Permet d'actualiser les résultats correpondant aux nouvelles values
   useEffect(() => {
     if (globalState.values) {
-      console.log("here coucou");
       const idSheet = localStorage.getItem("idSheet-Lysed");
       const valuesFormatted = getValuesFormatted(globalState.values, jsonFile.options.unit);
       if (idSheet) {

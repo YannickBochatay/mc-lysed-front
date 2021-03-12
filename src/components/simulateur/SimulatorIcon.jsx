@@ -3,6 +3,7 @@ import { withRouter } from "react-router-dom";
 
 const SimulatorIcon = ({ icon, color, id, onMouseOver, onMouseLeave }) => {
   const iconList = {
+    Default: Cross,
     questionCircle: QuestionCircle,
     Habitat: Logement,
     Transports: Transports,
@@ -15,7 +16,7 @@ const SimulatorIcon = ({ icon, color, id, onMouseOver, onMouseLeave }) => {
     Paramètres: "/images/Projection mondiale.png",
   };
 
-  const Icon = iconList[icon];
+  const Icon = Object.keys(iconList).includes(icon) ? iconList[icon] : iconList['Default'];
 
   return <Icon color={color} onMouseOver={() => onMouseOver(id)} onMouseLeave={onMouseLeave} />;
 };
@@ -32,8 +33,8 @@ const Cross = ({ color, ...rest }) => {
     >
       <rect width="48" height="48" fill="none" />
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M30.251 31.1926C30.6171 31.5587 31.2107 31.5587 31.5768 31.1926C31.9429 30.8265 31.9429 30.2329 31.5768 29.8668L25.7105 24.0005L31.5773 18.1337C31.9434 17.7676 31.9434 17.174 31.5773 16.8079C31.2112 16.4418 30.6176 16.4418 30.2515 16.8079L24.3847 22.6747L18.5179 16.8079C18.1518 16.4418 17.5582 16.4418 17.1921 16.8079C16.826 17.174 16.826 17.7676 17.1921 18.1337L23.0589 24.0005L17.1926 29.8668C16.8265 30.2329 16.8265 30.8265 17.1926 31.1926C17.5587 31.5587 18.1523 31.5587 18.5184 31.1926L24.3847 25.3264L30.251 31.1926Z"
         fill={color || "black"}
       />

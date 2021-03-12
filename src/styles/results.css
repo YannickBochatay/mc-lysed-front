@@ -16,15 +16,20 @@ section h2 {
 }
 
 #res-synthese .indicator {
-  min-width: 200px;
-  padding: 15px;
+  min-width: calc(100%/5 - 40px/5);
+  padding: 30px 15px 20px;
   box-shadow: var(--light-shadow);
   border-radius: 6px;
   flex: 1;
-  margin: 0 20px;
   border: 2px solid var(--light-secondaryColor);
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 }
+
+#res-synthese .indicator:not(:last-child) {margin-right: 10px;}
 
 #res-synthese .indicator p {
   text-align: center;

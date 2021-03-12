@@ -33,12 +33,12 @@ const aggregatorInfos = {
       "https://lysed.mission-climat.io/",
     ],
     back: "http://localhost:4000",
-    spreadsheetId: "1aXmD5u-MIiRPq0MYZ2DPFR7TWOVQezS8zJkgTLN-zHk",
+    spreadsheetId: "1PwIpCzK59DMAn2pMWTwfR96iX2RxVNSkLcU5wt9BqeE",
   },
   lysed_prod_heroku: {
     front: ["https://mc-lysed.herokuapp.com/", "http://mc-lysed.herokuapp.com//"],
     back: "https://mc-lysed.herokuapp.com",
-    spreadsheetId: "1aXmD5u-MIiRPq0MYZ2DPFR7TWOVQezS8zJkgTLN-zHk",
+    spreadsheetId: "1PwIpCzK59DMAn2pMWTwfR96iX2RxVNSkLcU5wt9BqeE",
   },
   national: {
     front: ["http://mission-climat.io/", "https://mission-climat.io/"],
@@ -46,6 +46,23 @@ const aggregatorInfos = {
     spreadsheetId: "1aXmD5u-MIiRPq0MYZ2DPFR7TWOVQezS8zJkgTLN-zHk",
   },
 };
+
+const addNonDisplayedValues = (values, jsonFile) => {
+  let finalValues = [];
+  let counter = 0;
+  jsonFile.categories.map(cat => {
+    cat.parameters.map(param => {
+      if (param.data.displayed) {
+        finalValues.push(values[counter])
+        counter ++
+      }
+      else {
+        finalValues.push([param.data.value])
+      }
+    })
+  })
+  return finalValues
+}
 
 const WorkshopInfos = (props) => {
   // data got from the workshop api
@@ -88,7 +105,6 @@ const WorkshopInfos = (props) => {
     api
       .get(`/aggregator/workshop/${id}/`)
       .then((res) => {
-        console.log(res);
         setWorkshopDataData(res.data);
 
         console.log("wokshopdata loaded", Date.now() - time);
@@ -100,7 +116,6 @@ const WorkshopInfos = (props) => {
             aggregatorInfos[aggregator]["front"].map((version) => {
               if (res.data.results[0].url.includes(version)) {
                 setMissionClimatVersion(aggregator);
-                // break;
               }
             });
           }
@@ -118,10 +133,8 @@ const WorkshopInfos = (props) => {
     api
       .get("/sheet/jsonfile")
       .then((res) => {
-        console.log("json", res);
         console.log("json loaded", Date.now() - time);
         setJsonFile(res.data);
-
         const computedDatasTemp = computeData(workshopData, res.data);
         setComputedDatas(computedDatasTemp);
         console.log("data computed", Date.now() - time);
@@ -140,11 +153,11 @@ const WorkshopInfos = (props) => {
           values: valuesFormatted,
         })
         .then((res) => {
-          console.log(res);
           const resTemp = res.data.results;
           setResults(resTemp);
           console.log("results received", Date.now() - time);
-          setUrl(getUrl(medianParams, jsonFile.parameters));
+          const medianParamsComplete = addNonDisplayedValues(medianParams, jsonFile)
+          setUrl(getUrl(medianParamsComplete, jsonFile.parameters));
           setIsLoading(false);
 
           const indicatorsTemps = [];

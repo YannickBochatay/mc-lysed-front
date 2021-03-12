@@ -16,8 +16,20 @@ const Participants = ({ medianParams, jsonFile, computedDatas, results, id }) =>
     api
       .get(`/aggregator/workshopsandresults/`)
       .then((res) => {
+        
         const ws = res.data.workshops.filter((w) => w.id === id)[0];
         const resultsTemp = res.data.results.filter((r) => r.workshop_code_id === ws.workshop_code);
+  
+
+        const indexDisplayed = computedDatas.parameters.map(param => param.index)
+
+        resultsTemp.map(result => {
+          let paramTemp=[];
+          result.data.parameters.forEach(param => {
+            if (indexDisplayed.includes(param.index)) {paramTemp.push(param)}
+          })
+          result.data.parameters = paramTemp
+        })
         setWSResults(resultsTemp);
         setIsLoading(false);
       })
@@ -34,17 +46,15 @@ const Participants = ({ medianParams, jsonFile, computedDatas, results, id }) =>
     if (WSResults) {
       WSResults.map((ws) => {
         // get average of the deviation to median
-        const devToMedian = ws.data.parameters.map((param) => {
-          if (param.value === 0 && medianParams[param.index][0] === 0) {
+        const devToMedian = ws.data.parameters.map((param, i) => {
+          if (param.value === 0 && medianParams[i] === 0) {
             return 0;
           }
-
-          if (param.value === 0 || medianParams[param.index][0] === 0) {
+          if (param.value === 0 || medianParams[i] === 0) {
             return 100;
           }
-
           return Math.round(
-            (Math.abs(param.value - medianParams[param.index][0]) / medianParams[param.index][0]) *
+            (Math.abs(param.value - medianParams[i]) / medianParams[i]) *
               100,
             1,
           );
@@ -54,8 +64,7 @@ const Participants = ({ medianParams, jsonFile, computedDatas, results, id }) =>
 
         // get nbModifs
         ws.nbModifs = ws.data.parameters.filter(
-          (param) => param.value !== medianParams[param.index][0],
-        ).length;
+          (param, i) => param.value !== computedDatas.parameters[i].value).length;
 
         // get nbResults
         ws.nbResults = ws.data.parameters.length;

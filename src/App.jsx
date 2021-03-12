@@ -1,6 +1,7 @@
 /// BASIC
 import React, { useState } from "react";
 import { Route, Switch } from "react-router-dom";
+import api from "api/APIHandler";
 
 // GOOGLE ANALYTICS
 import ReactGA from "react-ga";
@@ -36,23 +37,23 @@ ReactGA.event({
 function App() {
   const width = window.innerWidth;
 
-  // function deleteSheet(e) {
-  //   //e.preventDefault();
-  //   console.log(localStorage.getItem("idSheet-VSGP"));
-  //   if (localStorage.getItem("idSheet-VSGP")) {
-  //     var idSheet = localStorage.getItem("idSheet-VSGP");
-  //     localStorage.removeItem("idSheet-VSGP");
-  //     api
-  //       .delete("/sheet/delete", idSheet)
-  //       .then((res) => {
-  //         console.log("SHEET DELETED!", res);
-  //       })
-  //       .catch((err) => console.log(err));
-  //   }
-  // }
+  function deleteSheet(e) {
+    //e.preventDefault();
+    console.log(localStorage.getItem("idSheet-VSGP"));
+    if (localStorage.getItem("idSheet-VSGP")) {
+      var idSheet = localStorage.getItem("idSheet-VSGP");
+      localStorage.removeItem("idSheet-VSGP");
+      api
+        .delete("/sheet/delete", idSheet)
+        .then((res) => {
+          console.log("SHEET DELETED!", res);
+        })
+        .catch((err) => console.log(err));
+    }
+  }
 
-  // // useBeforeunload((e) => deleteSheet(e))
-  // window.addEventListener("beforeunload", (e) => deleteSheet(e));
+  // useBeforeunload((e) => deleteSheet(e))
+  window.addEventListener("beforeunload", (e) => deleteSheet(e));
 
   const Mobile = () => {
     return (
@@ -77,7 +78,7 @@ function App() {
           <Header />
         </div>
 
-        <main id="content-main" className="flex-item jcenter acenter">
+        <main id="content-main" className="flex-item jcenter">
           <Modal isOpen={open} closeModal={() => setOpen(false)}>
             <ModalAbout />
           </Modal>

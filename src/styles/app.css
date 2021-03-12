@@ -50,15 +50,6 @@
   --tempredblack: rgb(119, 2, 2);
 }
 
-#root {
-  width: 100vw;
-  height: 92vh;
-  margin: 0;
-  padding: 0;
-  min-width: 1024px;
-  max-width: 1400px;
-}
-
 body {
   color: var(--mainText);
   font-size: 1rem;
@@ -68,6 +59,19 @@ body {
   text-rendering: optimizeSpeed;
   line-height: 1.5;
   min-height: 100vh;
+  background: var(--gradient) fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  min-width: 1024px;
+  max-width: 1400px;
 }
 
 p {
@@ -75,13 +79,12 @@ p {
 }
 
 #header {
-  width: 100vw;
+  width: 100%;
 }
 
 #content-main {
-  width: 100vw;
-  min-height: 100%;
-  background: var(--gradient) fixed;
+  width: 100%;
+  min-height: 100%;  
 }
 
 .main_container {

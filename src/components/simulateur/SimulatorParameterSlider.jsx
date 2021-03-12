@@ -94,28 +94,48 @@ const SimParametreSlide = ({ data, value, setOneValue, category }) => {
   // Memoize component and forward ref in order to be able to pass a prop to the
   // ValueLabelComponent component for the Slider otherwise the Tooltip has it's ref lost
   // resulting in a tooltip that disappears / reappears on mouseup.
+  // const CustomValueLabel = React.useMemo(() => {
+  //   return React.forwardRef(
+  //     ({ children, value, valueLabelFormat, valueLabelDisplay, ...restProps }, ref) => {
+  //       return (
+  //         <Tooltip
+  //           {...restProps}
+  //           classes={classesToolTip}
+  //           ref={ref}
+  //           enterTouchDelay={0}
+  //           placement="top"
+  //           title={value}
+  //           arrow
+  //         >
+  //           {children}
+  //         </Tooltip>
+  //       );
+  //     },
+  //   );
+  // }, []);
+
   const CustomValueLabel = React.useMemo(() => {
-    return React.forwardRef(
-      ({ children, value, valueLabelFormat, valueLabelDisplay, ...restProps }, ref) => {
-        return (
-          <Tooltip
-            {...restProps}
-            classes={classesToolTip}
-            ref={ref}
-            enterTouchDelay={0}
-            placement="top"
-            title={value}
-            arrow
-          >
-            {children}
-          </Tooltip>
-        );
-      },
-    );
-  }, []);
+      return React.forwardRef(
+        ({ children, value, valueLabelFormat, valueLabelDisplay, ...restProps }, ref) => {
+          return (
+            <Tooltip
+              {...restProps}
+              classes={classesToolTip}
+              ref={ref}
+              enterTouchDelay={0}
+              placement="top"
+              title={value}
+              arrow
+            >
+              {children}
+            </Tooltip>
+          );
+        },
+      );
+    }, []);
 
   return (
-    <div className={componentClass}>
+    <div className={componentClass} key={data.index}>
       <div className="param-header flex-item nomarge nopad">
         <h6 className="param-name nomarge">{data.name}</h6>
 
@@ -129,6 +149,7 @@ const SimParametreSlide = ({ data, value, setOneValue, category }) => {
       <div className={classes.root}>
         <div className={classes.margin} />
         <Slider
+          key={data.index}
           classes={{
             root: sliderClasses.root,
             thumb: sliderClasses.thumb,

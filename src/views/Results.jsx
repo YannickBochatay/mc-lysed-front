@@ -14,6 +14,7 @@ import CopyToClipboard from "../components/CopyToClipboard";
 import "../styles/results.css";
 
 const Results = (props) => {
+  console.log(props)
   const [arrowVisibility, setArrowVisibility] = useState("hidden");
   const [results, setResults] = useState(null);
 
@@ -29,7 +30,7 @@ const Results = (props) => {
       localStorage.setItem("results", JSON.stringify(results));
       setResults(props.location.state.results);
     }
-  }, [props.location.state]);
+  }, []);
 
   function handleIndicatorColor(data, obj) {
     const objReached = (data / obj) * 100;
@@ -146,7 +147,7 @@ const Results = (props) => {
       </Helmet>
 
       <button type="button" className="btn blinking-btn" style={{ visibility: arrowVisibility }}>
-        <a href="#hero-article">
+        <a href="#res-synthese">
           <FontAwesomeIcon icon={faAngleUp} />
         </a>
       </button>

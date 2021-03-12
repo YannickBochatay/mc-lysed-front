@@ -76,8 +76,8 @@ const compoChart = ({ datas, isXAxis, isYAxis }) => {
         }}
       >
         <CartesianGrid stroke="#f5f5f5" strokeDasharray="3 3" />
-        {isXAxis && <XAxis dataKey="name" stroke="white" interval="preserveStartEnd"/>}
-        {isYAxis && <YAxis stroke="white" />}
+        {isXAxis && <XAxis dataKey="name" stroke="var(--mainText)" interval="preserveStartEnd"/>}
+        {isYAxis && <YAxis stroke="var(--mainText)" />}
         <Tooltip content={toolTipContent} position={{ x: 200, y: -50 }}/>
         {reversedDatas.map((data) => handleGraphType(data))}
       </ComposedChart>

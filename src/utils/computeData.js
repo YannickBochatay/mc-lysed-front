@@ -9,8 +9,6 @@ export function computeData(wsData, jsonData) {
     //TODO : handle list type parameter
     //TODO : calculate the ambition
 
-    console.log(jsonData)
-
     const onlyUnique = (value, index, self) => {
       return self.indexOf(value) === index;
     }
@@ -39,13 +37,15 @@ export function computeData(wsData, jsonData) {
     jsonData.categories.map((category, i) => {
       if (uniqueCategories.includes(category.data.name)) {
         category.parameters.map((param, j) => {
-          finalDatas.parameters.push({
-            category: category.data.name,
-            color: category.data.color,
-            colorHover: category.data.colorHover,
-            ...param.type,
-            ...param.data,
-          });
+          if (param.data.displayed) {
+            finalDatas.parameters.push({
+              category: category.data.name,
+              color: category.data.color,
+              colorHover: category.data.colorHover,
+              ...param.type,
+              ...param.data,
+            });
+          }
 
           let wsValues = wsParams.filter((v) => v.index === param.data.index).map((v) => v.value);
 
@@ -68,10 +68,8 @@ export function computeData(wsData, jsonData) {
               100,
             1,
           );
-          console.log(param.data.value, wsValues)
           finalDatas.parameters[finalDatas.parameters.length - 1].nbModif = wsValues.filter(
-            (v) => v !== param.data.value,
-          ).length;
+            (v) => v !== param.data.value).length;
           finalDatas.parameters[finalDatas.parameters.length - 1].nbResults = wsValues.length;
           //ambition to add
         });
