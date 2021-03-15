@@ -18,5 +18,5 @@ export const RESULTS_SAMPLE_DISPLAY = [
     graphType: "Compo",
     priority: "main",
   },
-  { key: "air", title: "Qualité de l'Air", graphType: null, priority: "secondary" },
+  { key: "air", title: "Qualité de l'air et consommation foncière", graphType: null, priority: "secondary" },
 ];

@@ -29,22 +29,6 @@ const SimulatorNav = ({ leftNavData, showOptions, style, isActiveOptions }) => {
       <div className="icons">
         <SimulatorNavigationMenu data={leftNavData} />
       </div>
-      {/* <div className="options-container">
-        <button
-          onMouseOver={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-          className="options"
-          onClick={handleClick}
-        >
-          <SimulatorIcon
-            icon="Options"
-            onMouseOver={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            color={isActiveOptions || isHovered ? "black" : "white"}
-          />
-        </button>
-        <p style={{ color: isActiveOptions || isHovered ? "black" : "white" }}>Options</p>
-      </div> */}
     </div>
   );
 };

@@ -50,6 +50,7 @@ const compoChart = ({ datas, isXAxis, isYAxis }) => {
   }
 
   function handleGraphType(data) {
+    console.log(data)
     const props = {
       key: data.dataKey,
       dataKey: data.dataKey,
@@ -62,6 +63,8 @@ const compoChart = ({ datas, isXAxis, isYAxis }) => {
     }
     if (data.type === "Line") return <Line {...props} strokeDasharray="5 5" dot={false} strokeWidth="4"/>;
   }
+
+  console.log(data)
 
   return (
     <ResponsiveContainer height="100%" width="100%">

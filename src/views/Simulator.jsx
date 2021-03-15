@@ -174,7 +174,7 @@ const Simulator = (props) => {
             {/* options */}
             <button className="icon-btn flex-item acenter" type="button">
               <FontAwesomeIcon icon={faCog} />
-              <span>Options</span>
+              <span onClick={showOptions}>Options</span>
             </button>
           </div>
           <SimulatorNavigation

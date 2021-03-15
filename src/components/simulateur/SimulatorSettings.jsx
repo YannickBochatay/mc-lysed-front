@@ -41,7 +41,7 @@ const SimulatorSettings = ({ modeExpert }) => {
           key={category.data.index}
           data={category.data}
           index={i}
-          // results={results.jaugeDatas[i]}
+          results={results.jaugeDatas[i]}
         />
         <div className="sim-param-box grid-item">
           {category.parameters.map((param) => (
