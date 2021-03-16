@@ -44,20 +44,20 @@ const SimulatorSettings = ({ modeExpert }) => {
           results={results.jaugeDatas[i]}
         />
         <div className="sim-param-box grid-item">
-          {category.parameters.map((param) => (
-            param.data.displayed ?
-            <SimulatorParameter
-              key={param.data.index}
-              setOneValue={handleValue}
-              slider={Boolean(param.type.slider)}
-              list={Boolean(param.type.list)}
-              value={values[param.data.index]}
-              category={category.data}
-              data={param.data}
-            />
-            :
-            <></>
-          ))}
+          {category.parameters.map(
+            (param) =>
+              param.data.displayed && (
+                <SimulatorParameter
+                  key={param.data.index}
+                  setOneValue={handleValue}
+                  slider={Boolean(param.type.slider)}
+                  list={Boolean(param.type.list)}
+                  value={values[param.data.index]}
+                  category={category.data}
+                  data={param.data}
+                />
+              ),
+          )}
         </div>
       </div>
     );

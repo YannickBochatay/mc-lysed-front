@@ -23,52 +23,24 @@ const SimParametreSlide = ({ data, value, setOneValue, category }) => {
     } else setComponentClass("param-container-normal");
   }, [data.expert]);
 
-  const {unit} = data;
+  const { unit } = data;
   const sliderStep = data.step; // (data.max-data.min)/100
   const classes = useStyles();
   const expanded = componentClass.includes("expanded");
 
   const getMarks = () => {
-    return data.min === data.value
-      ? [
-          {
-            value: data.min,
-            label: `${data.min}${data.unit}`,
-          },
+    const values = [
+      { value: data.min, label: `${data.min}${data.unit}` },
+      { value: data.value },
+      { value: data.max, label: `${data.max}${data.unit}` },
+    ];
 
-          {
-            value: data.max,
-            label: `${data.max}${data.unit}`,
-          },
-        ]
-      : [
-          {
-            value: data.min,
-            label: `${data.min}${data.unit}`,
-          },
-          {
-            value: data.value,
-          },
-          {
-            value: data.max,
-            label: `${data.max}${data.unit}`,
-          },
-        ];
+    if (data.min === data.value || data.max === data.value) {
+      values.splice(1, 1);
+    }
+
+    return values;
   };
-
-  // const marks = [
-  //   {
-  //     value: data.min,
-  //     label: `${data.min}${data.unit}`,
-  //   },
-  //   {
-  //     value: data.value,
-  //   },
-  //   {
-  //     value: data.max,
-  //     label: `${data.max}${data.unit}`,
-  //   },
-  // ];
 
   const handleChange = (_, val) => {
     setOneValue(val, data.index);
@@ -78,61 +50,42 @@ const SimParametreSlide = ({ data, value, setOneValue, category }) => {
     let componentClassSt = "";
     if (data.expert) componentClassSt += "mode-expert";
     if (componentClass.includes("param-container-normal")) {
-      setComponentClass(`${componentClassSt  } param-container-expanded`);
+      setComponentClass(`${componentClassSt} param-container-expanded`);
     } else {
-      setComponentClass(`${componentClassSt  } param-container-normal`);
+      setComponentClass(`${componentClassSt} param-container-normal`);
     }
   }
 
   function handleValue() {
     if (unit === "%") {
       return Math.round(value);
-    } 
-      return value[0];
+    }
+    return value[0];
   }
 
   // Memoize component and forward ref in order to be able to pass a prop to the
   // ValueLabelComponent component for the Slider otherwise the Tooltip has it's ref lost
   // resulting in a tooltip that disappears / reappears on mouseup.
-  // const CustomValueLabel = React.useMemo(() => {
-  //   return React.forwardRef(
-  //     ({ children, value, valueLabelFormat, valueLabelDisplay, ...restProps }, ref) => {
-  //       return (
-  //         <Tooltip
-  //           {...restProps}
-  //           classes={classesToolTip}
-  //           ref={ref}
-  //           enterTouchDelay={0}
-  //           placement="top"
-  //           title={value}
-  //           arrow
-  //         >
-  //           {children}
-  //         </Tooltip>
-  //       );
-  //     },
-  //   );
-  // }, []);
 
   const CustomValueLabel = React.useMemo(() => {
-      return React.forwardRef(
-        ({ children, value, valueLabelFormat, valueLabelDisplay, ...restProps }, ref) => {
-          return (
-            <Tooltip
-              {...restProps}
-              classes={classesToolTip}
-              ref={ref}
-              enterTouchDelay={0}
-              placement="top"
-              title={value}
-              arrow
-            >
-              {children}
-            </Tooltip>
-          );
-        },
-      );
-    }, []);
+    return React.forwardRef(
+      ({ children, value, valueLabelFormat, valueLabelDisplay, ...restProps }, ref) => {
+        return (
+          <Tooltip
+            {...restProps}
+            classes={classesToolTip}
+            ref={ref}
+            enterTouchDelay={0}
+            placement="top"
+            title={value}
+            arrow
+          >
+            {children}
+          </Tooltip>
+        );
+      },
+    );
+  }, []);
 
   return (
     <div className={componentClass} key={data.index}>

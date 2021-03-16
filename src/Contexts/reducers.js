@@ -14,6 +14,9 @@ export const globalReducer = (state, action) => {
     case actions.UPDATE_RESULTS:
       return { ...state, results: action.results };
 
+    case actions.LOAD_VALUES:
+      return { ...state, values: action.values };
+
     default:
       return state;
   }

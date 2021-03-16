@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from "react";
+import React, { useContext, useReducer, useEffect } from "react";
 import * as actions from "./actions";
 import { globalReducer } from "./reducers";
 import jsonFile from "ressources/initialDatas.json";
@@ -10,9 +10,9 @@ import { useLocation } from "react-router-dom";
 import api from "../api/APIHandler";
 
 const initialData = {
-  values: jsonFile.options.vInit,
+  values: null,
   categories: jsonFile.categories,
-  results: [],
+  results: null,
 };
 
 export const GlobalContext = React.createContext();
@@ -74,7 +74,10 @@ const ValuesProvider = (props) => {
         } else {
           // already has an initial state
           // cas où appel normal (on initialise tout de même les valeurs ici pour le loader)
-          //   setValues(initialData);
+          dispatch({
+            type: actions.LOAD_VALUES,
+            values: jsonFile.options.vInit,
+          });
         }
       }
     }
@@ -88,22 +91,24 @@ const ValuesProvider = (props) => {
   }, [location.pathname]);
 
   //Fonction appellée à chaque actualisation de la variable state "values". Permet d'actualiser les résultats correpondant aux nouvelles values
+
   useEffect(() => {
-    if (globalState.values) {
-      const idSheet = localStorage.getItem("idSheet-Lysed");
-      const valuesFormatted = getValuesFormatted(globalState.values, jsonFile.options.unit);
-      if (idSheet) {
-        api
-          .patch("/sheet/update/" + idSheet, { values: valuesFormatted })
-          .then((res) => {
-            const resTemp = res.data.results;
-            resTemp.url = getUrl(globalState.values, jsonFile.parameters);
-            //correction des data area pour affichage ok
-            // handleAreaData(resTemp.emiSecteurGnl);
-            dispatch({ type: actions.UPDATE_RESULTS, results: resTemp });
-          })
-          .catch((err) => console.log(err));
-      }
+    if (!globalState.values) return;
+
+    const idSheet = localStorage.getItem("idSheet-Lysed");
+    const valuesFormatted = getValuesFormatted(globalState.values, jsonFile.options.unit);
+    if (idSheet) {
+      console.log("ici");
+      api
+        .patch("/sheet/update/" + idSheet, { values: valuesFormatted })
+        .then((res) => {
+          const resTemp = res.data.results;
+          resTemp.url = getUrl(globalState.values, jsonFile.parameters);
+          //correction des data area pour affichage ok
+          // handleAreaData(resTemp.emiSecteurGnl);
+          dispatch({ type: actions.UPDATE_RESULTS, results: resTemp });
+        })
+        .catch((err) => console.log(err));
     }
   }, [globalState.values]);
 
@@ -120,3 +125,7 @@ const ValuesProvider = (props) => {
 };
 
 export default ValuesProvider;
+
+export const useGlobalContext = () => {
+  return useContext(GlobalContext);
+};
