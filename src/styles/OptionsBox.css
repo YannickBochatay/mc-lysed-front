@@ -1,5 +1,6 @@
 #OptionsBox {
   background-color: #e5eaec;
+  border:1px solid black;
   position: absolute;
   top: 50%;
   left: 50%;

@@ -19,9 +19,12 @@
   margin-right: 10px;
 }
 
+.recharts-tooltip-wrapper {
+  z-index: 2;
+}
+
 /* /// LOADER */
 #loader {
-  height: 100%;
   width: 100%;
   color: white;
   display: flex;

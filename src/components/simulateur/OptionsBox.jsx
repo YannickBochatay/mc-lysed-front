@@ -93,7 +93,7 @@ const OptionsBox = ({ hideOptions, modeExpert, handleInitValues, handleModeExper
           </div>
         </form>
       </div>
-      {/* <div>
+      <div>
         <h6 className="param-name">Mode Expert</h6>
         <p className="description">
           Le mode expert permet d'accéder à un plus grand nombre de paramètres, pour régler son
@@ -113,7 +113,7 @@ const OptionsBox = ({ hideOptions, modeExpert, handleInitValues, handleModeExper
           labelPlacement="start"
           checked={modeExpert}
         />
-      </div> */}
+      </div>
     </div>
   );
 };

@@ -56,13 +56,6 @@ const SimParametreSlide = ({ data, value, setOneValue, category }) => {
     }
   }
 
-  function handleValue() {
-    if (unit === "%") {
-      return Math.round(value);
-    }
-    return value[0];
-  }
-
   // Memoize component and forward ref in order to be able to pass a prop to the
   // ValueLabelComponent component for the Slider otherwise the Tooltip has it's ref lost
   // resulting in a tooltip that disappears / reappears on mouseup.
@@ -110,7 +103,7 @@ const SimParametreSlide = ({ data, value, setOneValue, category }) => {
             rail: sliderClasses.rail,
             mark: sliderClasses.mark,
           }}
-          defaultValue={handleValue()}
+          defaultValue={value[0]}
           aria-labelledby="discrete-slider-always"
           min={data.min}
           max={data.max}

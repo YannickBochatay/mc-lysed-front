@@ -46,7 +46,7 @@ const SimulatorSettings = ({ modeExpert }) => {
         <div className="sim-param-box grid-item">
           {category.parameters.map(
             (param) =>
-              param.data.displayed && (
+              param.data.displayed ? 
                 <SimulatorParameter
                   key={param.data.index}
                   setOneValue={handleValue}
@@ -56,7 +56,8 @@ const SimulatorSettings = ({ modeExpert }) => {
                   category={category.data}
                   data={param.data}
                 />
-              ),
+              :
+              <></>,
           )}
         </div>
       </div>
