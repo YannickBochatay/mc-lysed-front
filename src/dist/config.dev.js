@@ -15,17 +15,22 @@ var RESULTS_SAMPLE_DISPLAY = [{
   subtitle: "Émissions Totales",
   title: "Climat",
   graphType: "Chart",
-  priority: "main"
+  priority: "main",
+  graphYMaximum: 150,
+  indicatorObjectives: -40
 }, {
   key: "energy",
   subtitle: "Consommation",
   title: "Energie",
   graphType: "Compo",
-  priority: "main"
+  priority: "main",
+  graphYMaximum: 700,
+  indicatorObjectives: -20
 }, {
   key: "air",
   title: "Qualité de l'air et consommation foncière",
   graphType: null,
-  priority: "secondary"
+  priority: "secondary",
+  indicatorObjectives: [-60, -50, -40]
 }];
 exports.RESULTS_SAMPLE_DISPLAY = RESULTS_SAMPLE_DISPLAY;

@@ -18,7 +18,7 @@ const Results = (props) => {
   const [arrowVisibility, setArrowVisibility] = useState("hidden");
   const [results, setResults] = useState(null);
 
-  const indicatorObjectives = { climate: -27, energy: -11, air: [-70, -57] };
+  const indicatorObjectives = { climate: -40, energy: -20, air: [-70, -57] };
 
   useEffect(() => {
     let results = null;

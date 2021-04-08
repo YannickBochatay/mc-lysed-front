@@ -10,6 +10,8 @@ export const RESULTS_SAMPLE_DISPLAY = [
     title: "Climat",
     graphType: "Chart",
     priority: "main",
+    graphYMaximum: 150,
+    indicatorObjectives: -40
   },
   {
     key: "energy",
@@ -17,6 +19,8 @@ export const RESULTS_SAMPLE_DISPLAY = [
     title: "Energie",
     graphType: "Compo",
     priority: "main",
+    graphYMaximum: 700,
+    indicatorObjectives: -20
   },
-  { key: "air", title: "Qualité de l'air et consommation foncière", graphType: null, priority: "secondary" },
+  { key: "air", title: "Qualité de l'air et consommation foncière", graphType: null, priority: "secondary", indicatorObjectives: [-60, -50, -40] },
 ];

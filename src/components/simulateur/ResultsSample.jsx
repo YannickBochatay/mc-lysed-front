@@ -38,7 +38,7 @@ const ResultsSample = ({ jsonFile }) => {
   const secondaryColor = "var(--lightgrey)";
   const fontColor = "black";
 
-  const indicatorObjectives = { climate: -50, energy: -50, air: [-70, -70] };
+  // const indicatorObjectives = { climate: -40, energy: -20, air: [-70, -70] };
 
   const setWorkshopType = (type) => {
     // setModal(type);
@@ -145,6 +145,8 @@ const ResultsSample = ({ jsonFile }) => {
           const subtitle = item.subtitle;
           const indicators = results.indicators;
           const graphs = results.graphs[item.key];
+          const graphYMaximum = item.graphYMaximum;
+          const indicatorObjectives = item.indicatorObjectives;
 
           return (
             <div key={item.key} id="results-climat-box" className="flex-item flex-column">
@@ -153,7 +155,7 @@ const ResultsSample = ({ jsonFile }) => {
                 <div className="graph-box">
                   {subtitle && <p>{subtitle}</p>}
                   <div className="graph-compo">
-                    {item.graphType && <CompoChart datas={graphs} />}
+                    {item.graphType && <CompoChart datas={graphs} graphYMaximum={graphYMaximum}/>}
                   </div>
                 </div>
                 <div className="indicators-box">
@@ -163,7 +165,7 @@ const ResultsSample = ({ jsonFile }) => {
                         indicator={indicators[item.key].main[0]}
                         backgroundColor={handleIndicatorColor(
                           indicators[item.key].main[0].value,
-                          indicatorObjectives[item.key],
+                          indicatorObjectives,
                         )}
                         color={fontColor}
                         width="100%"
@@ -182,7 +184,7 @@ const ResultsSample = ({ jsonFile }) => {
                             item.priority === "secondary"
                               ? handleIndicatorColor(
                                   indicator.value,
-                                  indicatorObjectives[item.key][i],
+                                  indicatorObjectives[i],
                                 )
                               : secondaryColor
                           }
