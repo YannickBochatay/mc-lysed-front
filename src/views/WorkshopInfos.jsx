@@ -22,6 +22,7 @@ import { getValuesFormatted } from "../utils/getValuesFormatted";
 import { getUrl } from "../utils/getUrl";
 import { computeData } from "../utils/computeData";
 import "../styles/workshop_infos.css";
+import { median } from "utils/median";
 
 // TO DO : put in a config js
 const aggregatorInfos = {
@@ -33,12 +34,12 @@ const aggregatorInfos = {
       "https://lysed.mission-climat.io/",
     ],
     back: "http://localhost:4000",
-    spreadsheetId: "1PwIpCzK59DMAn2pMWTwfR96iX2RxVNSkLcU5wt9BqeE",
+    spreadsheetId: "1E0HeYFiCQ4wgMbYdMIWNbzMHdCnJoZP9Y-RODSWdtZY",
   },
   lysed_prod_heroku: {
     front: ["https://mc-lysed.herokuapp.com/", "http://mc-lysed.herokuapp.com//"],
     back: "https://mc-lysed.herokuapp.com",
-    spreadsheetId: "1PwIpCzK59DMAn2pMWTwfR96iX2RxVNSkLcU5wt9BqeE",
+    spreadsheetId: "1E0HeYFiCQ4wgMbYdMIWNbzMHdCnJoZP9Y-RODSWdtZY",
   },
   national: {
     front: ["http://mission-climat.io/", "https://mission-climat.io/"],
@@ -106,9 +107,6 @@ const WorkshopInfos = (props) => {
       .get(`/aggregator/workshop/${id}/`)
       .then((res) => {
         setWorkshopDataData(res.data);
-
-        console.log("wokshopdata loaded", Date.now() - time);
-
         // handle case if results
         if (res.data.results.length !== 0) {
           // getMissionClimatVersion
@@ -119,7 +117,6 @@ const WorkshopInfos = (props) => {
               }
             });
           }
-          console.log("MC version identified", Date.now() - time);
         } else {
           // handle case no results yes
           setIsLoading(false);
@@ -133,12 +130,9 @@ const WorkshopInfos = (props) => {
     api
       .get("/sheet/jsonfile")
       .then((res) => {
-        console.log("json loaded", Date.now() - time);
         setJsonFile(res.data);
         const computedDatasTemp = computeData(workshopData, res.data);
         setComputedDatas(computedDatasTemp);
-        console.log("data computed", Date.now() - time);
-
         setMedianParams(computedDatasTemp.parameters.map((v) => [v.median]));
       })
       .catch((err) => console.log(err));
@@ -147,7 +141,14 @@ const WorkshopInfos = (props) => {
   // GET RESULTS DATA
   useEffect(() => {
     if (medianParams && missionClimatVersion) {
-      const valuesFormatted = getValuesFormatted(medianParams, jsonFile.options.unit);
+      
+      const medianParamsWithinAllData = jsonFile.options.vInit
+      computedDatas.parameters.forEach((param, i) => {
+        medianParamsWithinAllData[param.index]=medianParams[i];
+      })
+
+      const valuesFormatted = getValuesFormatted(medianParamsWithinAllData, jsonFile.options.unit);
+      
       api
         .patch(`/sheet/update/${aggregatorInfos[missionClimatVersion].spreadsheetId}`, {
           values: valuesFormatted,
@@ -155,7 +156,6 @@ const WorkshopInfos = (props) => {
         .then((res) => {
           const resTemp = res.data.results;
           setResults(resTemp);
-          console.log("results received", Date.now() - time);
           const medianParamsComplete = addNonDisplayedValues(medianParams, jsonFile)
           setUrl(getUrl(medianParamsComplete, jsonFile.parameters));
           setIsLoading(false);
@@ -192,8 +192,8 @@ const WorkshopInfos = (props) => {
         if (param.category === sector) {
           tableTemp.data.push([
             param.name,
-            param.median,
-            param.average,
+            param.median + " " + param.unit,
+            param.average + " " + param.unit,
             param.stdDev,
             param.stdevRel,
             param.nbModif,
@@ -239,7 +239,6 @@ const WorkshopInfos = (props) => {
     api
       .delete(`/aggregator/workshop/`, `${id}/?admin_code=${admin_code}`)
       .then((res) => {
-        console.log(res);
       })
       .catch((err) => console.log(err));
   };

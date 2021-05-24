@@ -98,7 +98,6 @@ const ValuesProvider = (props) => {
     const idSheet = localStorage.getItem("idSheet-Lysed");
     const valuesFormatted = getValuesFormatted(globalState.values, jsonFile.options.unit);
     if (idSheet) {
-      console.log("ici");
       api
         .patch("/sheet/update/" + idSheet, { values: valuesFormatted })
         .then((res) => {

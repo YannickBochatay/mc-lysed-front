@@ -73,22 +73,23 @@ function computeData(wsData, jsonData) {
             color: category.data.color,
             colorHover: category.data.colorHover
           }, param.type, {}, param.data));
-        }
+          var wsValues = wsParams.filter(function (v) {
+            return v.index === param.data.index;
+          }).map(function (v) {
+            return v.value;
+          });
+          var index = finalDatas.parameters.length - 1;
+          finalDatas.parameters[index].wsValues = wsValues;
+          finalDatas.parameters[index].median = Math.round((0, _median.median)(wsValues) * 100) / 100;
+          finalDatas.parameters[index].average = Math.round((0, _average.average)(wsValues) * 100) / 100;
+          finalDatas.parameters[index].stdev = Math.round((0, _standardDeviation.standardDeviation)(wsValues) * 100) / 100;
+          finalDatas.parameters[index].stdevRel = Math.round(finalDatas.parameters[index].stdev / finalDatas.parameters[index].average * 100 * 100) / 100;
+          finalDatas.parameters[index].nbModif = wsValues.filter(function (v) {
+            return v !== param.data.value;
+          }).length;
+          finalDatas.parameters[index].nbResults = wsValues.length;
+        } //ambition to add
 
-        var wsValues = wsParams.filter(function (v) {
-          return v.index === param.data.index;
-        }).map(function (v) {
-          return v.value;
-        });
-        finalDatas.parameters[finalDatas.parameters.length - 1].wsValues = wsValues;
-        finalDatas.parameters[finalDatas.parameters.length - 1].median = Math.round((0, _median.median)(wsValues), 1);
-        finalDatas.parameters[finalDatas.parameters.length - 1].average = Math.round((0, _average.average)(wsValues), 1);
-        finalDatas.parameters[finalDatas.parameters.length - 1].stdev = Math.round((0, _standardDeviation.standardDeviation)(wsValues), 1);
-        finalDatas.parameters[finalDatas.parameters.length - 1].stdevRel = Math.round(finalDatas.parameters[finalDatas.parameters.length - 1].stdev / finalDatas.parameters[finalDatas.parameters.length - 1].average * 100, 1);
-        finalDatas.parameters[finalDatas.parameters.length - 1].nbModif = wsValues.filter(function (v) {
-          return v !== param.data.value;
-        }).length;
-        finalDatas.parameters[finalDatas.parameters.length - 1].nbResults = wsValues.length; //ambition to add
       });
     }
   });
