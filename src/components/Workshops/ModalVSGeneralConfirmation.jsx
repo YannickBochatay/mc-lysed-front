@@ -22,9 +22,8 @@ const ModalVSGeneralConfirmation = ({ closeModal, results, val, jsonFile }) => {
   }, []);
 
   // TO DO : add to config var
-  const urlWorkshopGnl = "http://localhost:3000/workshop/";
-  const idWorkshopsGnl = {};
-  idWorkshopsGnl.lysed = "a3af4056-76be-47c5-a4ae-3224461ad18e";
+  const urlWorkshopGnl = process.env.REACT_APP_URL_WORKSHOP_GNL
+  const idWorkshopsGnl = JSON.parse(process.env.REACT_APP_ID_WORKSHOP_GNL)
 
   return (
     <div className="modal-sim modal-confirm flex-column acenter jcenter">
