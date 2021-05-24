@@ -42,7 +42,9 @@ const Workshops = () => {
         <div className="left-pannel flex-column jcenter acenter">
           <h1 className="container_title">Ateliers Mission Climat</h1>
 
-          <p>Mission Climat vous permet de créer des ateliers. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          <p>Mission Climat vous permet d'animer des ateliers !<br/><br/>
+          Un atelier Mission Climat propose à ses participants (seuls ou en groupes), de discuter et proposer des scénarios de transition permettant de remplir les objectifs du territoire.<br/><br/>
+          Notre module permet à l'animateur de cet ateliers de centraliser les propositions des participants et d'en ressortir les statistiques importantes (: )paramètres moyens, médians, écart-types, etc.) et ainsi d'identifier les mesures les plus ambitieuses, les plus partagées, etc. pour outiller l'intelligence collective du groupe.</p>
 
           <button type="button" className="btn primary-btn" onClick={() => setModalCreateWorkshop(true)}>
             Créer un atelier
