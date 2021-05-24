@@ -9,7 +9,7 @@ const ModalHelp = () => {
       <h2 className="container_title">Aide</h2>
 
       <p>
-        Avec <b>Mission Climat Territoires</b>, imaginez le futur de votre territoire grâce à l’<b>évolution des mesures prises</b> dans les différents <b>secteurs d’actions</b> (bâtiment, tertiaire, transports, industrie ou énergie).
+        Avec <b>Mission Climat Territoires</b>, imaginez le futur de votre territoire grâce à l’<b>évolution des mesures prises</b> dans les différents <b>secteurs d’actions</b> (habitat, tertiaire, transports, industrie, agriculture ou énergie).
       </p>
 
       <p>
