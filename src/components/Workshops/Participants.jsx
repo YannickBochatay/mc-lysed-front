@@ -19,7 +19,6 @@ const Participants = ({ medianParams, jsonFile, computedDatas, results, id }) =>
         
         const ws = res.data.workshops.filter((w) => w.id === id)[0];
         const resultsTemp = res.data.results.filter((r) => r.workshop_code_id === ws.workshop_code);
-  
 
         const indexDisplayed = computedDatas.parameters.map(param => param.index)
 
@@ -38,10 +37,6 @@ const Participants = ({ medianParams, jsonFile, computedDatas, results, id }) =>
 
   //
   useEffect(() => {
-    // Stats à avoir :
-    //  - écart type relatif
-    //  - nb de modifs
-    //  - t°
 
     if (WSResults) {
       WSResults.map((ws) => {
@@ -69,16 +64,21 @@ const Participants = ({ medianParams, jsonFile, computedDatas, results, id }) =>
         // get nbResults
         ws.nbResults = ws.data.parameters.length;
       });
-
+      
       const tableTemp = {
-        titles: ["Groupe / Participant", "Nb modifications", "Nb résultats", "% modifications", "% Proximité à la médiane"],
-        data: WSResults.map((ws) => [
-          ws.group_name,
-          ws.nbModifs,
-          ws.nbResults,
-          `${Math.round((ws.nbModifs / ws.nbResults) * 100, 0)}%`,
-          ws.average,
-        ]),
+        titles: ["Groupe / Participant", "Date" , "Nb modifications", "Nb résultats", "% modifications", "% Proximité à la médiane"],
+        data: WSResults.map((ws) => {
+          const dateWS = new Date(ws.data.dateCreated);
+          const LocalDateWS = dateWS.toLocaleDateString()
+          return [
+            ws.group_name,
+            LocalDateWS,
+            ws.nbModifs,
+            ws.nbResults,
+            `${Math.round((ws.nbModifs / ws.nbResults) * 100, 0)}%`,
+            ws.average,
+          ]
+        }),
       };
 
       setDetailsTable(tableTemp);
