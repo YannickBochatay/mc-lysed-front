@@ -37,7 +37,9 @@ export function computeData(wsData, jsonData) {
     jsonData.categories.map((category, i) => {
       if (uniqueCategories.includes(category.data.name)) {
         category.parameters.map((param, j) => {
+
           if (param.data.displayed) {
+
             finalDatas.parameters.push({
               category: category.data.name,
               color: category.data.color,
@@ -45,32 +47,23 @@ export function computeData(wsData, jsonData) {
               ...param.type,
               ...param.data,
             });
+
+
+            let wsValues = wsParams.filter((v) => v.index === param.data.index).map((v) => v.value);
+
+            const index = finalDatas.parameters.length - 1
+
+            finalDatas.parameters[index].wsValues = wsValues;
+            finalDatas.parameters[index].median = Math.round(median(wsValues)*100)/100;
+            finalDatas.parameters[index].average = Math.round(average(wsValues)*100)/100;
+            finalDatas.parameters[index].stdev = Math.round(standardDeviation(wsValues)*100)/100;
+            finalDatas.parameters[index].stdevRel = Math.round((finalDatas.parameters[index].stdev / finalDatas.parameters[index].average) * 100 * 100) / 100;
+            finalDatas.parameters[index].nbModif = wsValues.filter((v) => v !== param.data.value).length;
+
+            finalDatas.parameters[index].nbResults = wsValues.length;
+
           }
 
-          let wsValues = wsParams.filter((v) => v.index === param.data.index).map((v) => v.value);
-
-          finalDatas.parameters[finalDatas.parameters.length - 1].wsValues = wsValues;
-          finalDatas.parameters[finalDatas.parameters.length - 1].median = Math.round(
-            median(wsValues),
-            1,
-          );
-          finalDatas.parameters[finalDatas.parameters.length - 1].average = Math.round(
-            average(wsValues),
-            1,
-          );
-          finalDatas.parameters[finalDatas.parameters.length - 1].stdev = Math.round(
-            standardDeviation(wsValues),
-            1,
-          );
-          finalDatas.parameters[finalDatas.parameters.length - 1].stdevRel = Math.round(
-            (finalDatas.parameters[finalDatas.parameters.length - 1].stdev /
-              finalDatas.parameters[finalDatas.parameters.length - 1].average) *
-              100,
-            1,
-          );
-          finalDatas.parameters[finalDatas.parameters.length - 1].nbModif = wsValues.filter(
-            (v) => v !== param.data.value).length;
-          finalDatas.parameters[finalDatas.parameters.length - 1].nbResults = wsValues.length;
           //ambition to add
         });
       }
